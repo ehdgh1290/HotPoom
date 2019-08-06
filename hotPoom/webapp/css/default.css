@@ -58,6 +58,9 @@ input:focus {
     cursor: pointer;
     display: block;
 }
+#headerLogin.hide {
+	display: none;
+}
 #headerLogin:hover {
     text-decoration: underline #424242;
 }
@@ -103,9 +106,6 @@ input:focus {
     top: 25px;
     cursor: pointer;
 }
-#gnbWrap{
-    display: none;
-}
 #lnb {
     position: absolute;
     top: 80px;
@@ -127,12 +127,16 @@ input:focus {
 
 
 /*********************************loginPopup************************************/
-#bg {
+
+#bg, .bg {
     position: fixed;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.7);
     display: none;
+    z-index: 999;
+    top: 0;
+    left: 0;
 }
 
 #loginPopup {
@@ -182,8 +186,6 @@ input:focus {
     top: 90px;
 }
 
-
-
 #idInput {
     top: 120px;
 }
@@ -204,7 +206,7 @@ input:focus {
 
 }
 
-#loginBtn {
+#loginPopup #loginBtn {
     position: absolute;
     width: 304px;
     height: 40px;
@@ -356,4 +358,17 @@ a.btn {
     position: absolute;
     top: 5px;
     left: 40px;
+}
+#loginPopup .msg {
+	position: absolute;
+	top: 250px;
+	left: 40px;
+	color: #C50532;
+	display: none;
+}
+#logout {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 16px;
+	color: #424242;
+	cursor: pointer;
 }

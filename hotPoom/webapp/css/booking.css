@@ -153,7 +153,7 @@ h2 {
     font-size: 16px;
     right: 180px;
     top: 50px;
-    color: #424242;
+    color: #3397EB;
 }
 #bookingSection .price {
     position: absolute;
@@ -215,6 +215,19 @@ h2 {
     height: 40px;
     font-size: 18px;
 }
+#bookingSection .review_btn.disable {
+    cursor: default;
+    color: #bdbdbd;
+    border-color: #bdbdbd;
+}
+#bookingSection .review_btn.disable:hover {
+    cursor: default;
+    color: #bdbdbd;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    box-shadow: none;
+    font-weight: normal;
+}
 #content .btn {
     border: 2px solid #C50532;
     border-radius: 10px;
@@ -238,4 +251,47 @@ h2 {
     background-color: rgba(0,0,0,0.7);
     left: 0;
     top: 0;
+}
+#bookingSection .poom_type.cancel {
+	color: red;
+}
+#bookingSection .poom_type.finish {
+	color: #bdbdbd;
+}
+#paginate {
+	width: 700px;
+	height: 30px;
+	position: relative;
+	margin: 20px auto 45px auto;
+	text-align: center;
+	line-height: 30px;
+	font-size: 18px;
+	font-weight: bold;
+	/*background-color: #f68500;*/
+}
+
+#paginate>a {
+	text-decoration: none;
+	color: #424242;
+	margin-left: 40px;
+	padding: 2px 10px;
+}
+
+#paginate>a:hover {
+	color: #3397EB;
+}
+
+#paginate>strong {
+	text-decoration: none;
+	background-color: #3397EB;
+	color: #fff;
+	margin-left: 40px;
+	padding: 2px 10px;
+	border-radius: 50px;
+}
+
+#paginate>span>i {
+	color: #bdbdbd;
+	margin-left: 40px;
+	padding: 2px 10px;
 }

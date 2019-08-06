@@ -4,20 +4,93 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Booking {
-	private int no, userNo, poomNo, petCnt;
-	private String request, userState, hostState;
+	private int userNo, poomNo, petCnt, price, hostNo;
+	private String no, request, userState, hostState, img, mainAddress, subAddress, speciesName, poomType, poomTitle;
 	private Date startDay, endDay;
 	private Timestamp regdate;
+	private boolean isReview;
 	
 	public Booking() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getNo() {
+	public String getPoomTitle() {
+		return poomTitle;
+	}
+
+	public void setPoomTitle(String poomTitle) {
+		this.poomTitle = poomTitle;
+	}
+
+	public int getHostNo() {
+		return hostNo;
+	}
+
+	public void setHostNo(int hostNo) {
+		this.hostNo = hostNo;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getMainAddress() {
+		return mainAddress;
+	}
+
+	public void setMainAddress(String mainAddress) {
+		this.mainAddress = mainAddress;
+	}
+
+	public String getSubAddress() {
+		return subAddress;
+	}
+
+	public void setSubAddress(String subAddress) {
+		this.subAddress = subAddress;
+	}
+
+	public String getSpeciesName() {
+		return speciesName;
+	}
+
+	public void setSpeciesName(String speciesName) {
+		this.speciesName = speciesName;
+	}
+
+	public String getPoomType() {
+		return poomType;
+	}
+
+	public void setPoomType(String poomType) {
+		this.poomType = poomType;
+	}
+
+	public boolean getIsReview() {
+		return isReview;
+	}
+
+	public void setIsReview(boolean isReview) {
+		this.isReview = isReview;
+	}
+
+	public String getNo() {
 		return no;
 	}
 
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
 
