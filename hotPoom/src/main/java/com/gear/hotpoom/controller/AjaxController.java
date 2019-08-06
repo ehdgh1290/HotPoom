@@ -14,11 +14,9 @@ import com.gear.hotpoom.service.UsersService;
 import com.gear.hotpoom.vo.User;
 
 @RestController
-@RequestMapping("/ajax")
 public class AjaxController {
 	@Autowired
 	private BookingsService bookingsService;
-
 	
 	@RequestMapping(value="/booking",method=RequestMethod.GET)
 	public Map<String,Object> getBookingList(int userNo, int pageNo) {
