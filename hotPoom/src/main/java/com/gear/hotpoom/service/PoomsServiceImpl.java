@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
 import com.gear.hotpoom.dao.PetsDAO;
 import com.gear.hotpoom.dao.PhotosDAO;
 import com.gear.hotpoom.dao.PoomsDAO;
@@ -15,12 +14,10 @@ import com.gear.hotpoom.dao.ReviewsDAO;
 import com.gear.hotpoom.vo.Pet;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
-=======
 import com.gear.hotpoom.dao.PoomsDAO;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.util.PaginateUtil;
 import com.gear.hotpoom.vo.PageVO;
->>>>>>> origin/feature/Detail
 
 @Service
 public class PoomsServiceImpl implements PoomsService{
@@ -32,7 +29,6 @@ public class PoomsServiceImpl implements PoomsService{
 	private PetsDAO petsDAO;
 	
 
-<<<<<<< HEAD
 	@Override
 	public Map<String, Object> getDetail(int no) {
 		
@@ -52,11 +48,6 @@ public class PoomsServiceImpl implements PoomsService{
 		
 		return map;
 	}
-}
-=======
-	@Autowired
-	private PoomsDAO poomsDAO;
-	
 	
 	//hot poom
 	@Override
@@ -69,8 +60,6 @@ public class PoomsServiceImpl implements PoomsService{
 	public List<Poom> getListNP() {
 		return poomsDAO.selectListNP();
 	}//getListNP() end
-	
-	
 	
 	@Autowired
 	private PaginateUtil paginateUtil;
@@ -87,4 +76,3 @@ public class PoomsServiceImpl implements PoomsService{
 	}
 	
 }
->>>>>>> origin/feature/Detail

@@ -4,7 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
 
-<<<<<<< HEAD
 	<select id="selectPoomDetail" parameterType="int" resultType="Poom">
 		SELECT p.no no, p.type type, p.title title, p.user_no userNo,u.profile_img hostImg, u.name hostName, p.species_no speciesNo, s.name speciesName, p.price price, p.check_in checkIn, p.check_out checkOut, p.pet_cnt petCnt, p.introduce introduce, p.amenity amenity, p.main_address mainAddress, p.sub_address subAddress, p.post_num postNum, p.transport transport, p.lat lat, p.lng lng, pt.img mainImg, tmp.avgScore, tmp.reviewCnt
 		FROM pooms p, species s, photos pt, users u, (SELECT NVL(TRUNC(avg(r.score),1),0) avgScore, count(*) reviewCnt
@@ -18,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND pt.content_no(+) = p.no
 		AND pt.type(+) = 'M'
 		AND p.no = #{no}
-=======
+	</select>
 
 <!-- 하선 -->
 	<resultMap type="Poom" id="selectPoom">
@@ -72,7 +71,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					</if>
 					))
 		WHERE r between #{start} AND #{end}
->>>>>>> origin/feature/Detail
 	</select>
 	
 	<select id="selectPoomPhotos" resultType="Photo" parameterType="int">

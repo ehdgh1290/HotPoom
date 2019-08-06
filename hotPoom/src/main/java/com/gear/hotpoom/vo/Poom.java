@@ -4,106 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Poom {
-<<<<<<< HEAD
 	private int no, userNo, speciesNo, price, petCnt, reviewCnt;
-	private double lat, lng, avgScore;
+	private double lat, lng, avgScore, score;
 	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg;
-=======
-	private int no, userNo, speciesNo, price, petCnt, count;
-	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, img, petName;
-	private double score;
-	private double lat, lng;
 	private List<Photo> poomPhotos;
->>>>>>> origin/feature/Detail
 	private Timestamp regdate;
 	
 	public Poom() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public double getLat() {
-		return lat;
-	}
-
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
-
-	public double getLng() {
-		return lng;
-	}
-
-	public void setLng(double lng) {
-		this.lng = lng;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	public List<Photo> getPoomPhotos() {
-		return poomPhotos;
-	}
-
-	public void setPoomPhotos(List<Photo> poomPhotos) {
-		this.poomPhotos = poomPhotos;
-	}
-
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public int getReviewCnt() {
-		return reviewCnt;
-	}
-
-	public void setReviewCnt(int reviewCnt) {
-		this.reviewCnt = reviewCnt;
-	}
-
-	public double getAvgScore() {
-		return avgScore;
-	}
-
-	public void setAvgScore(double avgScore) {
-		this.avgScore = avgScore;
-	}
-
-	public String getHostName() {
-		return hostName;
-	}
-
-	public void setHostName(String hostName) {
-		this.hostName = hostName;
-	}
-
-	public String getHostImg() {
-		return hostImg;
-	}
-
-	public void setHostImg(String hostImg) {
-		this.hostImg = hostImg;
-	}
-
-	public String getSpeciesName() {
-		return speciesName;
-	}
-
-	public void setSpeciesName(String speciesName) {
-		this.speciesName = speciesName;
-	}
-
-	public String getMainImg() {
-		return mainImg;
-	}
-
-	public void setMainImg(String mainImg) {
-		this.mainImg = mainImg;
 	}
 
 	public int getNo() {
@@ -146,7 +54,14 @@ public class Poom {
 		this.petCnt = petCnt;
 	}
 
-<<<<<<< HEAD
+	public int getReviewCnt() {
+		return reviewCnt;
+	}
+
+	public void setReviewCnt(int reviewCnt) {
+		this.reviewCnt = reviewCnt;
+	}
+
 	public double getLat() {
 		return lat;
 	}
@@ -163,8 +78,14 @@ public class Poom {
 		this.lng = lng;
 	}
 
-=======
->>>>>>> origin/feature/Detail
+	public double getAvgScore() {
+		return avgScore;
+	}
+
+	public void setAvgScore(double avgScore) {
+		this.avgScore = avgScore;
+	}
+
 	public String getType() {
 		return type;
 	}
@@ -253,20 +174,36 @@ public class Poom {
 		this.transport = transport;
 	}
 
-	public Timestamp getRegdate() {
-		return regdate;
+	public String getSpeciesName() {
+		return speciesName;
 	}
 
-	public void setRegdate(Timestamp regdate) {
-		this.regdate = regdate;
+	public void setSpeciesName(String speciesName) {
+		this.speciesName = speciesName;
 	}
 
-	public String getImg() {
-		return img;
+	public String getMainImg() {
+		return mainImg;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
+	}
+
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+
+	public String getHostImg() {
+		return hostImg;
+	}
+
+	public void setHostImg(String hostImg) {
+		this.hostImg = hostImg;
 	}
 
 	public double getScore() {
@@ -277,12 +214,20 @@ public class Poom {
 		this.score = score;
 	}
 
-	public String getPetName() {
-		return petName;
+	public List<Photo> getPoomPhotos() {
+		return poomPhotos;
 	}
 
-	public void setPetName(String petName) {
-		this.petName = petName;
+	public void setPoomPhotos(List<Photo> poomPhotos) {
+		this.poomPhotos = poomPhotos;
+	}
+
+	public Timestamp getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(Timestamp regdate) {
+		this.regdate = regdate;
 	}
 
 }

@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND pt.content_no(+) = p.no
 		AND pt.type(+) = 'M'
 		AND p.no = #{no}
+	</select>
 
 <!-- 하선 -->
 	<resultMap type="Poom" id="selectPoom">

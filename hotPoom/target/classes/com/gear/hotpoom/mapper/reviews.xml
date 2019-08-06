@@ -4,7 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviews">
 
-<<<<<<< HEAD
 	<select id="selectReviewListByPoom" parameterType="int" resultType="Review">
 		SELECT r.no, r.user_no userNo, r.booking_no bookingNo, r.content, r.score, r.regdate, u.profile_img profileImg
 		FROM reviews r, bookings b, pooms p, users u
@@ -13,12 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND r.user_no = u.no
 		AND poom_no = #{no}
 		ORDER BY r.regdate DESC
-=======
 	<select id="selectIsReview" parameterType="String" resultType="int">
 		SELECT count(*)
 		FROM reviews
 		WHERE booking_no = #{no}
->>>>>>> origin/feature/Detail
 	</select>
 	
 	<insert id="insert" parameterType="Review">
