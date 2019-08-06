@@ -1,14 +1,24 @@
 package com.gear.hotpoom.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Photo {
 	private int no, contentNo;
 	private String type, img, caption;
+	private List<Photo> subPhotos;
 	private Timestamp regdate;
 	
 	public Photo() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public List<Photo> getSubPhotos() {
+		return subPhotos;
+	}
+
+	public void setSubPhotos(List<Photo> subPhotos) {
+		this.subPhotos = subPhotos;
 	}
 
 	public int getNo() {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,11 +15,14 @@
     <div id="reviewRegisterBg" class="bg">
         <div id="reviewRegisterPopup">
             <h3 class="screen_out">리뷰 등록</h3>
-            <form id="reviewRegisterForm" action="" method="post">
+            <form id="reviewRegisterForm" action="/review" method="post">
+            <input id="userNo" type="hidden" name="userNo" value="${loginUser.no }">
+            <input id="bookingNo" type="hidden" name="bookingNo" value="">
+            <input id="score" type="hidden" name="score" value="">
                 <button type="button" class="close_popup far fa-times-circle"></button>
-                <div id="poomImg" style='background-image:url("img/Lighthouse.jpg")'></div><!--사진-->
-                <div id="poomName">TME 마을</div>
-                <div id="poomDate">8.18 ~ 8.19, 2019</div>
+                <div id="poomImg" style='background-image:url("")'></div><!--사진-->
+                <div id="poomName">TITLE</div>
+                <div id="poomDate">DATE</div>
                 <textarea id="poomTextarea" name="content" placeholder="리뷰를 입력해주세요."></textarea>
                 <div id="poomGrade">
                     <i class="far fa-star"></i>
@@ -35,62 +39,46 @@
     <div id="bookingSection">
         <h2>예약 내역</h2>
         <ul id="cardList">
-            <li class="card">
-                <div class="poom_img" style='background-image:url("img/poom/poom_1.jpg")'></div><!--사진-->
-                <div class="name"><span class="type fas fa-home"></span> 가족처럼 돌봐주는 집</div>
-                <div class="date">08.18 ~ 08.19, 2019</div>
-                <div class="poom_type">예약확정</div>
-                <div class="address">서울특별시 관악구 남부순환로 1820</div>
-                <div class="pet">강아지 3마리</div>
-                <div class="message"><a href=""><i class="fas fa-comment-dots"></i> 호스트에게 메세지</a></div>
-                <div class="detail_link"><a href="">해당 품 상세 페이지 바로가기</a></div>
-                <div class="price">&#8361; <span>79,000</span> / 박</div>
-                <div class="btns_wrap">
-                    <a href="bill.html" class="bill_btn btn">예약 명세서</a><!--//middle 붙이면 버튼 위치가 가운데로-->
-                    <button class="review_btn btn">리뷰 작성</button><!--//기간이 지나고 리뷰가 작성이 안됐을때만 있음-->
-                </div><!--//btn_wrap-->
-            </li>
-            <li class="card">
-                <div class="poom_img" style='background-image:url("img/poom/poom_2.jpg")'></div><!--사진-->
-                <div class="name"><span class="type fas fa-building"></span> 부산 1등 애견호텔</div>
-                <div class="date">09.18 ~ 09.19, 2019</div>
-                <div class="poom_type">다녀옴</div>
-                <div class="address">서울특별시 관악구 남부순환로 1820</div>
-                <div class="pet">강아지 3마리</div>
-                <div class="message"><a href=""><i class="fas fa-comment-dots"></i> 호스트에게 메세지</a></div>
-                <div class="detail_link"><a href="">해당 품 상세 페이지 바로가기</a></div>
-                <div class="price">&#8361; <span>79,000</span> / 박</div>
-                <div class="btns_wrap">
-                    <a href="bill.html" class="bill_btn btn">예약 명세서</a>
-                    <button class="review_btn btn">리뷰 작성</button>
-                </div><!--//btn_wrap-->
-            </li>
+            <!-- bookingListTmp -->
         </ul>
+        <div id="paginate"></div>
     </div><!--//bookingSection-->
 <c:import url="/WEB-INF/template/footer.jsp"/>
+<script type="text/template" id="bookingListTmp">
+<@ _.each(bookingList, function(booking) { @>
+<li class="card">
+<@console.log(booking.endDay);@>
+                <div class="poom_img" style='background-image:url("img/poom/<@=booking.img@>")'></div><!--사진-->
+                <div class="name"><span class='type fas fa-<@=booking.poomType=="P"?"home":"building"@>'></span> <@=booking.poomTitle@></div>
+                <div class="date"><@=moment(booking.startDay).format("MM.DD ~ ")@><@=moment(booking.endDay).format("MM.DD, YYYY")@></div>
+                <@if(booking.userState=="D" && booking.hostState=="D"){@>
+                        <div class="poom_type">예약확정</div>
+                <@}else if(booking.userState=="C" && booking.hostState=="D"){@>
+                        <div class="poom_type cancel">취소함</div>
+                <@}else if(booking.userState=="D" && booking.hostState=="C"){@>
+                        <div class="poom_type cancel">취소됨</div>
+                <@}else {@>
+                        <div class="poom_type finish">다녀감</div>
+                <@}@>
+                <div class="address"><@=booking.mainAddress@></div>
+                <div class="pet"><@=booking.speciesName@> <@=booking.petCnt@>마리</div>
+                <div class="message"><a href="/message/<@=booking.hostNo@>"><i class="fas fa-comment-dots"></i> 호스트에게 메세지</a></div>
+                <div class="detail_link"><a href="/poom/<@=booking.poomNo@>">해당 품 상세 페이지 바로가기</a></div>
+                <div class="price">&#8361; <@=Number(booking.price).toLocaleString('en').split(".")[0]@> / 박</div>
+                <div class="btns_wrap">
+                    <a href="/bill/<@=booking.no@>" class='bill_btn btn <@=booking.userState=="F" && booking.hostState=="F"?"":"middle"@>'>예약 명세서</a>
+                    <@if(booking.userState=="F" && booking.hostState=="F"){@>
+                    <button class='review_btn btn <@=booking.isReview?"disable":""@>' data-no="<@=booking.no@>">리뷰 작성</button>
+                    <@}@>
+                </div><!--//btn_wrap-->
+            </li>
+<@})@>
+</script><!--//bookingListTmp-->
 <script>
-    /* header 관련 */
-    $("#headerProfileImage").click(function (e) {
-
-        $("#lnb").slideToggle(200);
-        e.stopPropagation();
-    });
-
-    $("#headerLogin").click(function () {
-        $("#gnbWrap").show();
-        $(this).hide();
-    });
-
-    $("body").click(function () {
-        // alert("zz");
-        $("#lnb").hide();
-
-
-    })
-    /* header 관련 end */
-
-
+_.templateSettings = {interpolate: /\<\@\=(.+?)\@\>/gim,evaluate: /\<\@([\s\S]+?)\@\>/gim,escape: /\<\@\-(.+?)\@\>/gim};
     /******************* 동호 *************************/
+    let bookingListTmp = _.template($("#bookingListTmp").html());
+    
     const $closePopup = $(".close_popup");
     const $reviewRegisterBg = $("#reviewRegisterBg");
     const $poomGrade = $("#poomGrade i");
@@ -100,7 +88,13 @@
     const $poomDate = $("#poomDate");
     const $poomTextarea = $("#poomTextarea");
     const $reviewRegisterForm = $("#reviewRegisterForm");
+    const $userNo = $("#userNo");
+    const $bookingNo = $("#bookingNo");
+    const $score = $("#score");
+    const $cardList = $("#cardList");
+    const $paginate = $("#paginate");
     let star = 0;
+    let pageNo = 1;
 
     //팝업에서 x를 눌렀을 때
     $closePopup.on("click",function () {
@@ -123,13 +117,22 @@
         })//$poomGrade each end
     });//$poomGrade click end
 
+    //리뷰 작성 완료
+    $reviewRegisterForm.on("submit",function () {
+        $score.val(star);
+    })//$reviewRegisterForm end
+    
     //리뷰 작성을 눌렀을 때
-    $reviewBtn.on("click", function () {
+    $cardList.on("click",".review_btn", function () {
+    	if($(this).hasClass("disable")) {
+    		return false;
+    	}
         let $currLi = $(this).parents("li");
         let img = $currLi.find(".poom_img").css("background-image");
+        $bookingNo.val(this.dataset.no);
         //alert(img);
 
-        //정보 가져오고 내용 초기화
+        //예약정보 가져오고 내용 초기화
         $poomImg.css("background-image",img);
         $poomName.text($currLi.find(".name").text());
         $poomDate.text($currLi.find(".date").text());
@@ -138,11 +141,37 @@
 
         $reviewRegisterBg.show();
     })//$reviewBtn click end
-
-    //리뷰 작성 완료
-    $reviewRegisterForm.on("submit",function () {
-        //input type hidden은 DB참고..
-    })//$reviewRegisterForm end
+    
+    //페이지 클릭
+    $paginate.on("click","a",function(e){
+    	e.preventDefault();
+    	
+    	pageNo = this.dataset.no;
+    	getList();
+    })//$paginate a click end
+    
+    //리스트 가져옴
+    function getList() {
+		$.ajax({
+			url:"/ajax/booking",
+			dataType:"json",
+			type:"get",
+			data:{
+				//"userNo":${loginUser.no},
+				"userNo":11,
+				"pageNo":pageNo
+			},
+			error:function(){
+				alert("점검중!!");
+			},//error end
+			success:function(data){
+				console.log(data);
+				$cardList.html(bookingListTmp({"bookingList":data.bookingList}));
+				$paginate.html(data.paginate);
+			}//success end
+		})//ajax end
+	}//getList end
+	getList();
 
     /******************* 동호 *************************/
 </script>

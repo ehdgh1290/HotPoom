@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="address">
+
+	<select id="selectListSiDo" parameterType="String" resultType="Address">
+		SELECT DISTINCT si_do siDo
+		FROM address
+		WHERE si_do LIKE #{siDo}
+	</select>
+	
+	<select id="selectListSiGunGu" parameterType="String" resultType="Address">
+		SELECT DISTINCT si_gun_gu siGunGu
+		FROM address
+		WHERE si_gun_gu LIKE #{siGunGu}
+	</select>
+	
+	<select id="selectListEM" parameterType="String" resultType="Address">
+		SELECT DISTINCT eup_myeon eupMyeon
+		FROM address
+		WHERE eup_myeon LIKE #{eupMyeon}
+	</select>
+	
+	<select id="selectListRoad" parameterType="String" resultType="Address">
+		SELECT DISTINCT road_name roadName
+		FROM address
+		WHERE road_name LIKE #{road}
+	</select>
+
+</mapper>

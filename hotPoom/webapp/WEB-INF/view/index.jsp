@@ -1,40 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="/css/activatePopup.css">
-    <link rel="stylesheet" href="/css/authentificationPopup.css">
+<!--     <link rel="stylesheet" href="/css/activatePopup.css">
+    <link rel="stylesheet" href="/css/authentificationPopup.css"> -->
     <link rel="stylesheet" href="/css/index.css"/>
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
-<c:if test="">
-<div id="bg">
-    <div id="activatePopup">
-        <button class="popup_close"><i class="far fa-times-circle"></i></button>
-        <div id="accountActivateWrap">
-            <span>최수정</span> 님의 계정이 활성화되었습니다.
-            <button id="activateLoginBtn" class="btn">로그인 하기</button>
-        </div><!--//mailConfirm-->
-    </div><!--//confirmPopup-->
-</div>
-</c:if>
-<c:if test="">
-<div id="bg">
-    <div id="ConfirmPopup">
-        <button class="close_popup"><i class="far fa-times-circle"></i></button>
-        <div id="confirmMail">
-            <span>kimpilguk@naver.com</span> 으로 인증 메일을 보냈습니다.<br/>인증 메일의 링크를 클릭해서 계정을 활성화하세요.
-            <button id="mailLinkBtn" class="btn"><a href="http://www.naver.com" target="_blank">인증 메일 확인하러가기</a></button>
-        </div><!--//mailConfirm-->
-    </div><!--//confirmPopup-->
-</div>
-</c:if>
 
     <div id="indexContentsSection">
         <form id="indexHeroImageWrap">
@@ -75,7 +54,7 @@
                 </div>
                 <div id="indexHeroImageNumBox" class="index_hero_image_box">
                     <h4>마리 수</h4>
-                    <input name="indexPetCnt" class="index_hero_image_short_input"/> 마리
+                    <input id="indexPetCntInput" name="indexPetCnt" class="index_hero_image_short_input"/> 마리
                 </div>
                 <button id="indexHeroImageSearchBtn" type="submit">검색</button>
             </div><!-- //indexHeroImageInner -->
@@ -84,144 +63,36 @@
             <span id="indexContentsPoomTitle">품(POOM)이란?</span>
             <div id="indexContentsPoomInner">
                 <span>PET + ROOM을 합친 합성어이며 펫이 머무르는 방이라는 뜻을 가지고 있습니다. </span>
+                <p>
+                	<span>한글로 '품다'라는 뜻을 나타내기도 합니다.</span>
+                </p>
             </div>
         </div><!-- //indexContentsPoomWrap -->
         <div id="indexContentsHotPoomWrap" class="index_contents_poom_wrap">
             <span id="indexContentsHotPoomTitle" class="index_contents_poom_title">HOT POOM</span>
             <div id="indexContentsHotPoomInner" class="index_contents_poom_inner">
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/가젤.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/기디온.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/닉.png" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/다운로드.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/다운로드 (1).jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/주디.png" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/홉스.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div><!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/프리실라.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
+                
             </div><!--  //indexContentsHotPoomInner  -->
         </div><!-- //indexContentsHotPoomWrap -->
         <div id="indexContentsNewPoomWrap" class="index_contents_poom_wrap">
             <span id="indexContentsNewPoomTitle" class="index_contents_poom_title">NEW POOM</span>
             <div id="indexContentsNewPoomInner" class="index_contents_poom_inner">
+                <c:forEach items="${newPoomList }" var="newPoom">
                 <div class="small_card">
                     <ul>
                         <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/가젤.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
+                        <li><img class="small_card_img" src="/img/poom/${newPoom.img }" alt="${newPoom.title }"/></li>
+                        <li><div class="small_card_hotel small_card_padding"> 
+                        	<c:choose>
+                        		<c:when test="${newPoom.type eq 'C' }"><i class="fas fa-hotel"></i></c:when>
+                        		<c:otherwise> <i class="fas fa-home"></i></c:otherwise>
+                        	</c:choose>
+							${newPoom.title}
+                        	</div></li>
+                        <li><div class="small_card_pet small_card_padding">${newPoom.petName } ${newPoom.petCnt }마리</div></li>
                     </ul>
                 </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/기디온.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/닉.png" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/다운로드.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/다운로드 (1).jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/주디.png" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/홉스.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div><!--  //small_card  -->
-                <div class="small_card">
-                    <ul>
-                        <li class="small_card_li">
-                        <li><img class="small_card_img" src="img/프리실라.jpg" alt="숙소 카드입니다."/></li>
-                        <li><div class="small_card_hotel small_card_padding"> <i class="fas fa-home"></i> 사랑이 넘치고 넘쳐 흐르는…</div></li>
-                        <li><div class="small_card_pet small_card_padding">강아지 5마리</div></li>
-                    </ul>
-                </div> <!--  //small_card  -->
+                </c:forEach>
             </div><!--  //indexContentsHotPoomInner  -->
         </div><!-- //indexContentsNewPoomWrap -->
     </div><!--  //indexContentsSection  -->
@@ -236,11 +107,28 @@
         <li class="index_species_auto" data-name="<@=species.name @>"><@=species.name @></li>
     <@});@>
 </script>
+<script type="text/template" id="indexSmallCardTmp">
+<@_.each(poomList, function(poom){@>	
+<div class="small_card">
+	<ul id="hotPoomList">
+   		<div class="small_card_li"> 
+			<li><img class="small_card_img" src="/img/poom/<@=poom.img @>" alt="<@=poom.title @>"/></li>
+    		<li><div class="small_card_hotel small_card_padding"> 
+				<@ if(poom.type == 'P') {@><i class="fas fa-home"></i> <@} else {@><i class="fas fa-hotel"></i><@}@>
+				<@ if(poom.title.length > 10) {@> <@=poom.title@> <@} else {@><@=poom. title@><@}@>
+				</div></li>
+    		<li><div class="small_card_pet small_card_padding"><i class="fas fa-star"></i> <@=poom.score @></div></li>                    
+		</div>            
+    </ul>
+</div> <!--  //small_card  -->
+<@});@>
+</script>
 <script>
 	_.templateSettings = {interpolate : /\<\@\=(.+?)\@\>/gim, evaluate : /\<\@([\s\S]+?)\@\>/gim, escape : /\<\@\-(.+?)\@\>/gim};
 
 	const indexLocationAutoTmp = _.template($("#indexLocationAutoTmp").html());
 	const indexSpeciesAutoTmp = _.template($("#indexSpeciesAutoTmp").html());
+	const indexSmallCardTmp = _.template($("#indexSmallCardTmp").html());
 	
 	let $locationAuto = $("#indexLocationAutoComplete");
 	let $locationInput = $("#indexHeroImageLocationInput");
@@ -252,18 +140,18 @@
 	/*****************위치 자동완성********************/
 	
 	function autoCompleteLocation() {
-	    let indexLocation = $locationInput.val().trim();
+	    let location = $locationInput.val().trim();
 	
-	    console.log(indexLocation);
+	    console.log(location);
 	
-	    if (indexLocation.length == 0) {
+	    if (location.length == 0) {
 	        return false;
 	    }
 	
 	    console.log("test");
 	
 	    $.ajax({
-	        url:"json/location.json",
+	        url:"/ajax/location/auto/"+location,
 	        dataType:"json",
 	        type:"get",
 	        error:function () {
@@ -313,9 +201,8 @@
 	    console.log("test111");
 	
 	    $.ajax({
-	        url:"json/species.json",
+	        url:"/ajax/species/auto/"+indexSpecies,
 	        dataType:"json",
-	        type:"get",
 	        error:function () {
 	            alert("서버 점검 중");
 	        },
@@ -390,7 +277,47 @@
 	//버튼 클릭시 검색
 	$("#indexHeroImageSearchBtn").on("click", function () {
 	
+		let location = $("#indexHeroImageLocationInput").val();
+		let species = $("#indexHeroImageSpeciesInput").val();
+		let petCnt = $("#indexPetCntInput").val();
+		
+		if(location ==  "") {
+			
+			$("#indexHeroImageLocationInput").focus();
+			return false;
+		}
+		
+		if(species == "") {
+			
+			$("#indexHeroImageSpeciesInput").focus();
+			return false;
+		}
+		
+		if(petCnt == "") {
+			
+			$("indexPetCntInput").focus();
+			return false;
+		}
+		
 	});//indexHeroImageSearchBtn click() end
+	
+	//small card
+	function getHotPoomList() {
+		
+		$.ajax({
+			url:"/ajax/hot/poom",
+			dataType:"json",
+			type:"get",
+			error:function (){
+				alert("hot poom 점검 중");
+			},
+			success:function (json){
+				$("#indexContentsHotPoomInner").append(indexSmallCardTmp({"poomList" : json}));
+			}//success end
+		});//ajax end
+	}//getHotPoomList() end
+	
+	getHotPoomList();
 
 </script>
 </body>

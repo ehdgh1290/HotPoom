@@ -1,15 +1,61 @@
 package com.gear.hotpoom.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Poom {
+<<<<<<< HEAD
 	private int no, userNo, speciesNo, price, petCnt, reviewCnt;
 	private double lat, lng, avgScore;
 	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg;
+=======
+	private int no, userNo, speciesNo, price, petCnt, count;
+	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, img, petName;
+	private double score;
+	private double lat, lng;
+	private List<Photo> poomPhotos;
+>>>>>>> origin/feature/Detail
 	private Timestamp regdate;
 	
 	public Poom() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public List<Photo> getPoomPhotos() {
+		return poomPhotos;
+	}
+
+	public void setPoomPhotos(List<Photo> poomPhotos) {
+		this.poomPhotos = poomPhotos;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public int getReviewCnt() {
@@ -100,6 +146,7 @@ public class Poom {
 		this.petCnt = petCnt;
 	}
 
+<<<<<<< HEAD
 	public double getLat() {
 		return lat;
 	}
@@ -116,6 +163,8 @@ public class Poom {
 		this.lng = lng;
 	}
 
+=======
+>>>>>>> origin/feature/Detail
 	public String getType() {
 		return type;
 	}
@@ -211,5 +260,29 @@ public class Poom {
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
 	}
-	
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
 }

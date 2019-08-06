@@ -135,7 +135,11 @@ input:focus {
     background-color: rgba(0,0,0,0.7);
     display: none;
     z-index: 999;
+<<<<<<< HEAD
     top:0;
+=======
+    top: 0;
+>>>>>>> origin/feature/Detail
     left: 0;
 }
 
@@ -359,7 +363,17 @@ a.btn {
     top: 5px;
     left: 40px;
 }
+<<<<<<< HEAD
 
+=======
+#loginPopup .msg {
+	position: absolute;
+	top: 250px;
+	left: 40px;
+	color: #C50532;
+	display: none;
+}
+>>>>>>> origin/feature/Detail
 #logout {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 16px;

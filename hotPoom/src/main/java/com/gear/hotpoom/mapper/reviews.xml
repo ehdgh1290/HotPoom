@@ -12,7 +12,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND r.user_no = u.no
 		AND poom_no = #{no}
 		ORDER BY r.regdate DESC
+	<select id="selectIsReview" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM reviews
+		WHERE booking_no = #{no}
 	</select>
 	
+	<insert id="insert" parameterType="Review">
+		INSERT INTO reviews(no, user_no, booking_no, content, score, regdate)
+		VALUES(reviews_seq.nextval, #{userNo}, #{bookingNo}, #{content}, #{score}, systimestamp)
+	</insert>
 
 </mapper>

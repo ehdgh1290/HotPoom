@@ -9,6 +9,7 @@
 	</settings>
 
 	<typeAliases>
+		<typeAlias alias="Address" type="com.gear.hotpoom.vo.Address"/>
 		<typeAlias alias="Bank" type="com.gear.hotpoom.vo.Bank"/>
 		<typeAlias alias="BankAccount" type="com.gear.hotpoom.vo.BankAccount"/>
 		<typeAlias alias="Booking" type="com.gear.hotpoom.vo.Booking"/>
@@ -31,6 +32,7 @@
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="com/gear/hotpoom/mapper/address.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/bank-accounts.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/banks.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/bookings.xml"/>

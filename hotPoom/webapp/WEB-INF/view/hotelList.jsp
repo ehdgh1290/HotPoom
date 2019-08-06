@@ -7,7 +7,29 @@
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="css/hotelList.css">
+    <link rel="stylesheet" href="/css/hotelList.css">
+    <link rel="stylesheet" href="/css/bigCard.css">
+    <link rel="stylesheet" href="/css/paginate.css">
+    <style>
+    	#autoComplete{
+    		background:#fff;
+    		min-height: 100px;
+    		z-index: 1;
+    		border: 1px solid #eee;
+    		display: none;
+    	}
+    	#speciesList li{
+    		background: #fff;
+    		height: 30px;
+    		line-height: 30px;
+    	}
+    	#speciesList li:hover{
+    		cursor:pointer;
+    		background-color: #eee;
+    	}
+    		
+   
+    </style>
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
@@ -20,8 +42,9 @@
         <button id="priceRangeBtn" class="btn test">가격</button>
         <button id="sortBtn" class="btn test">정렬순</button>
         <div id="sortInner" class="popup"><!--//정렬 누를때만 나옴-->
-            <button id="gradeBtn" class="btn">평점순</button>
-            <button id="priceBtn" class="btn">가격순</button>
+            <button id="gradeBtn" class="btn orderBtn order">평점순</button>
+            <button id="higtPriceBtn" class="btn orderBtn">높은 가격순</button>
+            <button id="lowPriceBtn" class="btn orderBtn">낮은 가격순</button>
         </div><!--//sortInner-->
         <div id="datePickerPopup" class="popup">
             <div class="tui-datepicker-input tui-datetime-input tui-has-focus end">
@@ -38,7 +61,11 @@
         </div><!--//datePickerPopup-->
         <div id="petTypePopup" class="popup">
             <input id="petTypeInput"/>
-            <button id="petTypeCloseBtn" class="btn">확 인</button>
+            <div id="autoCompleteWrap">
+            	<ul id="speciesList">
+            	</ul>
+            </div>
+            <button id="petTypeCloseBtn" class="btn" >확 인</button>
         </div><!--//petTypePopup-->
         <div id="petNumPopup" class="popup">
             <button id="minusBtn" class="btn"><i class="fas fa-minus"></i></button>
@@ -47,7 +74,7 @@
             <button id="petNumCloseBtn" class="btn">확 인</button>
         </div><!--//petNumPopup-->
         <div id="priceRangePopup" class="popup">
-            <input id="lowestPriceInput"/> <span>-</span> <input id="highestPriceInput">
+            <input id="lowestPriceInput" /> <span>-</span> <input id="highestPriceInput" />
             <span id="lowestWon" class="won">&#8361;</span><span id="highestWon" class="won">&#8361;</span>
             <button id="priceRangeCloseBtn" class="btn">확 인</button>
         </div><!--//priceRangePopup-->
@@ -61,26 +88,18 @@
         </div><!--//hotelListWrap-->
         <div id="map"></div><!--//map-->
         <div id="paginate">
-            <a href="" title="이전 페이지로"><i class="fas fa-chevron-left"></i><span class="screen_out">이전 페이지</span></a>
-            <a href="" title="1">1</a>
-            <a href="" title="2">2</a>
-            <a href="" title="3">3</a>
-            <a href="" title="4">4</a>
-            <a href="" title="5">5</a>
-            <a href="" title="다음 페이지로"><i class="fas fa-chevron-right"></i><span class="screen_out">다음 페이지</span></a>
-
-
+            
         </div><!--//paginate-->
     </div><!--//hotelListSection-->
-<c:import url="/WEB-INF/template/footer.jsp"/>
-<script type="text/template" id="hotelListTmp">
-<@ _.each(hotelList, function(hotel) { @>
-<div class="big_card_content" data-lat="<@=hotel.lat@>" data-lng="<@=hotel.lng@>">
+<%--<c:import url="/WEB-INF/template/footer.jsp"/> --%>
+ <script type="text/template" id="hotelListTmp">
+<@ _.each(poomList, function(poom) { @>
+<div class="big_card_content" data-lat="<@=poom.lat@>" data-lng="<@=poom.lng@>" data-no="<@=poom.no@>" data-price="<@=poom.price@>">
     <div class="photo_content">
         <ul class="photo_box">
-            <@ _.each(hotel.poomImgList, function(poom) { @>
+            <@ _.each(poom.poomPhotos, function(photo) { @>
                 <li class="poom_photo">
-                    <img src="img/poom/<@=poom.poomImg@>" width="248px" height="248px"/>
+                    <img src="/img/poom/<@=photo.img@>" width="248px" height="248px"/>
                 </li><!--//poom_photo-->
             <@})@>
         </ul><!--//photo_box-->
@@ -90,16 +109,21 @@
         <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
     </div><!--//photo_cover-->
     <div class="poom_content">
-        <a class="poom_name" href=""><i class="fas fa-home"></i> 가족처럼 돌봐주는 집</a>
-        <a class="poom_address" href="">경기도 부천시 원미구 계남로 60</a>
-        <a class="poom_animal" href="">강아지 3마리 </a>
-        <p class="poom_star"><i class="fas fa-star"></i> 4.8 (16)</p>
-        <p class="poom_price">￦ 79,000 / 박</p>
+        <a class="poom_name" href=""><i class="fas fa-home"></i> <@=poom.title@></a>
+        <a class="poom_address" href=""><@=poom.mainAddress@></a>
+        <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
+        <p class="poom_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</p>
+        <p class="poom_price">￦ <@=poom.price@> / 박</p>
         <div class="poom_bookmark"></div>
     </div><!--//poom_content-->
 </div><!--//big_card_content-->
 <@})@>
 </script><!--//hotelListTmp-->
+<script type="text/template" id="speciesListTmp">
+<@_.each(speciesList, function(species){@>
+	<li class="speciesItem"><input type="hidden" value="<@=species.no@>" id="speciesNo"/><@=species.name@></li>
+<@})@>
+</script>
 <script>
     /********************* 동호 *********************************/
 
@@ -164,7 +188,6 @@
     const $sortInnerBtns = $("#sortInner .btn");
     const $map = $("#map");
     const $gradeBtn = $("#gradeBtn");
-    const $priceBtn = $("#priceBtn");
     let $hotelListWrap = $("#hotelListWrap");
     const $paginate = $("#paginate");
     const $hotelListSection = $("#hotelListSection");
@@ -173,11 +196,11 @@
     let startDate;
     let endDate;
     let petType;
-    let petNum;
+    let petNum=0;
     let lowestPrice = 0;
     let highestPrice = 0;
-    let sort = 1;
-    let positions = []; //지도에 넣기 위한 배열
+    let sort = 0;
+    
 
     let left;
 
@@ -189,6 +212,7 @@
     //날짜선택 버튼을 눌렀을 때 팝업 보여줌
     $datePickerBtn.on("click",function () {
         $(".popup").not($datePickerPopup).hide();
+        $datePickerCloseBtn.show();
         picker.setStartDate(today);
         picker.setEndDate(today);
         $start.show();
@@ -197,7 +221,9 @@
 
     //날짜선택 팝업에서 확인을 눌렀을 때 팝업 사라짐
     $datePickerCloseBtn.on("click",function () {
-        $(".popup").hide();
+    	$("#datePickerBtn").addClass("filter");
+        $(this).hide();
+        
         startDate = startPicker.getDate();
         endDate = endPicker.getDate();
         $datePickerBtn.text(moment(startDate).format("M월 D일 ~ ") + moment(endDate).format("M월 D일"));
@@ -209,18 +235,57 @@
         $(".popup").not($petTypePopup).hide();
         left = $(this).position().left;
         $petTypePopup.css("left",left+"px");
-        $petTypeInput.text("");
+        $petTypeInput.text("").focus();
         $petTypePopup.slideToggle(100);
     });//$petTypeBtn click end
+    
+    $petTypeInput.on("keyup", function(){
+    	petType=$(this).val();
+    	if(petType!=null){
+    		getSpeciesList(petType);
+    	}//if end
+    });//$petTypeInput keyup end
+    
+    let speciesNo = 0;
+    //자동완성클릭이벤트
+    $("#speciesList").on("click", ".speciesItem", function(){
+    	petType=$(this).text();
+    	speciesNo = $(this).find("input").val();
+    	$petTypeInput.val(petType);
+    	$("#autoCompleteWrap").hide();
+    	$("#petTypeCloseBtn").show();
+    });//.speciesItem click end
 
     //펫종류 팝업에서 확인을 눌렀을 때 팝업 사라짐
     $petTypeCloseBtn.on("click",function () {
-        petType = $petTypeInput.val();
+    	$("#petTypeBtn").addClass("filter");
         if(petType.length>0 && petType!="") {
             $petTypeBtn.text(petType);
         }//if end
         $petTypePopup.slideToggle(100);
+        $(this).hide();
+        page=1;
+        getPoomList();
     })//$petTypeCloseBtn click end
+    let speciesListTmp = _.template($("#speciesListTmp").html());
+    
+    //펫 목록 받아오는 아작스
+    function getSpeciesList(name){
+    	
+    	$.ajax({
+    		url:"/ajax/poom/species/"+name,
+    		
+    		dataType:"json",
+    		type:"get",
+    		error: function(){
+    			alert("종류받아오기에러");
+    		},
+    		success: function(json){
+    			$("#speciesList").html(speciesListTmp({"speciesList":json.speciesList}));
+    			$("#autoCompleteWrap").show();
+    		}//success end
+    	});//ajax end
+    };//getSpeciesList end
 
     //마릿수 버튼을 눌렀을 때 팝업 보여줌
     $petNumBtn.on("click", function () {
@@ -235,9 +300,11 @@
     //마릿수 팝업에서 확인을 눌렀을 때 팝업 사라짐
     $petNumCloseBtn.on("click",function () {
         petNum = $petNumInput.val();
+        $("#petNumBtn").addClass("filter");
         if(petNum>0) {
             $petNumBtn.text(petNum+" 마리");
         }//if end
+        getPoomList();
         $petNumPopup.slideToggle(100);
     })//$petTypeCloseBtn click end
 
@@ -258,34 +325,44 @@
 
     //가격 버튼을 눌렀을 때 팝업 보이기
     $priceRangeBtn.on("click",function () {
-        $(".popup").not($priceRangePopup).hide();
+       	$(".popup").not($priceRangePopup).hide();
         left = $(this).position().left;
         $priceRangePopup.css("left",left+"px");
-        $lowestPrice.val(0);
+        //$lowestPrice.val();
         lowestPrice = 0;
-        $highestPrice.val(0);
+        //$highestPrice.val();
         highestPrice = 0;
         $priceRangePopup.slideToggle(100);
     })//$priceRangeBtn click end
 
+    let priceRegexp = /^[0-9]+$/;
+    $("#priceRangePopup input").on("keyup", function(){
+    	let price = $(this).val();
+    	if(!priceRegexp.test(price)){
+    		$(this).val("").focus();
+    	}
+    });//price input keyup end
+    
     //가격 팝업의 확인 버튼을 눌렀을 때 팝업 숨기기
     $priceRangeCloseBtn.on("click", function () {
+    	$("#priceRangeBtn").addClass("filter");
         lowestPrice = $lowestPrice.val();
         highestPrice = $highestPrice.val();
         console.log("시작");
         console.log("low: "+lowestPrice);
         console.log("high: "+highestPrice);
         if(lowestPrice>0 || highestPrice>0) {
-            console.log(1);
-            if(highestPrice<lowestPrice) {
+            console.log(1); 
+            if(highestPrice>lowestPrice) {
             console.log(2);
                 highestPrice = lowestPrice;
             }//if end
-            console.log("low: "+lowestPrice);
-            console.log("high: "+highestPrice);
+            console.log("low2: "+lowestPrice);
+            console.log("high2: "+highestPrice);
             $priceRangeBtn.html("&#8361;"+lowestPrice+" ~ &#8361;"+highestPrice);
         }//if end
         $priceRangePopup.slideToggle(100);
+        getPoomList();
     })//$priceRangeCloseBtn click end
 
     //정렬버튼을 눌렀을 때 보이기
@@ -304,18 +381,86 @@
 
     //평점순을 눌렀을 때
     $gradeBtn.on("click",function () {
-        sort = 1;
+        sort = 0;
+        $("#sortBtn").addClass("filter");
+        $(".order").not($(this)).removeClass("order");
+        $(this).addClass("order");
+        getPoomList()
     })//$gradeBtn click end
 
-    $priceBtn.on("click",function () {
+    $("#higtPriceBtn").on("click",function () {
+        sort = 1;
+        $("#sortBtn").addClass("filter");
+        $(".order").not($(this)).removeClass("order");
+        $(this).addClass("order");
+        getPoomList()
+    })//$priceBtn click end
+    
+    $("#lowPriceBtn").on("click",function () {
         sort = 2;
+        $("#sortBtn").addClass("filter");
+        $(".order").not($(this)).removeClass("order");
+        $(this).addClass("order");
+        getPoomList()
     })//$priceBtn click end
 
+    let page = 1;
+    $("#paginate").on("click",".paginate a",function(e){
+		e.preventDefault();
+		
+		page = this.dataset.no;
+		
+		getPoomList();
+		
+	});//click() end
+	
+	let positions = []; //지도에 넣기 위한 배열
+    let bounds = new kakao.maps.LatLngBounds();
+	
+	let overlays = [];
+	let markers = [];
+	
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 ,// 지도의 확대 레벨
+        scrollwheel :false
+    };
+
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	
+	
+	$("#test").on("click",function() {
+		$(overlays).each(function() {
+			this.setMap(null);
+		
+		});
+		
+		$(markers).each(function() {
+			this.setMap(null);
+		
+		});
+		
+		overlays = [];
+		markers = [];
+		
+	})
+	
+    
     //hotelList 가져오기
-    function getHotelList() {
+    function getPoomList() {
         $.ajax({
-            url: 'json/hotelList.json',
-            data: {
+            url: '/ajax/poom/page/'+page,
+          	data:{
+				speciesNo:speciesNo,
+				petCnt:petNum,
+				lowPrice:lowestPrice,
+				highPrice:highestPrice,
+				sort:sort
+			},
+            /*data: {
                 "startDate":startDate,
                 "endDate":endDate,
                 "petType":petType,
@@ -323,47 +468,115 @@
                 "lowestPrice":lowestPrice,
                 "highestPrice":highestPrice,
                 "sort":sort
-            },
-            type: 'POST',
+            },*/
+            type: 'get',
             dataType:"json",
             error:function(xhr,error,code) {
                 alert("점검중!");
-                console.log(code);
             },//error end
             success: function(json){
-                console.log(json);
-                $hotelListWrap.html(hotelListTmp({"hotelList":json.hotelList}));
+                
+            	
+            	// 오버레이 마커 전부 리셋
+            	$(overlays).each(function() {
+        			this.setMap(null);
+        		
+        		});
+        		
+        		$(markers).each(function() {
+        			this.setMap(null);
+        		
+        		});
+        		
+        		overlays = [];
+        		markers = [];
+        		
+				positions = [];
+        		
+        		let bounds = new kakao.maps.LatLngBounds();
+        		// 오버레이 마커 전부 리셋
+        		
+        		
+        		
+                
+                $hotelListWrap.html(hotelListTmp({"poomList":json.poomList}));
                 $paginate.html(json.paginate);
-                $map.css("height",$hotelListWrap.css("height"));
+                
+            	
+            	// 마커 이미지의 이미지 주소입니다
+                var imageSrc = "img/marker.png";
+            	
+                
+                $(json.poomList).each(function(idx){
+                	//alert(this.lat);
+                	
+                	
+                	let lat = this.lat;
+                	let lng = this.lng;
+                	
+					positions.push({
+						title:idx,
+						latlng: new kakao.maps.LatLng(lat, lng)
+					});//push end
+					
+					 const price = this.price;
 
-                //배열에 위도, 경도를 넣음
-                $(".big_card_content").each(function () {
-                    let lat = $(this).attr("data-lat");
-                    let lng = $(this).attr("data-lng");
 
-                    positions.push({
-                        title: '카카오',
-                        latlng: new kakao.maps.LatLng(lat, lng)
-                    });//push end
-                })//each end
-                console.log(positions);
+			            // 마커 이미지의 이미지 크기 입니다
+			            var imageSize = new kakao.maps.Size(60, 60);
+
+			            // 마커 이미지를 생성합니다
+			            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+			           // let idx = positions[i].title;
+			            var content = '<div class ="label" data-idx='+idx+' style="margin-top: -20px"><span class="left"></span><span class="center">'+price+'</span><span class="right"></span></div>';
+			            // 커스텀 오버레이를 생성합니다
+			            var customOverlay = new kakao.maps.CustomOverlay({
+			                position: positions[idx].latlng,
+			                content: content
+			            });
+
+			            // 마커를 생성합니다
+			            var marker = new kakao.maps.Marker({
+			                map: map, // 마커를 표시할 지도
+			                position: positions[idx].latlng, // 마커를 표시할 위치
+			                title : positions[idx].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+			                image : markerImage // 마커 이미지
+			            });
+
+			            $(".label").attr('data-idx', idx);
+
+			            bounds.extend(positions[idx].latlng);
+			            customOverlay.setMap(map);
+			            
+			            markers.push(marker);
+			            overlays.push(customOverlay);
+					
+					
+                });//.big_card_content each end
+                
+                map.setBounds(bounds);
+                
+                //$map.css("height",$hotelListWrap.css("height"));
+
+                
+                //console.log(positions);
             }//success end
         });//ajax end
     }//getHotelList end
-    getHotelList();
-
+    getPoomList();
+    
+    
+    
 
     $(window).on("click",function (e) {
 
-        console.log(e.target);
 
 
         if($(e.target).hasClass("test")) {
-            console.log("있음!!");
         }else {
-            $(".popup").hide();
+            //$(".popup").hide();
         }
-    })
+    })//이거뭐야??
 
 
 
