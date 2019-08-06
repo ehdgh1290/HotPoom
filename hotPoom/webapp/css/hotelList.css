@@ -1,4 +1,8 @@
 @charset "UTF-8";
+#content{
+	width:1100px;
+	min-height: 1429px;
+}
 #hotelListAllSection {
     width: 100%;
 }
@@ -12,13 +16,21 @@
 #hotelListSection {
     margin-top: 20px;
 }
-#filterSection .btn {
-    background-color: #3397eb;
-    color:#fff;
+#filterSection > .btn {
+    background-color: #fff;
+    border: 1px solid #C50532;
+    color:#C50532;
     cursor: pointer;
     height: 35px;
     font-size: 16px;
     line-height: 35px;
+}
+#filterSection .btn:hover{
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+#filterSection .filter{
+	background-color: #C50532;
+	color:#fff;
 }
 #filterSection>.btn {
     padding-left: 20px;
@@ -27,11 +39,13 @@
     margin-right: 20px;
 }
 #sortInner {
-    width: 70px;
-    height: 70px;
+    width: 84px;
+    height: 90px;
     position: absolute;
     top: 35px;
     left: 594px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 #filterSection>#sortInner>.btn {
     width: 84px;
@@ -41,11 +55,11 @@
     text-decoration: none;
 }
 #map {
-    position: absolute;
-    width: 380px;
-    height: 1320px;
-    left: 720px;
-    top: 0;
+    position: fixed;
+    width: calc(100% - 696px);
+    height: calc(100% - 150px);
+    right:0;
+    top: 155px;
     background-color: blue;
 }
 #paginate {
@@ -81,7 +95,7 @@
 }
 #petTypePopup {
     width: 160px;
-    height: 80px;
+    min-height: 80px;
     left: 125px;
     padding: 3px;
 }
@@ -89,7 +103,7 @@
     width: 150px;
     height: 30px;
 }
-#filterSection .popup .btn {
+#filterSection > .popup .btn {
     position: absolute;
     background-color: transparent;
     color: #3397eb;
@@ -99,6 +113,7 @@
 #petTypeCloseBtn {
     left: 110px;
     top: 45px;
+    display: none;
 }
 #petNumPopup {
     width: 150px;
@@ -113,6 +128,7 @@
     text-decoration: none;
     font-size: 20px;
     width: 35px;
+    height:35px;
 }
 #filterSection #petNumPopup>#petNumCloseBtn.btn {
     background-color: transparent;
@@ -178,13 +194,22 @@
 .big_card_content {
     margin-bottom: 20px;
 }
-#paginate {
-    width: 1100px;
-    font-size: 28px;
-    text-align: center;
+.label {margin-bottom: 96px;}
+        .label * {display: inline-block;vertical-align: top;}
+        .label .left {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_l.png") no-repeat;display: inline-block;height: 24px;overflow: hidden;vertical-align: top;width: 7px;}
+        .label .center {background: url(http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_bg.png) repeat-x;display: inline-block;height: 24px;font-size: 12px;line-height: 24px;}
+        .label .right {background: url("http://t1.daumcdn.net/localimg/localimages/07/2011/map/storeview/tip_r.png") -1px 0  no-repeat;display: inline-block;height: 24px;overflow: hidden;width: 6px;}
+
+#filterSection > #sortInner .orderBtn{
+	background-color: #fff;
+	color:#C50532;
+	position: relative;
+	height : 30px;
 }
-#paginate a {
-    color: #424242;
-    text-decoration: none;
-    padding: 0 20px;
+.orderBtn:hover {
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+#filterSection > #sortInner .order{
+	background-color: #C50532;
+	color:#fff;
 }

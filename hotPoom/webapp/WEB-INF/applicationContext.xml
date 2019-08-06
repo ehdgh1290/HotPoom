@@ -6,9 +6,11 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- WAS가 설정 커넥션풀(DataSource) 을 jndi lookup -->
@@ -18,6 +20,7 @@
 	
 	<!-- 트랜잭션을 annotation으로 -->
 	<tx:annotation-driven/>
+	
 	
 	<!-- 스캔할 기본 패키지 지정//@지정을 한 클래스들만(@Component,   @Controller, @RestController, @Service, @Repository) -->
 	<context:component-scan base-package="com.gear.hotpoom.*"/>

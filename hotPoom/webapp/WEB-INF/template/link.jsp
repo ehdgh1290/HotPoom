@@ -4,12 +4,13 @@
 <link rel="stylesheet" href="/css/notosanskr.css">
 <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Jua&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-<link rel="stylesheet" href="css/tui-editor.css">
-<link rel="stylesheet" href="css/tui-editor-contents.css">
-<link rel="stylesheet" href="css/codemirror.css">
-<link rel="stylesheet" href="css/github.css">
-<link rel="stylesheet" href="css/loginPopup.css">
+<link rel="stylesheet" href="/css/tui-editor.css">
+<link rel="stylesheet" href="/css/tui-editor-contents.css">
+<link rel="stylesheet" href="/css/codemirror.css">
+<link rel="stylesheet" href="/css/github.css">
+<link rel="stylesheet" href="/css/loginPopup.css">
 <link rel="stylesheet" href="/css/default.css">
+<link rel="stylesheet" href="/css/tui-date-picker.css">
 <script src="/js/jquery.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/moment-with-locales.js"></script>

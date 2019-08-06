@@ -1,14 +1,55 @@
 package com.gear.hotpoom.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Poom {
-	private int no, userNo, speciesNo, price, petCnt, lat, lng;
-	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport;
+	private int no, userNo, speciesNo, price, petCnt, count;
+	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, img, petName;
+	private double score;
+	private double lat, lng;
+	private List<Photo> poomPhotos;
 	private Timestamp regdate;
 	
 	public Poom() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public List<Photo> getPoomPhotos() {
+		return poomPhotos;
+	}
+
+	public void setPoomPhotos(List<Photo> poomPhotos) {
+		this.poomPhotos = poomPhotos;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public int getNo() {
@@ -49,22 +90,6 @@ public class Poom {
 
 	public void setPetCnt(int petCnt) {
 		this.petCnt = petCnt;
-	}
-
-	public int getLat() {
-		return lat;
-	}
-
-	public void setLat(int lat) {
-		this.lat = lat;
-	}
-
-	public int getLng() {
-		return lng;
-	}
-
-	public void setLng(int lng) {
-		this.lng = lng;
 	}
 
 	public String getType() {
@@ -162,5 +187,29 @@ public class Poom {
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
 	}
-	
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
 }
