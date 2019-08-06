@@ -9,4 +9,6 @@ public interface ChatUsersService {
 
 	public List<ChatUser> getChatRoomList(int no);
 
+	public int invisibleChat(int roomNo, int userNo);
+
 }

@@ -148,15 +148,23 @@
 	<!--//messageSection-->
 	<c:import url="/WEB-INF/template/footer.jsp" />
 	<script type="text/template" id="msgListTmp">
-	<@ _.each(lists, function(list) { @>
+	<@ _.each(list, function(item) { @>
+		<@ if(item.type == "V") {@>
 		<li class="message_list">
-        	<img class="profile" src="profile/user/<@=list.profileImg@>" width="60px" height="60px">
-            <p class="nickname"><@=list.name@></p>
-            <p class="message"><@=list.title@></p>
-            <time class="time"><@=moment(list.lastTime).fromNow()@></time>
-            <input type="checkbox" class="listEditCheckBox"/>
+        	<img class="profile" src="profile/user/<@=item.profileImg@>" width="60px" height="60px">
+            <p class="nickname"><@=item.name@></p>
+            <p class="message"><@=item.title@></p>
+            <time class="time"><@=moment(item.lastTime).fromNow()@></time>
+            <input type="checkbox" class="listEditCheckBox" data-room="<@=item.roomNo@>"/>
         </li>
-	<@ }); @>
+	<@ }}); @>
+	</script>
+	<script type="text/template" id="msgTmp">
+		<div class="message_box <@if(msg.userNo == ${loginUser.no}) {@>you<@}@>">
+			<img class="profile" src="profile/user/<@=msg.profileImg@>" width="70px" height="70px">
+			<div class="talk_balloon"><@=msg.content@></div>
+		</div>
+	<!--//messageBox-->
 	</script>
 	<script>
 	
@@ -165,6 +173,7 @@
 	_.templateSettings = {interpolate: /\<\@\=(.+?)\@\>/gim,evaluate: /\<\@([\s\S]+?)\@\>/gim,escape: /\<\@\-(.+?)\@\>/gim};
 	
 	const msgListTmp = _.template($("#msgListTmp").html());
+	const msgTmp = _.template($("#msgTmp").html());
 	
 		/*-----------------------------메세지--------------------*/
 		function moveScrollDown() {
@@ -176,6 +185,9 @@
 		}//moveScroll() end
 
 		moveScrollDown();
+		
+		
+		let roomNo = -1;
 
 		//메세지리스트 편집 아이콘 클릭
 		$("#messageListEditBtn i").on("click", function() {
@@ -193,11 +205,30 @@
 			}//if() end
 		});//messageListSearch.keyup() end
 
+		
 		//메세지리스트 삭제 버튼 클릭
 		$("#checkedDeleteBtn").on("click", function() {
 
 			$("input:checked").each(function() {
-				$(this).parent().remove();
+		
+				const roomNo = this.dataset.room;
+				const $this = $(this);
+				
+				console.log(roomNo);
+				
+				$.ajax({
+					url:"/ajax/invisible",
+					dataType:"json",
+					data: {roomNo: roomNo, userNo: ${loginUser.no}},
+					type:"GET",
+					error:function() {
+						alert("점검중");
+					},
+					success:function(json) {
+						$this.parent().remove();
+					}
+				});//ajax() end
+				
 			})//.listEditCheckBox.each() end
 
 			$(".listEditCheckBox").hide();
@@ -212,13 +243,62 @@
 			$(".nickname").each(function() {
 				const txt = $(this).text();
 
-				if (text != txt) {
+				
+				if (!txt.includes(text)) {
 					$(this).parent().hide();
 				}
 			});
 
 		});
+		
+		$("#messageListInner").on("click",".message_list",function() {
+			
+			getMessage($(this));
+			
+		});//message_list click() end
+		
+		
+		 function getMessage($this) {
+			
+			console.log("sddd");
+				
+				$(".message_list").removeClass("on");
+				
+				$this.addClass("on");
+				
+				roomNo = $this.children(".listEditCheckBox").attr("data-room");
+				
+				const name = $this.children(".nickname").text();
+				
+				$.ajax({
+					url:"/ajax/message",
+					dataType:"json",
+					data: {roomNo: roomNo, userNo: ${loginUser.no}},
+					type:"GET",
+					error:function() {
+						alert("점검중");
+					},
+					success:function(json) {
+						
+						$("#messageScrollBox").empty();
+					
+						_.each(json, function(item, index){ 
+							$("#messageScrollBox").append(msgTmp({"msg" : item}));
+						});
 
+						$("#talkingUser").text(name);
+						
+						
+						//stompClient.send("/app/chat/", {},json[0].no);
+						
+					}
+					
+				});//ajax() end
+				
+			}
+		
+			
+			
 		/*-----------------------------메세지--------------------*/
 		/*-------------------------웹소켓-----------------------*/
 		
@@ -233,20 +313,26 @@ function connect() {
 	// SockJS와 stomp client를 통해 연결을 시도.
 	stompClient.connect({},function() {
 		
-	// 채팅리스트 얻어오는 주소 구독
-	stompClient.subscribe("/topic/chat/list", function(p) {
-		
-		
-		const list = JSON.parse(p.body);
-		
-		console.log(list);
-
-		$("#messageListInner").empty().append(msgListTmp({"lists" : list}));
-		
-	});// subscribe() end
+		// 채팅리스트 얻어오는 주소 구독
+		stompClient.subscribe("/user/queue/chat/list", function(p) {
+			
+			const list = JSON.parse(p.body);
+			
+			console.log(list);
 	
-		stompClient.send("/app/chat/list", {},${loginUser.no});
+			$("#messageListInner").empty().append(msgListTmp({"list" : list}));
+			
+			roomNo = list[0].roomNo;
+			
+			console.log(roomNo);
+			
+			getMessage($(".message_list:first"));
+			
+		});// subscribe() end
+	
+		/* 구독 */
 		
+		stompClient.send("/app/chat/list", {},${loginUser.no});
 		
 	});
 	
@@ -255,6 +341,9 @@ function connect() {
 
 connect();
 		
+		
+		
 	</script>
+	asdfasdfasdfasdf fasdf asdfasdfasdfasdfasdfsdadfasd
 </body>
 </html>

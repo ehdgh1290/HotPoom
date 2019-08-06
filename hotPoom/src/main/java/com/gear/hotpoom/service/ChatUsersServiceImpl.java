@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gear.hotpoom.dao.ChatRoomsDAO;
+import com.gear.hotpoom.dao.ChatUsersDAO;
 import com.gear.hotpoom.dao.MessagesDAO;
 import com.gear.hotpoom.vo.ChatUser;
 import com.gear.hotpoom.vo.Message;
@@ -19,8 +20,12 @@ public class ChatUsersServiceImpl implements ChatUsersService {
 	private ChatRoomsDAO chatRoomsDAO;
 	
 	@Autowired
+	private ChatUsersDAO chatUsersDAO;
+	
+	@Autowired
 	private MessagesDAO messagesDAO;
 
+	// 채팅방 정보 받아오기
 	@Override
 	public List<ChatUser> getChatRoomList(int no) {
 
@@ -39,5 +44,14 @@ public class ChatUsersServiceImpl implements ChatUsersService {
 			
 		}
 		return chatUsers;
+	}
+	
+	// 채팅방 타입 변경(보이기)
+	@Override
+	public int invisibleChat(int roomNo, int userNo) {
+
+		ChatUser chatUser = new ChatUser(roomNo, userNo);
+
+		return chatUsersDAO.updateInvisible(chatUser);
 	}
 }

@@ -3,12 +3,16 @@ package com.gear.hotpoom.vo;
 import java.sql.Timestamp;
 
 public class Message {
-	private int no, userNo, chatRoomNo;
-	private String content;
+	private int no, userNo, roomNo;
+	private String content, profileImg;
 	private Timestamp regdate;
 	
 	public Message() {
-		// TODO Auto-generated constructor stub
+	}
+	
+	public Message(int roomNo, int userNo) {
+		this.roomNo = roomNo;
+		this.userNo = userNo;
 	}
 
 	public int getNo() {
@@ -27,12 +31,20 @@ public class Message {
 		this.userNo = userNo;
 	}
 
-	public int getChatRoomNo() {
-		return chatRoomNo;
+	public int getRoomNo() {
+		return roomNo;
 	}
 
-	public void setChatRoomNo(int chatRoomNo) {
-		this.chatRoomNo = chatRoomNo;
+	public void setRoomNo(int roomNo) {
+		this.roomNo = roomNo;
+	}
+
+	public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
 	}
 
 	public String getContent() {

@@ -10,6 +10,11 @@ public class ChatUser {
 	public ChatUser() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public ChatUser(int roomNo, int userNo) {
+		this.roomNo = roomNo;
+		this.userNo = userNo;
+	}
 
 	public int getNo() {
 		return no;
