@@ -1,5 +1,6 @@
 package com.gear.hotpoom.controller;
 
+
 import java.util.List; 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -85,6 +86,7 @@ public class AjaxController {
 	public Map<String, Object> searchSpeciesName(@PathVariable String name){
 		System.out.println("controller"+name);
 		return speciesService.searchSpeciesName(name);
+>>>>>>> origin/feature/Detail
 	}
 	
 }
