@@ -6,12 +6,28 @@ import java.util.List;
 public class Poom {
 	private int no, userNo, speciesNo, price, petCnt, reviewCnt;
 	private double lat, lng, avgScore, score;
-	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg;
+	private String type, title,img, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg, petName;
 	private List<Photo> poomPhotos;
 	private Timestamp regdate;
 	
 	public Poom() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public int getNo() {

@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gear.hotpoom.service.ReviewsService;
 import com.gear.hotpoom.service.BookingsService;
+import com.gear.hotpoom.service.CreditsService;
 import com.gear.hotpoom.service.UsersService;
 import com.gear.hotpoom.vo.User;
 import com.gear.hotpoom.service.AddressesService;
+import com.gear.hotpoom.service.BankAccountsService;
 import com.gear.hotpoom.service.PoomsService;
 import com.gear.hotpoom.service.SpeciesService;
 import com.gear.hotpoom.vo.Address;
+import com.gear.hotpoom.vo.BankAccount;
+import com.gear.hotpoom.vo.Credit;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.vo.Species;
 import com.gear.hotpoom.service.PoomsService;
@@ -37,8 +41,15 @@ public class AjaxController {
 	private PoomsService poomsService;
 	@Autowired
 	private AddressesService addressesService;
+	@Autowired
+	private CreditsService creditsService;
 	
 	
+	@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
+	public List<Credit> getMyCardList(@PathVariable int userNo) {
+		
+		return creditsService.getMyCardList(userNo);
+	}
 	
 	@RequestMapping(value="/review",method=RequestMethod.GET)
 	public Map<String, Object> getReviews(int no, int pageNo) {

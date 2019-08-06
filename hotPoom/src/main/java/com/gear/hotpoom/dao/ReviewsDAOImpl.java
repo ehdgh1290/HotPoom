@@ -16,7 +16,7 @@ public class ReviewsDAOImpl implements ReviewsDAO{
 	
 	@Override
 	public List<Review> selectList(PageVO pageVO) {
-		return session.selectList("reviews.selectList", pageVO);
+		return session.selectList("reviews.selectReviewListByPoom", pageVO);
 	}
 	
 	//동호, 리뷰가 있는지 확인

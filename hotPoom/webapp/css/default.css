@@ -135,11 +135,8 @@ input:focus {
     background-color: rgba(0,0,0,0.7);
     display: none;
     z-index: 999;
-<<<<<<< HEAD
     top:0;
-=======
     top: 0;
->>>>>>> origin/feature/Detail
     left: 0;
 }
 

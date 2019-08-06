@@ -1,5 +1,11 @@
 package com.gear.hotpoom.service;
 
-public interface CreditsService {
+import java.util.List;
 
+import com.gear.hotpoom.vo.Credit;
+
+public interface CreditsService {
+	
+	public List<Credit> getMyCardList(int userNo);
+	
 }

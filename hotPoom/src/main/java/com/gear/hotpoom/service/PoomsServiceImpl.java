@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gear.hotpoom.dao.BanksDAO;
 import com.gear.hotpoom.dao.PetsDAO;
 import com.gear.hotpoom.dao.PhotosDAO;
 import com.gear.hotpoom.dao.PoomsDAO;
@@ -27,9 +28,11 @@ public class PoomsServiceImpl implements PoomsService{
 	private PhotosDAO photosDAO;
 	@Autowired
 	private PetsDAO petsDAO;
+	@Autowired
+	private BanksDAO banksDAO;
 	
 
-	@Override
+	@Override //동호, poomDetail 정보 가져오기
 	public Map<String, Object> getDetail(int no) {
 		
 		System.out.println("PoomsService getDetail() no : "+no);
@@ -45,6 +48,7 @@ public class PoomsServiceImpl implements PoomsService{
 		map.put("poom", poom);
 		map.put("photoList", photos);
 		map.put("petList", pets);
+		map.put("cardList", banksDAO.selectCardList());
 		
 		return map;
 	}

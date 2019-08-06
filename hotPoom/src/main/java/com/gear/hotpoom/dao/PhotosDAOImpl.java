@@ -15,7 +15,7 @@ public class PhotosDAOImpl implements PhotosDAO{
 	
 	@Override //동호, 품 사진들 가져오기
 	public List<Photo> selectPoomPhotos(int poomNo) {
-		return session.selectList("selectPoomPhotos", poomNo);
+		return session.selectList("photos.selectPoomPhotos", poomNo);
 	}
 	
 }

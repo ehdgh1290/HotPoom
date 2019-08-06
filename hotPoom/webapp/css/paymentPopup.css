@@ -96,8 +96,8 @@
 #creditCardAddPopup input,#creditCardAddPopup select {
     height: 30px;
 }
-#cardInformationInput {
-    width: 300px;
+#cardInformationInput1, #cardInformationInput2, #cardInformationInput3, #cardInformationInput4 {
+    width: 60px;
 }
 #creditCardAddPopup .card_information_detail_input {
     width: 50px;

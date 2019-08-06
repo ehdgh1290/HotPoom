@@ -14,7 +14,69 @@
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
-<c:import url="/WEB-INF/template/paymentPopup.jsp"/>
+
+<div id="paymentBg" class="bg">
+    <div id="paymentPopup">
+        <button type="button" class="close_popup far fa-times-circle"></button>
+        <h3>결제</h3>
+            <form id="reviewRegisterForm" action="" method="post">
+            <div id="date" class="title">기간</div>
+            <div id="dateContent">08.18 ~ 08.19, 2019</div>
+            <div id="pet" class="title">펫</div>
+            <div id="petContent">고양이 2마리</div>
+            <div id="pay" class="title">금액</div>
+            <div id="payContent">88,000원</div>
+            <div id="paymentMethod" class="title">결제수단 선택</div>
+            <select name="cardNo" id="paymentMethodSelect">
+                <option value="1">신한 - 8409</option>
+                <option value="2">농협 - 1204</option>
+            </select>
+            <button type="button" id="addCredit" class="btn">결제수단 추가</button><!--//없을때만 select없애고 넣기-->
+            <div id="request" class="title">요청사항 작성</div>
+            <textarea id="requestTextarea" name="" placeholder="요청사항을 입력해주세요."></textarea>
+        <button type="submit" id="paymentBtn" class="btn">결제하기</button>
+        </form>
+    </div><!--//paymentPopup-->
+
+    <div id="creditCardAddPopup">
+        <button type="button" class="close_popup far fa-times-circle"></button>
+        <h4>결제수단 추가</h4>
+        <form id="creditCardAddForm" action="" method="post">
+        <div id="creditCardSelectWrap">
+            <h5 class="title">카드</h5>
+            <input type="hidden" name="bankType" value="C"/>
+            <select id="cardSelect" name='bankNo'  class='card_list_select'>
+            	<c:forEach items="${cardList }" var="card">
+                <option value='${card.no }'>${card.name }</option>
+                </c:forEach>
+            </select>
+        </div><!--//creditCardSelectWrap-->
+        <div id="cardPersonInsertWrap">
+            <div id="cardPersonNameInsertInner">
+                <h5 class="title">이름</h5>
+                <input name="engName" class="card_name_insert_input" placeholder="영어이름"/>
+            </div><!--//cardPersonNameInsertInner-->
+        </div><!--//cardPersonInsertWrap-->
+        <div id="cardInformaionInsertWrap">
+            <h5 class="title">카드 정보</h5>
+            <input maxlength="4" id="cardInformationInput1" placeholder="카드번호"/> -
+            <input maxlength="4" id="cardInformationInput2" placeholder="카드번호"/> -
+            <input maxlength="4" id="cardInformationInput3" placeholder="카드번호"/> -
+            <input maxlength="4" id="cardInformationInput4" placeholder="카드번호"/>
+            <div id="cardInformaionInsertInner">
+                <span class="card_information_detail limit">만료일</span>
+                <input name="month" class="card_information_detail_input credit_card_month" maxlength="2" placeholder="월"/>
+                <span class="card_information_detail slash">/</span>
+                <input name="year" class="card_information_detail_input credit_card_year" maxlength="2" placeholder="년도"/>
+                <span class="card_information_detail">cvc</span>
+                <input name="cvc" class="card_information_detail_input" placeholder="cvc" maxlength="3"/>
+            </div><!-- //cardInformaionInsertInner -->
+        </div><!-- //cardInformaionInsertWrap -->
+        <button type="submit" id="creditCardRegisterBtn" class="btn">등 록</button>
+        </form>
+	</div>
+</div><!-- //paymentBg -->
+
     <div id="poomDetailSection">
         <div id="poomMainImage" style="background-image: url(/img/poom/${poom.mainImg})">
         </div><!--//poomMainImage end-->
@@ -27,7 +89,9 @@
                 <div id="hostUserName">
                     <a href="/user/${poom.userNo }">${poom.hostName }</a>
                 </div>
+                <c:if test="${loginUser!=null }">
                 <div id="sendMessage" class="btn"><a href="/message/${poom.userNo }">호스트에게 연락하기</a></div>
+                </c:if>
             </div>
             <div id="poomInformationInner">
                 <h3>기본 정보</h3>
@@ -68,6 +132,8 @@
                 <div id="transportation">${poom.transport }</div>
             </div><!--//map end-->
         </div><!--//poomDetailWrap end-->
+        
+        <c:if test="${loginUser!=null }">
         <div id="bookingWrap">
             <form id="bookingDetail">
                 <div id="price">₩ <span id="dayPrice">${poom.price }</span> / 박</div>
@@ -106,6 +172,7 @@
                 <button id="bookingBtn" class="btn" type="submit">예약하기</button>
             </form>
         </div><!--//bookingWrap end-->
+        </c:if>
     </div><!--//poomDetailSection end-->
     <div id="poomBg">
         <div id="poomPhotoDetail">
@@ -148,7 +215,7 @@
     <div class="review_card_content"><@=review.content@></div>
     <div class="review_card_img"><img src="/profile/user/<@=review.profileImg@>"/></div>
     <div class="review_card_user_name"><@=review.userName@></div>
-    <div class="review_card_date"><@=moment(review.regdate).format("YYYY.MM)@></div>
+    <div class="review_card_date"><@=moment(review.regdate).format("YYYY.MM")@></div>
     <div class="review_card_warning" data-no="<@=review.no@>">신고</div>
 </li>
 <@});@>
@@ -159,12 +226,14 @@ let reviewListTmp = _.template($("#reviewListTmp").html());
 
 	const $reviewCard = $(".review_card");
 	const $paginate = $("#paginate");
-	
+	let userNo = 0;
 	
 	let pageNo = 1;
 
-	$reviewCard.on("click","paginte a",function(){
-		
+	$reviewCard.on("click","paginte a",function(e){
+		e.preventDefault();
+    	pageNo = this.dataset.no;
+		getReviewList();
 	});//paginte a click end
 	
 	
@@ -182,12 +251,78 @@ let reviewListTmp = _.template($("#reviewListTmp").html());
 				alert("점검중!!");
 			},//error end
 			success:function(data){
+				console.log(data);
 				$reviewCard.html(reviewListTmp({reviewList:data.reviewList}));
 				$paginate.html(data.paginate);
 			}//success end
 		});//ajax end
 	};//getReviewList end
-
+	getReviewList();
+	
+	
+ 	// ***************************************************** 카드 관련 메소드
+	
+	//카드 리스트 가져옴
+	function getMyCardList(){
+    	$.ajax({
+    		url:"/ajax/myCardList",
+    		type:"GET",
+    		datatype:"json",
+    		data:{
+    			userNo:userNo
+    		},
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			// console.log(json);
+    			$("#creditCardSelectInner").html(cardListTmp({"cards":json}));
+    		}
+    	});//$.ajax() end
+    }// getMyCardList() end 
+    //getMyCardList();
+    
+ 	
+    $(".credit_card_popup_register").on("click",function(){
+    	
+    	let bankNo = $(".card_list_select").val();
+    	let engName = $(".last_name").val()+$(".first_name").val();
+    	let num1 = $(".card_information_insert_input1").val();
+    	let num2 = $(".card_information_insert_input2").val();
+    	let num3 = $(".card_information_insert_input3").val();
+    	let num4 = $(".card_information_insert_input4").val();
+    	let num = num1 + num2 + num3+ num4;
+    	let dueMonth = $(".credit_card_month").val();
+    	let dueYear = $(".credit_card_year").val();
+    	let cvc = $(".credit_card_cvc").val();
+    	
+    	
+    	
+    	<c:if test="${loginUser!=null}">
+    	userNo = ${loginUser.no};
+    	</c:if>
+    	
+    	$.ajax({
+    		url:"/ajax/addCard",
+    		type:"POST",
+    		datatype:"json",
+    		data:{
+    			bankNo : bankNo,
+    			engName : engName,
+    			num : num,
+    			dueMonth : dueMonth,
+    			dueYear : dueYear,
+    			cvc : cvc,
+    			userNo : userNo
+    		},
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			getMyCardList();
+    		}
+    	});//$.ajax() end
+    }); // 카드 등록 버튼 클릭시 
 
 
     //*************카카오맵***********************************************************
@@ -518,12 +653,12 @@ let reviewListTmp = _.template($("#reviewListTmp").html());
         $("#poomBg").hide();
     });//#poomInfoSection .fas click() end
     
-    $bookingDetail = $("#bookingDetail");
+    //예약하기 눌렀을 때
     $bookingDetail.on("submit", function(e){
     	e.preventDefault();
     	$paymentBg.show();
-    	
-    });//예약 눌렀을 때
+    });//$bookingDetail submit end
+    
     /************************paymentPopup******************************/
     $creditCardAddPopupCloseBtn = $("#creditCardAddPopup .close_popup");
     $creditCardAddPopup = $("#creditCardAddPopup");
