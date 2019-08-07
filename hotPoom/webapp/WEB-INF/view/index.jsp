@@ -16,12 +16,12 @@
 <c:import url="/WEB-INF/template/header.jsp"/>
 
     <div id="indexContentsSection">
-        <form id="indexHeroImageWrap">
+        <form id="indexHeroImageWrap" action="/poom">
             <div id="indexHeroImageInner">
                 <div id="indexHeroImageLocationBox" class="index_hero_image_box">
                     <h4>위치</h4>
                     <label for="indexHeroImageLocationInput">
-                    <input id="indexHeroImageLocationInput" name="indexLocation" class="index_hero_image_long_input"/></label>
+                    <input id="indexHeroImageLocationInput" name="indexLocation" class="index_hero_image_long_input" autocomplete="off"/></label>
                     <div class="index_hero_image_location_auto auto_complete">
                         <ul id="indexLocationAutoComplete" class="index_auto_complete_ul">
 
@@ -45,7 +45,7 @@
                 <div id="indexHeroImageSpeciesBox" class="index_hero_image_box">
                     <h4>종</h4>
                     <label for="indexHeroImageSpeciesInput">
-                    <input id="indexHeroImageSpeciesInput" name="indexSpecies" class="index_hero_image_long_input"/></label>
+                    <input id="indexHeroImageSpeciesInput" name="indexSpecies" class="index_hero_image_long_input" autocomplete="off"/></label>
                     <div class="index_hero_image_species_auto auto_complete">
                         <ul id="indexSpeciesAutoComplete" class="index_auto_complete_ul">
 
@@ -54,7 +54,8 @@
                 </div>
                 <div id="indexHeroImageNumBox" class="index_hero_image_box">
                     <h4>마리 수</h4>
-                    <input id="indexPetCntInput" name="indexPetCnt" class="index_hero_image_short_input"/> 마리
+                    <label for="indexPetCntInput">
+                    <input id="indexPetCntInput" name="indexPetCnt" class="index_hero_image_short_input" autocomplete="off"/></label> 마리
                 </div>
                 <button id="indexHeroImageSearchBtn" type="submit">검색</button>
             </div><!-- //indexHeroImageInner -->
@@ -136,19 +137,18 @@
 	let $speciesAuto = $("#indexSpeciesAutoComplete");
 	let $speciesInput = $("#indexHeroImageSpeciesInput");
 	
-	
 	/*****************위치 자동완성********************/
 	
 	function autoCompleteLocation() {
-	    let location = $locationInput.val().trim();
-	
-	    console.log(location);
-	
+		
+		let location = $locationInput.val();
+		
 	    if (location.length == 0) {
 	        return false;
 	    }
 	
-	    console.log("test");
+	    console.log(location);
+	    
 	
 	    $.ajax({
 	        url:"/ajax/location/auto/"+location,
@@ -158,18 +158,29 @@
 	            alert("서버 점검 중");
 	        },
 	        success:function (json) {
-	            console.log(json);
+	        	
+	            console.log(json.length);
 	
-	            $locationAuto.empty();
+	            //$locationAuto.empty();
 	
-	            $locationAuto.append(indexLocationAutoTmp({"locations":json}));
+	            $locationAuto.html(indexLocationAutoTmp({"locations":json}));
+	            
+	            $(".index_hero_image_location_auto").show();
+	            
+	            if(json.length > 4) {
+	            	$locationAuto.css("height","200px");
+	            }else {
+	            	$locationAuto.css("height",json.length*40+"px");
+	            }
+	           
 	        }//success end
 	    });//ajax end
 	}//autoCompleteLocation() end
 	
 	$("#indexHeroImageLocationBox").on("keyup",$locationInput,function () {
+		
 	    autoCompleteLocation();
-	    $(".index_hero_image_location_auto").show();
+	    
 	});//#indexHeroImageLocationBox keyup end
 	
 	
@@ -181,7 +192,7 @@
 	
 	    console.log(locationName);
 	
-	    $(".index_hero_image_location_auto").empty().hide();
+	    $(".index_hero_image_location_auto").hide();
 	
 	});//$locationAuto click end
 	
@@ -190,6 +201,7 @@
 	
 	/*****************종 자동완성********************/
 	function autoCompleteSpecies() {
+		
 	    let indexSpecies = $speciesInput.val().trim();
 	
 	    console.log(indexSpecies);
@@ -209,17 +221,18 @@
 	        success:function (json) {
 	            console.log(json);
 	
-	            $speciesAuto.empty();
-	
-	            $speciesAuto.append(indexSpeciesAutoTmp({"speciesList":json}));
+	            $(".index_hero_image_species_auto").show();
+	            
+	            $speciesAuto.html(indexSpeciesAutoTmp({"speciesList":json}));
 	        }//success end
 	    });//ajax end
 	}//autoCompleteSpecies() end
 	
 	
 	$("#indexHeroImageSpeciesBox").on("keyup", $speciesInput, function () {
+		
 	    autoCompleteSpecies();
-	    $(".index_hero_image_species_auto").show();
+	    
 	});//#indexHeroImageLocationBox keyup end
 	
 	
@@ -231,7 +244,7 @@
 	
 	    console.log(speciesName);
 	
-	    $(".index_hero_image_species_auto").empty().hide();
+	    $(".index_hero_image_species_auto").hide();
 	
 	});//$locationAuto click end
 	/*****************종 자동완성********************/
@@ -318,6 +331,7 @@
 	}//getHotPoomList() end
 	
 	getHotPoomList();
+	autoCompleteLocation();
 
 </script>
 </body>
