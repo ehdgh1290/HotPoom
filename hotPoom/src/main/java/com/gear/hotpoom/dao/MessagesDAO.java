@@ -10,4 +10,6 @@ public interface MessagesDAO {
 
 	public List<Message> getMessageList(Message message);
 
+	public int insertMessage(Message message);
+
 }

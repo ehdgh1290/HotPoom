@@ -22,4 +22,10 @@ public class MessagesDAOImpl implements MessagesDAO{
 	public List<Message> getMessageList(Message message) {
 		return session.selectList("messages.selectMsg", message);
 	}
+	
+	@Override
+	public int insertMessage(Message message) {
+		return session.insert("messages.insertMessage", message);
+	}
+	
 }

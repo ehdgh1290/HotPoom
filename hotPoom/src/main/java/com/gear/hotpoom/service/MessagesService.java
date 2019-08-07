@@ -9,4 +9,6 @@ public interface MessagesService {
 
 	public List<Message> getMessageList(Message message);
 
+	public int sendMessage(Message message);
+
 }

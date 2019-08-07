@@ -18,6 +18,7 @@ import com.gear.hotpoom.service.ChatRoomsService;
 import com.gear.hotpoom.service.ChatUsersService;
 import com.gear.hotpoom.service.MessagesService;
 import com.gear.hotpoom.vo.ChatUser;
+import com.gear.hotpoom.vo.Message;
 
 @Controller
 public class ChatController {
@@ -36,6 +37,18 @@ public class ChatController {
 	public List<ChatUser> getChatRoomList(int no, SimpMessageHeaderAccessor accessor) {
 		//@DestinationVariable = @PathVariable
 		return chatUsersService.getChatRoomList(no);
+	}	
+	
+	@MessageMapping(value="/chat/{nowRoomNo}")
+	@SendTo("/topic/chat/{nowRoomNo}")
+	public Message getMsg(Message message, SimpMessageHeaderAccessor accessor) {
+		System.out.println(message.getContent());
+		System.out.println(message.getUserNo());
+		System.out.println(message.getRoomNo());
+		
+		messagesService.sendMessage(message);
+		
+		return message; 
 	}
 	
 	

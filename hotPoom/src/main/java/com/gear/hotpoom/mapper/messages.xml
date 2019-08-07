@@ -5,9 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="messages">
 
 	<select id="selectMsg" resultType="Message" parameterType="Message">
-		SELECT u.profile_img ProfileImg, m.content content, m.user_no userNo, m.room_no roomNo
+		SELECT m.no no, u.profile_img ProfileImg, m.content content, m.user_no userNo, m.room_no roomNo
 		FROM users u, messages m
 		WHERE room_no = #{roomNo} AND u.no = m.user_no
+		ORDER BY no
 	</select>
+	
+	<insert id="insertMessage" parameterType="Message">
+		INSERT INTO messages (no, content, regdate, user_no, room_no)
+		VALUES(MESSAGES_SEQ.nextval, #{content}, systimestamp, #{userNo}, #{roomNo})
+	</insert>
 
 </mapper>

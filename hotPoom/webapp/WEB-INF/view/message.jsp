@@ -137,10 +137,10 @@
 				<!--//messageScrollBox-->
 			</div>
 			<!--//messageInner-->
-			<div id="messageSendInner">
+			<form id="messageSendInner">
 				<textarea id="messageSendInput" placeholder="내용을 입력해주세요."></textarea>
 				<button id="messageSendBtn" class="btn">전 송</button>
-			</div>
+			</form>
 			<!--//messageSendInner-->
 		</div>
 		<!--//messageDetailWrap-->
@@ -150,7 +150,7 @@
 	<script type="text/template" id="msgListTmp">
 	<@ _.each(list, function(item) { @>
 		<@ if(item.type == "V") {@>
-		<li class="message_list">
+		<li class="message_list" data-room="<@=item.roomNo@>">
         	<img class="profile" src="profile/user/<@=item.profileImg@>" width="60px" height="60px">
             <p class="nickname"><@=item.name@></p>
             <p class="message"><@=item.title@></p>
@@ -174,6 +174,8 @@
 	
 	const msgListTmp = _.template($("#msgListTmp").html());
 	const msgTmp = _.template($("#msgTmp").html());
+	
+	let nowRoomNo = -1;
 	
 		/*-----------------------------메세지--------------------*/
 		function moveScrollDown() {
@@ -258,6 +260,7 @@
 		});//message_list click() end
 		
 		
+		//메세지 받아오기
 		 function getMessage($this) {
 			
 			console.log("sddd");
@@ -267,6 +270,8 @@
 				$this.addClass("on");
 				
 				roomNo = $this.children(".listEditCheckBox").attr("data-room");
+				
+				nowRoomNo = roomNo;
 				
 				const name = $this.children(".nickname").text();
 				
@@ -283,7 +288,11 @@
 						$("#messageScrollBox").empty();
 					
 						_.each(json, function(item, index){ 
+							
 							$("#messageScrollBox").append(msgTmp({"msg" : item}));
+							
+							moveScrollDown();
+
 						});
 
 						$("#talkingUser").text(name);
@@ -297,53 +306,110 @@
 				
 			}
 		
-			
-			
 		/*-----------------------------메세지--------------------*/
 		/*-------------------------웹소켓-----------------------*/
 		
-//webSocket stomp client
-let stompClient = null;
-
-function connect() {
-	
-	let socket = new SockJS('/chat');
-	stompClient = Stomp.over(socket);
-	
-	// SockJS와 stomp client를 통해 연결을 시도.
-	stompClient.connect({},function() {
+		//webSocket stomp client
+		let stompClient = null;
 		
-		// 채팅리스트 얻어오는 주소 구독
-		stompClient.subscribe("/user/queue/chat/list", function(p) {
+		function connect() {
 			
-			const list = JSON.parse(p.body);
+			let socket = new SockJS('/chat');
+			stompClient = Stomp.over(socket);
 			
-			console.log(list);
-	
-			$("#messageListInner").empty().append(msgListTmp({"list" : list}));
+			// SockJS와 stomp client를 통해 연결을 시도.
+			stompClient.connect({},function() {
+				
+				// 채팅방리스트 얻어오는 주소 구독
+				stompClient.subscribe("/user/queue/chat/list", function(p) {
+					
+					const list = JSON.parse(p.body);
+					
+					console.log(list);
 			
-			roomNo = list[0].roomNo;
+					$("#messageListInner").empty().append(msgListTmp({"list" : list}));
+					
+					roomNo = list[0].roomNo;
+					
+					console.log(roomNo);
+					
+					_.each(list,function(item) {
+						
+						// 웹소켓 채팅 받아오는 주소 구독
+						stompClient.subscribe("/topic/chat/" + item.roomNo, function(protocol) {
+							
+							const msg = JSON.parse(protocol.body);
+							
+							console.log(msg);
+							
+							if(msg.roomNo == nowRoomNo) {
+								
+								$("#messageScrollBox").append(msgTmp({"msg" : msg}));
+							
+							moveScrollDown();
+							
+							}//if() end
+							
+							$(".message_list ").each(function() {
+								if(this.dataset.room == msg.roomNo) {
+									console.log(this);
+								
+									$("#messageListInner").prepend(this);
+										
+									console.log($(this).children("p.message").text(msg.content));
+									
+								}//if() end
+							});// message_list.each() end
+							
+						});// subscribe() end
+						
+					});
+					
+					getMessage($(".message_list:first"));
+					
+				});// subscribe() end
 			
-			console.log(roomNo);
-			
-			getMessage($(".message_list:first"));
-			
-		});// subscribe() end
-	
-		/* 구독 */
+				
+				stompClient.send("/app/chat/list", {},${loginUser.no});
+							
+				//채팅 보내기
+				$("#messageSendInner").submit(function(e) {
+					e.preventDefault();
+					
+					const msg = $("#messageSendInput").val();
+					
+					console.log(nowRoomNo);
+					console.log(msg);
+					
+					let message = JSON.stringify({content: msg, userNo: ${loginUser.no}, roomNo: nowRoomNo, profileImg: "${loginUser.profileImg}"})	
+					
+					if(msg != "") {
+						// 채팅 보내기
+						stompClient.send("/app/chat/" + nowRoomNo , {}, message);
 		
-		stompClient.send("/app/chat/list", {},${loginUser.no});
+						// 채팅 인풋 비우기
+						$("#messageSendInput").val(null);
+					}// if() end
+					
+				});// submit() end
+					
+			});// stompClient.connect() end
+			
+		}// connect() end
+				
+		connect();// connect() end
 		
-	});
-	
-	
-}
-
-connect();
 		
-		
+		// 엔터 서브밋
+		$(function() {
+		    $("#messageSendInput").on('keydown', function(event) {
+		        if (event.keyCode == 13){
+		                event.preventDefault();
+		                $('#messageSendInner').submit();
+		            }// if() end
+		    });// messageSendInput.keydown() end
+		});
 		
 	</script>
-	asdfasdfasdfasdf fasdf asdfasdfasdfasdfasdfsdadfasd
 </body>
 </html>

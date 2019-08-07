@@ -19,4 +19,9 @@ public class MessagesServiceImpl implements MessagesService{
 		return messagesDAO.getMessageList(message);
 	}
 	
+	@Override
+	public int sendMessage(Message message) {
+		return messagesDAO.insertMessage(message);
+	}
+	
 }
