@@ -28,8 +28,8 @@
     <form id="hotelInsert" action="/poom" method="post">
     
     <!-- 유저번호랑 전화번호 -->
-    	<input type="hidden" name="UserNo" value="26">
-    	<input type="hidden" name="phoneNum" value="01012341234">
+    	<input type="hidden" name="userNo" value="${loginUser.no}">
+    	<input type="hidden" name="phoneNum" value="${loginUser.phoneNum}">
     	
     <!-- 위도, 경도 -->	
     	<input type="hidden" name="lat" value="37.4809094">
