@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bookings">
 
+<<<<<<< HEAD
 	<update id="updateState" parameterType="Booking">
 		UPDATE bookings
 		SET user_state = 'F', host_state = 'F'
@@ -35,5 +36,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY b.no DESC))
 		WHERE r BETWEEN #{start} AND #{end}
 	</select>
+=======
+
+<!-- //////유저 취소/////// -->
+<update id="updateBooking" parameterType="String">
+	UPDATE bookings
+	SET user_state = 'C'
+	WHERE no = #{no}
+</update>
+
+
+<!-- /////////////////////////////////////////BILL/////////////////////////////////////////////////////// -->
+<select id="selectBill" parameterType="String" resultType="Booking">
+	SELECT b.no no, total.total total, img.img img, web.web web, (b.end_day-b.start_day) night, po.price price, po.title title,
+			b.start_day as "start", b.end_day as "end", EXTRACT(year from end_day) year, po.check_in checkIn, po.check_out checkOut,
+			s.name speciesName, b.pet_cnt petCnt, b.request request, po.main_address main, po.sub_address sub, po.introduce introduce,
+			u.no userNo, u.name userName, ba.name bank, c.num creditNum, ((b.end_day-b.start_day) * po.price * b.pet_cnt) nightPrice
+	FROM bookings b, (SELECT no, price total, booking_no bookingNo FROM payments p WHERE type = 'H' AND p.booking_no = #{bookingNo}) total,
+		(SELECT ph.img img, b.no bookingNo FROM photos ph, pooms po, bookings b
+			WHERE po.no = ph.content_no AND ph.type = 'M' AND b.no = #{bookingNo} AND b.poom_no = po.no) img, 
+		(SELECT no, price web, booking_no bookingNo FROM payments p WHERE type = 'W' AND p.booking_no = #{bookingNo}) web,
+		pooms po, species s, users u, credits c, banks ba
+	WHERE b.no = total.bookingNo AND b.no = img.bookingNo AND b.no = web.bookingNo AND b.no = #{bookingNo} AND po.no = b.poom_no 
+		AND s.no = po.species_no AND u.no = b.user_no AND c.user_no = u.no AND c.bank_no = ba.no
+</select>
+>>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 
 </mapper>

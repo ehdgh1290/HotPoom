@@ -4,8 +4,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Booking {
+<<<<<<< HEAD
 	private int userNo, poomNo, petCnt, price, hostNo;
 	private String no, request, userState, hostState, img, mainAddress, subAddress, speciesName, poomType, poomTitle;
+=======
+	private int userNo, poomNo, petCnt, total, web, night, price, nightPrice;
+	private String no,request, userState, hostState, img, title, year, 
+		checkIn, checkOut, speciesName, main, sub, introduce, userName, bank, creditNum;
+>>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 	private Date startDay, endDay;
 	private Timestamp regdate;
 	private boolean isReview;
@@ -14,6 +20,7 @@ public class Booking {
 		// TODO Auto-generated constructor stub
 	}
 
+<<<<<<< HEAD
 	public String getPoomTitle() {
 		return poomTitle;
 	}
@@ -86,13 +93,20 @@ public class Booking {
 		this.isReview = isReview;
 	}
 
+=======
+>>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 	public String getNo() {
 		return no;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 	public void setNo(String no) {
 		this.no = no;
 	}
+
 
 	public int getUserNo() {
 		return userNo;
@@ -164,6 +178,144 @@ public class Booking {
 
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public int getWeb() {
+		return web;
+	}
+
+	public void setWeb(int web) {
+		this.web = web;
+	}
+
+	public int getNight() {
+		return night;
+	}
+
+	public void setNight(int night) {
+		this.night = night;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getCheckIn() {
+		return checkIn;
+	}
+
+	public void setCheckIn(String checkIn) {
+		this.checkIn = checkIn;
+	}
+
+	public String getCheckOut() {
+		return checkOut;
+	}
+
+	public void setCheckOut(String checkOut) {
+		this.checkOut = checkOut;
+	}
+
+	public String getSpeciesName() {
+		return speciesName;
+	}
+
+	public void setSpeciesName(String speciesName) {
+		this.speciesName = speciesName;
+	}
+
+	public String getMain() {
+		return main;
+	}
+
+	public void setMain(String main) {
+		this.main = main;
+	}
+
+	public String getSub() {
+		return sub;
+	}
+
+	public void setSub(String sub) {
+		this.sub = sub;
+	}
+
+	public String getIntroduce() {
+		return introduce;
+	}
+
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getCreditNum() {
+		return creditNum;
+	}
+
+	public void setCreditNum(String creditNum) {
+		this.creditNum = creditNum;
+	}
+
+
+	public int getNightPrice() {
+		return nightPrice;
+	}
+
+
+	public void setNightPrice(int nightPrice) {
+		this.nightPrice = nightPrice;
 	}
 	
 }
