@@ -1,5 +1,10 @@
 package com.gear.hotpoom.dao;
 
-public interface PoomsDAO {
+import com.gear.hotpoom.vo.Poom;
 
+public interface PoomsDAO {
+	
+	public int insert(Poom poom);
+
+	public int update(Poom poom);
 }

@@ -300,6 +300,7 @@ a:hover {
     height:60px;
     line-height: 60px;;
     border-top: #424242 solid 2px;
+    background-color: #fff;
 }
 
 #footer.fixed {
@@ -308,7 +309,7 @@ a:hover {
 }
 #footer address {
     position: absolute;
-    width:300px;
+    width:400px;
     height:60px;
     display: inline-block;
     color:#424242;
@@ -333,7 +334,7 @@ a.btn {
 #policy ul {
     position: absolute;
     text-align: center;
-    left: 400px;
+    left: 500px;
 }
 
 #policy li {

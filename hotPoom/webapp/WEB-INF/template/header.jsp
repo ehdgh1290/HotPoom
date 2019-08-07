@@ -25,6 +25,7 @@
     </div>
 </header>
 <main id="content">
+<!-- 
 <div id="bg">
     <div id="loginPopup">
         <span id="loginTitle">Login</span>
@@ -39,4 +40,4 @@
         <span id="joinInfo">핫품 계정이 없으세요?</span>
         <a id="joinBtn" class="cursor_pointer">회원가입</a>
     </div><!-- //loginPopup -->
-</div><!-- //bg -->
+<!--</div>--><!-- //bg -->

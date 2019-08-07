@@ -1,5 +1,10 @@
 package com.gear.hotpoom.service;
 
-public interface UsersService {
+import com.gear.hotpoom.vo.User;
 
+public interface UsersService {
+	
+	public int getUserNo(String email);
+
+	public int updatePassword(User user,int no);
 }

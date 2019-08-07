@@ -4,6 +4,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
 
+	<insert id="insert" parameterType="Poom">
+		<selectKey order="BEFORE"
+		keyProperty="no" 
+		resultType="int">
+			SELECT articles_seq.nextval
+			FROM dual
+		</selectKey>
+		INSERT INTO pooms(no, type, title, user_no, species_no, price, 
+				check_in, check_out, pet_cnt, introduce, amenity,
+				main_address, sub_address,
+				post_num, phone_num, transport, lat, lng, regdate)
+		VALUES (#{no},#{type},#{title},#{userNo},#{speciesNo},#{price},
+				#{checkIn},#{checkOut},#{petCnt},#{introduce},#{amenity},
+				#{mainAddress},#{subAddress},
+				#{postNum},#{phoneNum},#{transport},#{lat},#{lng},systimestamp)
+	</insert>
+	
+	<update id="update" parameterType="Poom">
+		UPDATE pooms 
+		SET type=#{type},title=#{title}, species_no=#{speciesNo}, price=#{price}, 
+				check_in=#{checkIn}, check_out=#{checkOut}, pet_cnt=#{petCnt},
+				introduce=#{introduce}, amenity=#{amenity},
+				main_address=#{mainAddress}, sub_address=#{subAddress},
+				post_num=#{postNum}, transport=#{transport}, lat=#{lat}, lng=#{lng}
+		WHERE no = #{no}
+	</update>
+
 	
 
 </mapper>

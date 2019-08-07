@@ -4,6 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="photos">
 
+	<insert id="insert" parameterType="Photo">
+		INSERT INTO photos(no,type,content_no,img,caption,regdate)
+		VALUES (photos_seq.nextval,#{type},#{contentNo},#{img},#{caption},systimestamp)
+	</insert>
 	
+	<update id="update" parameterType="Photo">
+		UPDATE photos
+		SET img = #{img},caption=#{caption}
+		WHERE no = #{no}
+	</update>
 
 </mapper>
