@@ -1,11 +1,16 @@
 package com.gear.hotpoom.service;
 
+
 import java.util.List;
 import java.util.Map;
 
 import com.gear.hotpoom.vo.Poom;
 
 public interface PoomsService {
+	
+	public int register(Poom poom);
+	
+	public int modify(Poom poom);
 
 	//hot poom
 	public List<Poom> getListHP();

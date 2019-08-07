@@ -11,4 +11,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND password = #{password}
 	</select>
 
+	<select id="selectNoByEmail" parameterType="String" resultType="int">
+		SELECT no
+		FROM users
+		WHERE email=#{email}
+	</select>
+	
+	<select id="selectCheckId" parameterType="String" resultType="int">
+		SELECT COUNT(email)
+		FROM users
+		WHERE email=#{email}
+	</select>
+	
+	<update id="updatePassword" parameterType="User">
+		UPDATE users
+		SET password = #{password}
+		WHERE no = #{no}
+	</update>
+
 </mapper>

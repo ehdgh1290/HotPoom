@@ -31,37 +31,3 @@
 	</div>
 </header>
 <main id="content">
-<<<<<<< HEAD
-<div id="bg">
-	<div id="loginPopup">
-		<span id="loginTitle">Login</span><i class="far fa-times-circle cursor_pointer"></i>
-		<span class="loginPopup_text">이메일</span>
-		<input form="loginForm" name="email" id="idInput" class="loginPopup_input">
-		<span class="loginPopup_text">비밀번호</span>
-		<input form="loginForm" name="password" id="passwordInput" class="loginPopup_input" type="password">
-		<div class="msg">아이디와 비밀번호가 맞지 않습니다.</div>
-		<button form="loginForm" type="submit" id="loginBtn" class="btn cursor_pointer">로그인</button>
-		<span id="passwordInfo">비밀번호가 기억나지 않으세요?</span>
-		<a href="/password" id="findPasswordBtn" class="cursor_pointer">비밀번호찾기</a>
-		<span id="joinInfo">핫품 계정이 없으세요?</span>
-		<a href="/signUp" id="joinBtn" class="cursor_pointer">회원가입</a>
-		<form id="loginForm" action="/session" method="post"></form>
-	</div><!-- //loginPopup -->
-</div><!-- //bg -->
-=======
-<!-- <div id="bg">
-    <div id="loginPopup">
-        <span id="loginTitle">Login</span>
-        <i class="far fa-times-circle cursor_pointer"></i>
-        <span class="loginPopup_text">이메일</span>
-        <input id="idInput" class="loginPopup_input">
-        <span class="loginPopup_text">비밀번호</span>
-        <input id="passwordInput" class="loginPopup_input" type="password">
-        <button id="loginBtn" class="btn cursor_pointer">로그인</button>
-        <span id="passwordInfo">비밀번호가 기억나지 않으세요?</span>
-        <a id="findPasswordBtn" class="cursor_pointer">비밀번호찾기</a>
-        <span id="joinInfo">핫품 계정이 없으세요?</span>
-        <a id="joinBtn" class="cursor_pointer">회원가입</a>
-    </div>//loginPopup
-</div>//bg -->
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681

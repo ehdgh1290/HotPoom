@@ -6,8 +6,7 @@ import com.gear.hotpoom.vo.Species;
 
 public interface SpeciesDAO {
 	
-	public List<Species> selectList(String species);
 
-	public List<Species> selectSpeciesName(String name);
+	public List<Species> selectList(String species);
 	
 }

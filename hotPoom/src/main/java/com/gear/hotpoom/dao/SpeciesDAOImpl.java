@@ -13,14 +13,7 @@ public class SpeciesDAOImpl implements SpeciesDAO{
 	@Autowired
 	private SqlSession session;
 	
-	@Override
-	public List<Species> selectSpeciesName(String name) {
-		// TODO Auto-generated method stub
-		System.out.println("dao"+name);
-		return session.selectList("species.searchSpeciesForPoomList", "%"+name+"%");
-	}
-	
-	//index species autocomplete
+	//index species autocomplete 종 자동완성
 	@Override
 	public List<Species> selectList(String species) {
 		return session.selectList("species.selectList", "%"+species+"%");
