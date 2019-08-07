@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="reviews">
 
 	<select id="selectReviewListByPoom" parameterType="int" resultType="Review">
-		SELECT r.no, r.user_no userNo, r.booking_no bookingNo, r.content, r.score, r.regdate, u.profile_img profileImg
+		SELECT r.no, r.user_no userNo, r.booking_no bookingNo, r.content, r.score, r.regdate, u.profile_img profileImg, u.name userName
 		FROM reviews r, bookings b, pooms p, users u
 		WHERE p.no = b.poom_no
 		AND r.booking_no = b.no

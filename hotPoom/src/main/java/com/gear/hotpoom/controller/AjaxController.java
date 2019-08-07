@@ -44,13 +44,20 @@ public class AjaxController {
 	@Autowired
 	private CreditsService creditsService;
 	
+	//카드 등록하기
+	@RequestMapping(value="/card", method=RequestMethod.POST)
+	public int addCard(Credit credit) {
+		return creditsService.registerBasicCard(credit);
+	}
 	
-	@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
-	public List<Credit> getMyCardList(@PathVariable int userNo) {
+	//내 카드 가져오기
+	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
+	public List<Credit> getMyCardList(int userNo) {
 		
 		return creditsService.getMyCardList(userNo);
 	}
 	
+	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)
 	public Map<String, Object> getReviews(int no, int pageNo) {
 		

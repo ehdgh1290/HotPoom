@@ -116,8 +116,11 @@
     font-size: 18px;
     left: 90px;
 }
-#creditCardSelectWrap,#cardPersonNameInsertInner {
-    margin: 50px 0;
+#creditCardSelectWrap {
+    margin: 30px 0;
+}
+#cardPersonNameInsertInner {
+	margin: 20px 0;
 }
 .close_popup {
     width: 50px;

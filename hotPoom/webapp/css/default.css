@@ -112,6 +112,7 @@ input:focus {
     right: 30px;
     border: 1px solid #424242;
     display: none;
+    z-index: 999;
 }
 #lnb:hover {
     cursor: pointer;

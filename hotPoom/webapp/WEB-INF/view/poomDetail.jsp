@@ -28,8 +28,7 @@
             <div id="payContent">88,000원</div>
             <div id="paymentMethod" class="title">결제수단 선택</div>
             <select name="cardNo" id="paymentMethodSelect">
-                <option value="1">신한 - 8409</option>
-                <option value="2">농협 - 1204</option>
+            	<!-- //cardListTmp -->
             </select>
             <button type="button" id="addCredit" class="btn">결제수단 추가</button><!--//없을때만 select없애고 넣기-->
             <div id="request" class="title">요청사항 작성</div>
@@ -54,7 +53,9 @@
         <div id="cardPersonInsertWrap">
             <div id="cardPersonNameInsertInner">
                 <h5 class="title">이름</h5>
-                <input name="engName" class="card_name_insert_input" placeholder="영어이름"/>
+                <input name="engLastName" id="engLastName" class="card_name_insert_input" placeholder="영어로"/>
+                <h5 class="title">성</h5>
+                <input name="engFirstName" id="engFirstName" class="card_name_insert_input" placeholder="영어로"/>
             </div><!--//cardPersonNameInsertInner-->
         </div><!--//cardPersonInsertWrap-->
         <div id="cardInformaionInsertWrap">
@@ -69,7 +70,7 @@
                 <span class="card_information_detail slash">/</span>
                 <input name="year" class="card_information_detail_input credit_card_year" maxlength="2" placeholder="년도"/>
                 <span class="card_information_detail">cvc</span>
-                <input name="cvc" class="card_information_detail_input" placeholder="cvc" maxlength="3"/>
+                <input name="cvc" class="card_information_detail_input credit_card_cvc" placeholder="cvc" maxlength="3"/>
             </div><!-- //cardInformaionInsertInner -->
         </div><!-- //cardInformaionInsertWrap -->
         <button type="submit" id="creditCardRegisterBtn" class="btn">등 록</button>
@@ -136,7 +137,7 @@
         <c:if test="${loginUser!=null }">
         <div id="bookingWrap">
             <form id="bookingDetail">
-                <div id="price">₩ <span id="dayPrice">${poom.price }</span> / 박</div>
+                <div id="price">₩ <span id="dayPrice"><fmt:formatNumber value="${poom.price }"/></span> / 박</div>
                 <div id="bookingDate">
                     날짜
                     <br/>
@@ -157,7 +158,7 @@
                     <input id="count" type="number" min="1" max="1000" value="1">
                 </div>
                 <div id="bookingPrice">
-                    <div>₩ <span>15,000</span> x
+                    <div>₩ <span><fmt:formatNumber value="${poom.price }"/></span> x
                         <span id="dayCount"></span>박 x
                         <span id="petCnt">1</span>마리
                         <span id="priceCount"></span>
@@ -216,13 +217,21 @@
     <div class="review_card_img"><img src="/profile/user/<@=review.profileImg@>"/></div>
     <div class="review_card_user_name"><@=review.userName@></div>
     <div class="review_card_date"><@=moment(review.regdate).format("YYYY.MM")@></div>
+	<c:if test="${loginUser.no==poom.userNo}">	
     <div class="review_card_warning" data-no="<@=review.no@>">신고</div>
+	</c:if>
 </li>
+<@});@>
+</script>
+<script type="text/temlpate" id="cardListTmp">
+<@_.each(cards,function(card){@>
+	<option value="<@=card.no@>"><@=card.bankNo@> - <@=card.num.substring(12,16)@></option>
 <@});@>
 </script>
 <script>
 _.templateSettings = {interpolate: /\<\@\=(.+?)\@\>/gim,evaluate: /\<\@([\s\S]+?)\@\>/gim,escape: /\<\@\-(.+?)\@\>/gim};
 let reviewListTmp = _.template($("#reviewListTmp").html());
+let cardListTmp = _.template($("#cardListTmp").html());
 
 	const $reviewCard = $(".review_card");
 	const $paginate = $("#paginate");
@@ -275,35 +284,41 @@ let reviewListTmp = _.template($("#reviewListTmp").html());
     			alert("서버 점검중!");
     		},
     		success:function(json){
-    			// console.log(json);
-    			$("#creditCardSelectInner").html(cardListTmp({"cards":json}));
-    		}
+    			console.log("내 카드 리스트");
+    			console.log(json);
+    			console.log(json.length);
+    				$("#paymentMethodSelect").show();
+    			if(json.length==0) {
+    				$("#paymentMethodSelect").hide();
+    			}else {
+	    			$("#paymentMethodSelect").html(cardListTmp({"cards":json}));
+    			}//if~else end
+    		}//success end
     	});//$.ajax() end
     }// getMyCardList() end 
-    //getMyCardList();
     
- 	
-    $(".credit_card_popup_register").on("click",function(){
+    <c:if test="${loginUser!=null}">
+	    getMyCardList();
+		userNo = ${loginUser.no};
+    </c:if>
+    
+    $("#creditCardAddForm").on("submit",function(e){
+    	console.log("submit");
+    	e.preventDefault();
     	
-    	let bankNo = $(".card_list_select").val();
-    	let engName = $(".last_name").val()+$(".first_name").val();
-    	let num1 = $(".card_information_insert_input1").val();
-    	let num2 = $(".card_information_insert_input2").val();
-    	let num3 = $(".card_information_insert_input3").val();
-    	let num4 = $(".card_information_insert_input4").val();
+    	let bankNo = $("#cardSelect").val();
+    	let engName = $("#engLastName").val()+$("#engFirstName").val();
+    	let num1 = $("#cardInformationInput1").val();
+    	let num2 = $("#cardInformationInput2").val();
+    	let num3 = $("#cardInformationInput3").val();
+    	let num4 = $("#cardInformationInput4").val();
     	let num = num1 + num2 + num3+ num4;
     	let dueMonth = $(".credit_card_month").val();
     	let dueYear = $(".credit_card_year").val();
     	let cvc = $(".credit_card_cvc").val();
     	
-    	
-    	
-    	<c:if test="${loginUser!=null}">
-    	userNo = ${loginUser.no};
-    	</c:if>
-    	
     	$.ajax({
-    		url:"/ajax/addCard",
+    		url:"/ajax/card",
     		type:"POST",
     		datatype:"json",
     		data:{
@@ -320,9 +335,9 @@ let reviewListTmp = _.template($("#reviewListTmp").html());
     		},
     		success:function(json){
     			getMyCardList();
-    		}
+    		}//success end
     	});//$.ajax() end
-    }); // 카드 등록 버튼 클릭시 
+    });//#creditCardAddForm submit end
 
 
     //*************카카오맵***********************************************************

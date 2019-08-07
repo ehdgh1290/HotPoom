@@ -13,6 +13,10 @@ public class CreditsServiceImpl implements CreditsService{
 	@Autowired
 	private CreditsDAO creditsDAO;
 	
+	@Override
+	public int registerBasicCard(Credit credit) {
+		return creditsDAO.insertBasicCard(credit);
+	}
 	
 	@Override
 	public List<Credit> getMyCardList(int userNo) {

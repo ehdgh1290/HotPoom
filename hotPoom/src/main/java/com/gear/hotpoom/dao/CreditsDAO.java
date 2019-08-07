@@ -7,5 +7,6 @@ import com.gear.hotpoom.vo.Credit;
 public interface CreditsDAO {
 
 	public List<Credit> selectCardList(int userNo);
+	public int insertBasicCard(Credit credit);
 	
 }
