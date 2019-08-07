@@ -30,17 +30,19 @@ public class BookingsServiceImpl implements BookingsService{
 		pageVO.setNo(userNo);
 		List<Booking> list = bookingsDAO.selectList(pageVO);
 		//기간이 지난것 중 리뷰를 쓴 것이 있는지
-		for(Booking booking : list) {
-			System.out.println("bookingNo:"+booking.getNo());
-			int type = bookingsDAO.updateState(booking);
-			System.out.println("type:"+type);
-			if(type==1) {
-				booking.setUserState("F");
-				booking.setHostState("F");
-			}
-			booking.setIsReview(reviewsDAO.isReview(booking.getNo())==1);
-		}
+		if(!list.isEmpty()) {
+			for(Booking booking : list) {
+				System.out.println("bookingNo:"+booking.getNo());
+				int type = bookingsDAO.updateState(booking);
+				System.out.println("type:"+type);
+				if(type==1) {
+					booking.setUserState("F");
+					booking.setHostState("F");
+				};//if end
+				booking.setIsReview(reviewsDAO.isReview(booking.getNo())==1);
+			};//for end
 		map.put("bookingList", list);
+		};//if end
 		
 		int numBlock = 5;
 		int total = bookingsDAO.selectTotal(userNo);

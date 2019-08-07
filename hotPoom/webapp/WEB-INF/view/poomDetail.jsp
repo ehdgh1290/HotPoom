@@ -261,7 +261,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
 			},//error end
 			success:function(data){
 				console.log(data);
-				$reviewCard.html(reviewListTmp({reviewList:data.reviewList}));
+				$reviewCard.children().html(reviewListTmp({reviewList:data.reviewList}));
 				$paginate.html(data.paginate);
 			}//success end
 		});//ajax end

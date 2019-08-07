@@ -14,13 +14,18 @@ public class ReviewsDAOImpl implements ReviewsDAO{
 	@Autowired
 	private SqlSession session;
 	
-	@Override
+	@Override //품에서 리뷰 갯수 불러옴
+	public int selectTotalByPoom(int poomNo) {
+		return session.selectOne("reviews.selectTotalByPoom", poomNo);
+	}
+	
+	@Override //품에서 리뷰 리스트 불러옴
 	public List<Review> selectList(PageVO pageVO) {
 		return session.selectList("reviews.selectReviewListByPoom", pageVO);
 	}
 	
-	//동호, 리뷰가 있는지 확인
-	@Override
+	
+	@Override //동호, 리뷰가 있는지 확인
 	public int isReview(String bookingNo) {
 		return session.selectOne("reviews.selectIsReview",bookingNo);
 	}

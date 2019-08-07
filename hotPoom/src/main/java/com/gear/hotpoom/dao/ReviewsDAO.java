@@ -10,4 +10,5 @@ public interface ReviewsDAO {
 	public int isReview(String bookingNo);
 	public int insert(Review review);
 	public List<Review> selectList(PageVO pageVO);
+	public int selectTotalByPoom(int poomNo);
 }

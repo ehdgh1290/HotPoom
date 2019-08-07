@@ -157,8 +157,7 @@ _.templateSettings = {interpolate: /\<\@\=(.+?)\@\>/gim,evaluate: /\<\@([\s\S]+?
 			dataType:"json",
 			type:"get",
 			data:{
-				//"userNo":${loginUser.no},
-				"userNo":11,
+				"userNo":${loginUser.no},
 				"pageNo":pageNo
 			},
 			error:function(){
