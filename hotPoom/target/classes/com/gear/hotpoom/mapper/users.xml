@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="users">
 
 	<select id="selectLogin" parameterType="User" resultType="User">
-		SELECT no, name, profile_img profileImg
+		SELECT no, name, profile_img profileImg,phone_num phoneNum
 		FROM users
 		WHERE email = #{email}
 		AND password = #{password}
