@@ -16,6 +16,7 @@ public class UsersDAOImpl implements UsersDAO{
 
 	public User selectLogin(User user) {
 		return session.selectOne("users.selectLogin", user);
+	}
 
 	public int selectNoByEmail(String email) {
 		return session.selectOne("users.selectNoByEmail", email);

@@ -21,13 +21,13 @@ import com.gear.hotpoom.vo.User;
 public class UserController {
 
 	@Autowired
-	private UsersService service;
+	private UsersService usersService;
 	@Autowired
 	private CertsService certsService;
 	
 	@RequestMapping(value="/session",method=RequestMethod.POST)
 	public String login(User user,HttpSession session, @RequestHeader String referer, RedirectAttributes ra) {
-		User loginUser = service.loginCheck(user);
+		User loginUser = usersService.loginCheck(user);
 		if(loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
 		}else {
@@ -40,7 +40,7 @@ public class UserController {
 	public String logout(HttpSession session, @RequestHeader String referer) {
 		session.removeAttribute("loginUser");
 		return "redirect:"+referer;
-	
+	}
 	//비밀번호 찾기 페이지로 이동
 	@RequestMapping(value="/user/password/find",method=RequestMethod.GET)
 	public String passwordFindForm() {

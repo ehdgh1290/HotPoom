@@ -19,6 +19,7 @@ public class PoomsServiceImpl implements PoomsService{
 	
 	@Autowired
 	private PoomsDAO poomsDAO;
+	@Autowired
 	private PhotosDAO photosDAO;
 	
 	@Override
@@ -51,11 +52,6 @@ public class PoomsServiceImpl implements PoomsService{
 	public int modify(Poom poom) {
 		return 0;
 	}
-	
-
-	@Autowired
-	private PoomsDAO poomsDAO;
-	
 	
 	//hot poom
 	@Override

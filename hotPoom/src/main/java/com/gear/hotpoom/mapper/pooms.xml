@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-<!--------------------------------수정-------------------------------------------------->
+<!-- 수정 -->
 	<insert id="insert" parameterType="Poom">
 		<selectKey order="BEFORE"
 		keyProperty="no" 
@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE no = #{no}
 	</update>
 
-<!--------------------------------수정-------------------------------------------------->
+<!-- 수정 -->
 	
 	<select id="selectPoomPhotos" resultType="Photo" parameterType="int">
 		SELECT type, content_no contentNo, img

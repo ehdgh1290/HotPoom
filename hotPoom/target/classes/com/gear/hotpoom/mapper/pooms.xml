@@ -58,7 +58,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE r between #{start} AND #{end}
 	</select>
 
-<!--수정-->
+
+<!-- 수정 -->
 	<insert id="insert" parameterType="Poom">
 		<selectKey order="BEFORE"
 		keyProperty="no" 
@@ -85,7 +86,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				post_num=#{postNum}, transport=#{transport}, lat=#{lat}, lng=#{lng}
 		WHERE no = #{no}
 	</update>
-<!--수정-->
+
+<!-- 수정 -->
 	
 	<select id="selectPoomPhotos" resultType="Photo" parameterType="int">
 		SELECT type, content_no contentNo, img
