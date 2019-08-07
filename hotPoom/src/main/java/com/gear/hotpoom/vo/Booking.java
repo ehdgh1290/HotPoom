@@ -4,14 +4,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Booking {
-<<<<<<< HEAD
-	private int userNo, poomNo, petCnt, price, hostNo;
-	private String no, request, userState, hostState, img, mainAddress, subAddress, speciesName, poomType, poomTitle;
-=======
-	private int userNo, poomNo, petCnt, total, web, night, price, nightPrice;
-	private String no,request, userState, hostState, img, title, year, 
-		checkIn, checkOut, speciesName, main, sub, introduce, userName, bank, creditNum;
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
+	private int userNo, poomNo, petCnt, price, hostNo, total, web, night,nightPrice;
+	private String no, request, userState, hostState, img, mainAddress, subAddress, speciesName, poomType, poomTitle,
+		title, year, checkIn, checkOut, main, sub, introduce, userName, bank, creditNum;
 	private Date startDay, endDay;
 	private Timestamp regdate;
 	private boolean isReview;
@@ -20,7 +15,6 @@ public class Booking {
 		// TODO Auto-generated constructor stub
 	}
 
-<<<<<<< HEAD
 	public String getPoomTitle() {
 		return poomTitle;
 	}
@@ -35,22 +29,6 @@ public class Booking {
 
 	public void setHostNo(int hostNo) {
 		this.hostNo = hostNo;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
 	}
 
 	public String getMainAddress() {
@@ -69,14 +47,6 @@ public class Booking {
 		this.subAddress = subAddress;
 	}
 
-	public String getSpeciesName() {
-		return speciesName;
-	}
-
-	public void setSpeciesName(String speciesName) {
-		this.speciesName = speciesName;
-	}
-
 	public String getPoomType() {
 		return poomType;
 	}
@@ -93,16 +63,10 @@ public class Booking {
 		this.isReview = isReview;
 	}
 
-=======
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 	public String getNo() {
 		return no;
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 	public void setNo(String no) {
 		this.no = no;
 	}

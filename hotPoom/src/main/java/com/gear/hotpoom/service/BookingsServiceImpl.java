@@ -1,30 +1,32 @@
 package com.gear.hotpoom.service;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-=======
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gear.hotpoom.dao.BookingsDAO;
-<<<<<<< HEAD
 import com.gear.hotpoom.dao.ReviewsDAO;
 import com.gear.hotpoom.util.PaginateUtil;
 import com.gear.hotpoom.vo.Booking;
 import com.gear.hotpoom.vo.PageVO;
+import com.gear.hotpoom.dao.CancelsDAO;
+import com.gear.hotpoom.vo.Cancel;
+
 
 @Service
 public class BookingsServiceImpl implements BookingsService{
+	
 	@Autowired
 	private BookingsDAO bookingsDAO;
 	@Autowired
 	private ReviewsDAO reviewsDAO; 
 	@Autowired
 	private PaginateUtil paginateUtil;
+	@Autowired
+	private CancelsDAO cancelsDAO;
 	
 	@Override //동호, 리스트 가져옴
 	public Map<String, Object> getList(int userNo, int pageNo) {
@@ -53,22 +55,8 @@ public class BookingsServiceImpl implements BookingsService{
 		
 		return map;
 	}
-	
-	
-	
-=======
-import com.gear.hotpoom.dao.CancelsDAO;
-import com.gear.hotpoom.vo.Booking;
-import com.gear.hotpoom.vo.Cancel;
 
-@Service
-public class BookingsServiceImpl implements BookingsService{
 
-	@Autowired
-	private BookingsDAO bookingsDAO;
-	@Autowired
-	private CancelsDAO cancelsDAO;
-	
 	
 	//bill
 	@Override
@@ -85,5 +73,4 @@ public class BookingsServiceImpl implements BookingsService{
 		cancelsDAO.insertBooking(cancel);
 		
 	}//modifyBooking() end
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 }

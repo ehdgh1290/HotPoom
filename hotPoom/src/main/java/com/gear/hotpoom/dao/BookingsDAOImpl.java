@@ -7,18 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gear.hotpoom.vo.Booking;
-<<<<<<< HEAD
 import com.gear.hotpoom.vo.PageVO;
-=======
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 
 @Repository
 public class BookingsDAOImpl implements BookingsDAO{
+	
 	@Autowired
 	private SqlSession session;
 	
 	
-<<<<<<< HEAD
 	@Override //booking 페이지 볼 때 기간이 지난 것 F로 바꿈
 	public int updateState(Booking booking) {
 		return session.update("updateState", booking);
@@ -33,7 +30,8 @@ public class BookingsDAOImpl implements BookingsDAO{
 	public List<Booking> selectList(PageVO pageVO) {
 		return session.selectList("selectList",pageVO);
 	}
-=======
+	
+	
 	//bill
 	@Override
 	public Booking selectBill(String bookingNo) {
@@ -45,6 +43,5 @@ public class BookingsDAOImpl implements BookingsDAO{
 	public int updateBooking(String no) {
 		return session.update("bookings.updateBooking", no);
 	}//updateBooking() end
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
 	
 }
