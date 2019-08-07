@@ -4,11 +4,12 @@ package com.gear.hotpoom.service;
 import java.util.List;
 import java.util.Map;
 
+import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
 
 public interface PoomsService {
 	
-	public int register(Poom poom);
+	public int register(Poom poom, String photoType, String poomImg, String caption);
 	
 	public int modify(Poom poom);
 

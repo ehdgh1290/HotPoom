@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey order="BEFORE"
 		keyProperty="no" 
 		resultType="int">
-			SELECT articles_seq.nextval
+			SELECT pooms_seq.nextval
 			FROM dual
 		</selectKey>
 		INSERT INTO pooms(no, type, title, user_no, species_no, price, 

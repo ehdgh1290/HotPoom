@@ -11,7 +11,7 @@ import com.gear.hotpoom.dao.PoomsDAO;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.util.PaginateUtil;
 import com.gear.hotpoom.vo.PageVO;
-
+import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.dao.PhotosDAO;
 
 @Service
@@ -22,32 +22,29 @@ public class PoomsServiceImpl implements PoomsService{
 	@Autowired
 	private PhotosDAO photosDAO;
 	
+	
+	//품 등록
 	@Override
-	public int register(Poom poom) {
+	public int register(Poom poom, String photoType, String poomImg, String caption) {
+		
+		System.out.println("photoType : "+photoType);
+		System.out.println("poomImg : "+poomImg);
+		System.out.println("caption : "+caption);
 		
 		
-		System.out.println(poom.getNo());
-		System.out.println(poom.getType());
-		System.out.println(poom.getTitle());
-		System.out.println(poom.getUserNo());
-		System.out.println(poom.getSpeciesNo());
-		System.out.println(poom.getPrice());
-		System.out.println(poom.getCheckIn());
-		System.out.println(poom.getCheckOut());
-		System.out.println(poom.getPetCnt());
-		System.out.println(poom.getIntroduce());
-		System.out.println(poom.getAmenity());
-		System.out.println(poom.getMainAddress());
-		System.out.println(poom.getSubAddress());
-		System.out.println(poom.getPostNum());
-		System.out.println(poom.getTransport());
-		System.out.println(poom.getLat());
-		System.out.println(poom.getLng());
-
+		Photo photo = new Photo();
+		photo.setNo(poom.getNo());
+		photo.setType(photoType);
+		photo.setImg(poomImg);
+		photo.setCaption(caption);
+		
+		poomsDAO.insert(poom);
+		photosDAO.insert(photo);
 		
 		return 1;
 	}
 	
+	//품 수정
 	@Override
 	public int modify(Poom poom) {
 		return 0;

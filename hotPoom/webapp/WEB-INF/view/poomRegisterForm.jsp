@@ -26,10 +26,16 @@
         <span id="thirdCircle" class="circle">3</span>
     </div>
     <form id="hotelInsert" action="/poom" method="post">
+    
+    <!-- 유저번호랑 전화번호 -->
     	<input type="hidden" name="UserNo" value="26">
-    	<input type="hidden" name="phoneNum" value="1111">
-    	<input type="hidden" name="lat" value="37">
-    	<input type="hidden" name="lng" value="128">
+    	<input type="hidden" name="phoneNum" value="01012341234">
+    	
+    <!-- 위도, 경도 -->	
+    	<input type="hidden" name="lat" value="37.4809094">
+    	<input type="hidden" name="lng" value="126.949907">
+    
+    
         <!---------------------------------- 첫번째 페이지 -------------------------------->
         <div class="page" id="firstPage">
             <h1>품 등록</h1>
@@ -45,13 +51,13 @@
                     <div id="mainPhotoSecction">
                         <div>
                             <input id="mainPhotoInput" name="img" type="file">
-                            <input type="hidden" name="type" value="M">
+                            <input type="hidden" name="photoType" value="M">
                             <img id="mainPhoto" src="" alt="mainPhoto">
                             <i id="mainPhotoDelete" class="far fa-times-circle"></i>
                         </div>
                         <div id="mainPhotoWrap">
                             <label id="mainPhotoLabel" for="mainPhotoInput"><i class="fas fa-plus-circle"></i></label>
-                            <input type="hidden" id="mainPhotoValue" name="mainPhotoValue">
+                            <input type="hidden" id="mainPhotoValue" name="poomImg">
                         </div>
                         <div id="mainPhotoMsg" class="msg">대표사진을 입력해 주세요</div>
                     </div><!--//mainPhotoSecction end-->
@@ -61,11 +67,6 @@
                     </div>
                     <div id="subPhotoWrap">
                         <input id="subPhotoInput" name="subPhoto" type="file">
-                        
-                        
-                        
-                        
-                        
                         <span class="sub_photo_view">
                             <label id="subPhotoLabel" for="subPhotoInput"><i class="fas fa-plus-circle"></i></label>
                         </span>
@@ -175,11 +176,11 @@
     <@ }) @>
 </script>
 <script type="text/template" id="subPhotoTmp">
-    <input type="hidden" name="subPhotos" value="<@=subPhoto.fileName@>">
-	<input type="hidden" name="type" value="S">
+    <input type="hidden" name="poomImg" value="<@=subPhoto.fileName@>">
+	<input type="hidden" name="photoType" value="S">
     <div class='sub_photo_inner'>
         <img src="/img/poom/<@=subPhoto.fileName@>" class='sub_photo'>
-        <textarea name="subPhotoInfo" class='sub_photo_info'></textarea>
+        <textarea name="caption" class='sub_photo_info'></textarea>
     </div>
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!--우편번호 등록을 위한 다음 api -->
@@ -243,9 +244,81 @@
     });
     
     
+    let $firstNextBtn = $("#firstNextBtn");
+    let $poomName = $("#poomName");
+    let $poomNameMsg = $("#poomNameMsg");
+    let $firstPage = $("#firstPage");
+    let $seconPage = $("#seconPage");
+    let $secondCircle = $("#secondCircle");
+    let $firstBar = $("#firstBar");
+    //두번째 페이지로 넘어가는 버튼
+    $firstNextBtn.click(function () {
+    
+    	
+    	if ($poomName.val()==""){
+            console.log("제목을 입력해주세요");
+            $poomNameMsg.css("display","block");
+        }
+        else {
+        	$firstPage.css("display","none");
+        	$seconPage.css("display","block");
+        	$secondCircle.css("background","#C50532");
+        	$firstBar.css("background","#C50532");
+            $(window).scrollTop(0);
+        }
+    });
+
+    // 세번쩨 페이지로 넘어가는 버튼
+    $("#secondNextBtn").click(function () {
+        if ($price.val()==""){
+            $priceMsg.css("display","block");
+        }else if (!$("#animalName").hasClass("on") ){
+            $("#animalMsg").css("display","block");
+        }else if( !reg.test(priceVal)){
+            $priceMsg.html("1000원 이상부터 입력가능 합니다");
+            $priceMsg.css("display","block");
+        }else{
+            $seconPage.css("display","none");
+            $thirdPage.css("display","block");
+            $thirdCircle.css("background","#C50532");
+            $secondBar.css("background","#C50532");
+            $(window).scrollTop(0);
+        }
+    });
+
+    
+    let $firstPrevBtn = $("#firstPrevBtn");
+    let $msg = $(".msg");
+    
+    // 첫번째 페이지로 돌아오는 버튼
+    $firstPrevBtn.click(function () {
+        $firstPage.css("display","block");
+        $seconPage.css("display","none");
+
+        $msg.css("display","none");
+        $secondCircle.css("background","#eee");
+        $firstBar.css("background","#eee");
+        $(window).scrollTop(0);
+    });
+
+    
+    let $secondPrevBtn = $("#secondPrevBtn");
+    let $thirdPage = $("#thirdPage");
+    let $thirdCircle = $("#thirdCircle");
+    let $secondBar = $("#secondBar");
+    // 두번째 페이지로 돌아오는 버튼
+    $secondPrevBtn.click(function () {
+    $seconPage.css("display","block");
+    $thirdPage.css("display","none");
+
+    $msg.css("display","none");
+    $thirdCircle.css("background","#eee");
+    $secondBar.css("background","#eee");
+    $(window).scrollTop(0);
+    });// 두번째 페이지로 돌아오는 버튼
     
     
-    //*********************************** 에디터 *****************************************
+  //*********************************** 에디터 *****************************************
     //poom 에디터
     const poomEdit = new tui.Editor({
         el: document.querySelector('#poomEdit'),
@@ -400,89 +473,6 @@
     //*********************************** 에디터 end *****************************************
     
     
-    
-    
-    
-    
-    let $firstNextBtn = $("#firstNextBtn");
-    let $poomName = $("#poomName");
-    let $poomNameMsg = $("#poomNameMsg");
-    let $firstPage = $("#firstPage");
-    let $seconPage = $("#seconPage");
-    let $secondCircle = $("#secondCircle");
-    let $firstBar = $("#firstBar");
-    //두번째 페이지로 넘어가는 버튼
-    $firstNextBtn.click(function () {
-    
-    	
-    	if ($poomName.val()==""){
-            console.log("제목을 입력해주세요");
-            $poomNameMsg.css("display","block");
-        }
-        else {
-        	
-        	//editor.setHtml($("#poomContent").val(editors[0].getValue()));
-        	//let editor1 = $("#poomContent").val(editors[0].getValue()).getHTML();
-        	//let editor1 = $("#poomContent").val(editors[0].getValue());
-            
-            console.log($("#poomContent").val(editors[0].getValue()).getHtml());
-        	
-        	$firstPage.css("display","none");
-        	$seconPage.css("display","block");
-        	$secondCircle.css("background","#C50532");
-        	$firstBar.css("background","#C50532");
-            $(window).scrollTop(0);
-        }
-    });
-
-    // 세번쩨 페이지로 넘어가는 버튼
-    $("#secondNextBtn").click(function () {
-        if ($price.val()==""){
-            $priceMsg.css("display","block");
-        }else if (!$("#animalName").hasClass("on") ){
-            $("#animalMsg").css("display","block");
-        }else if( !reg.test(priceVal)){
-            $priceMsg.html("1000원 이상부터 입력가능 합니다");
-            $priceMsg.css("display","block");
-        }else{
-            $seconPage.css("display","none");
-            $thirdPage.css("display","block");
-            $thirdCircle.css("background","#C50532");
-            $secondBar.css("background","#C50532");
-            $(window).scrollTop(0);
-        }
-    });
-
-    
-    let $firstPrevBtn = $("#firstPrevBtn");
-    let $msg = $(".msg");
-    
-    // 첫번째 페이지로 돌아오는 버튼
-    $firstPrevBtn.click(function () {
-        $firstPage.css("display","block");
-        $seconPage.css("display","none");
-
-        $msg.css("display","none");
-        $secondCircle.css("background","#eee");
-        $firstBar.css("background","#eee");
-        $(window).scrollTop(0);
-    });
-
-    
-    let $secondPrevBtn = $("#secondPrevBtn");
-    let $thirdPage = $("#thirdPage");
-    let $thirdCircle = $("#thirdCircle");
-    let $secondBar = $("#secondBar");
-    // 두번째 페이지로 돌아오는 버튼
-    $secondPrevBtn.click(function () {
-    $seconPage.css("display","block");
-    $thirdPage.css("display","none");
-
-    $msg.css("display","none");
-    $thirdCircle.css("background","#eee");
-    $secondBar.css("background","#eee");
-    $(window).scrollTop(0);
-    });// 두번째 페이지로 돌아오는 버튼
 
     //************************ 우편번호 등록하기 ************************************
     let $postcode = $("#postcode");
@@ -566,7 +556,7 @@
     let $mainPhoto = $("#mainPhoto");
     let $mainPhotoWrap = $("#mainPhotoWrap");
     let $mainPhotoDelete = $("#mainPhotoDelete");
-    
+    $mainPhotoInput.val("");
     //메인 이미지 삽입
     $mainPhotoInput.on("change",function () {
         let file = this.files[0];
@@ -586,9 +576,7 @@
 		}//if end
 		//FormData API(HTML5) 필요함
 	    let data = new FormData();
-		
 		data.append("type","M");
-
 		
 		//Formdata객체에 파라미터를 append함
 		//formData.append(name, value);
@@ -599,8 +587,6 @@
 		
 		//비움
 		$mainPhotoInput.val("");
-		
-		
         $.ajax({
             url:"/ajax/poom/mainImg/upload",
             dataType:"json",
@@ -816,11 +802,6 @@
             $("#facilityContent").val(editors[1].getValue());
             $("#trafficContent").val(editors[2].getValue());
             
-            
-            let editor1 = $("#poomContent").val(editors[0].getValue()).html();
-            let editor2 = $("#facilityContent").val(editors[1].getValue()).html();
-            let editor3 = $("#trafficContent").val(editors[2].getValue()).html();
-
             console.log(editor1);
             console.log(editor2);
             console.log(editor3);

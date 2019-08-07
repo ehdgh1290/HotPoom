@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gear.hotpoom.service.CertsService;
 import com.gear.hotpoom.service.PoomsService;
+import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
 
 @Controller
@@ -25,12 +26,12 @@ public class PoomController {
 	
 	//품 등록
 	@RequestMapping(value="/poom", method=RequestMethod.POST)
-	public String poomRegister(Poom poom) {
+	public String poomRegister(Poom poom, String photoType, String poomImg,
+			String caption) {
 		
 		System.out.println("품등록 컨트롤러!!");
-		System.out.println(poom.getSpeciesNo());
 		
-		poomsService.register(poom);
+		poomsService.register(poom, photoType, poomImg, caption);
 		
 		return "redirect:/poom/"+poom.getNo();
 	}
