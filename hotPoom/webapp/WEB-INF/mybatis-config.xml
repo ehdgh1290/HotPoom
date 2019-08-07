@@ -19,6 +19,7 @@
 		<typeAlias alias="ChatRoom" type="com.gear.hotpoom.vo.ChatRoom"/>
 		<typeAlias alias="ChatUser" type="com.gear.hotpoom.vo.ChatUser"/>
 		<typeAlias alias="Credit" type="com.gear.hotpoom.vo.Credit"/>
+		<typeAlias alias="Location" type="com.gear.hotpoom.vo.Location"/>
 		<typeAlias alias="Message" type="com.gear.hotpoom.vo.Message"/>
 		<typeAlias alias="Payment" type="com.gear.hotpoom.vo.Payment"/>
 		<typeAlias alias="Pet" type="com.gear.hotpoom.vo.Pet"/>
@@ -42,6 +43,7 @@
 		<mapper resource="com/gear/hotpoom/mapper/chat-rooms.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/chat-users.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/credits.xml"/>
+		<mapper resource="com/gear/hotpoom/mapper/locations.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/messages.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/payments.xml"/>
 		<mapper resource="com/gear/hotpoom/mapper/pets.xml"/>

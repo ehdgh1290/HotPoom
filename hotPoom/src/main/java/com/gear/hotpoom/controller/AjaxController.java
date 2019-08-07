@@ -1,6 +1,5 @@
 package com.gear.hotpoom.controller;
 
-
 import java.util.List; 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gear.hotpoom.service.BookingsService;
+import com.gear.hotpoom.service.LocationsService;
 import com.gear.hotpoom.service.UsersService;
 import com.gear.hotpoom.vo.User;
 
@@ -19,6 +19,7 @@ import com.gear.hotpoom.service.AddressesService;
 import com.gear.hotpoom.service.PoomsService;
 import com.gear.hotpoom.service.SpeciesService;
 import com.gear.hotpoom.vo.Address;
+import com.gear.hotpoom.vo.Location;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.vo.Species;
 import com.gear.hotpoom.service.PoomsService;
@@ -34,7 +35,7 @@ public class AjaxController {
 	@Autowired
 	private PoomsService poomsService;
 	@Autowired
-	private AddressesService addressesService;
+	private LocationsService locationsService;
 	
 	//booking
 	@RequestMapping(value="/booking",method=RequestMethod.GET)
@@ -59,8 +60,8 @@ public class AjaxController {
 	
 	//location 자동완성
 	@RequestMapping(value="/location/auto/{location}", method=RequestMethod.GET)
-	public List<Address> autocompleteLocation(@PathVariable String location) {
-		return addressesService.getList(location);
+	public List<Location> autocompleteLocation(@PathVariable String location) {
+		return locationsService.getList(location);
 	}//autocompleteLocation() end
 	
 	

@@ -31,7 +31,6 @@
 	</div>
 </header>
 <main id="content">
-<<<<<<< HEAD
 <div id="bg">
 	<div id="loginPopup">
 		<span id="loginTitle">Login</span><i class="far fa-times-circle cursor_pointer"></i>
@@ -48,7 +47,6 @@
 		<form id="loginForm" action="/session" method="post"></form>
 	</div><!-- //loginPopup -->
 </div><!-- //bg -->
-=======
 <!-- <div id="bg">
     <div id="loginPopup">
         <span id="loginTitle">Login</span>
@@ -64,4 +62,3 @@
         <a id="joinBtn" class="cursor_pointer">회원가입</a>
     </div>//loginPopup
 </div>//bg -->
->>>>>>> 4348010f30f2f3e64a69db30de38c987ce638681
