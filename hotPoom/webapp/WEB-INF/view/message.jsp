@@ -22,19 +22,19 @@
 				<i class="fas fa-cog"></i>
 			</button>
 			<ul id="messageListInner">
-				<li class="message_list"><img class="profile"
+				<li class="message_list receive"><img class="profile"
 					src="profile/user/profile_3.jpg" width="60px" height="60px">
-					<p class="nickname">앵주</p>
+					<p class="nickname">앵주<i class="fas fa-circle"></i></p>
 					<p class="message">화나요!</p> <time class="time">10분 전</time> <input
 					type="checkbox" class="listEditCheckBox" /></li>
 				<li class="message_list on"><img class="profile"
 					src="profile/user/profile_2.jpg" width="60px" height="60px">
-					<p class="nickname">도마뱀하선</p>
+					<p class="nickname">도마뱀하선<i class="fas fa-circle"></i></p>
 					<p class="message">도마뱀 가능??</p> <time class="time">17분 전</time> <input
 					type="checkbox" class="listEditCheckBox" /></li>
-				<li class="message_list"><img class="profile"
+				<li class="message_list receive"><img class="profile"
 					src="profile/user/profile_4.png" width="60px" height="60px">
-					<p class="nickname">수정이생일</p>
+					<p class="nickname">수정이생일<i class="fas fa-circle"></i></p>
 					<p class="message">수정이 생일인데 이벤트...</p> <time class="time">57분
 						전</time> <input type="checkbox" class="listEditCheckBox" /></li>
 				<li class="message_list"><img class="profile"
@@ -152,7 +152,7 @@
 		<@ if(item.type == "V") {@>
 		<li class="message_list" data-room="<@=item.roomNo@>">
         	<img class="profile" src="profile/user/<@=item.profileImg@>" width="60px" height="60px">
-            <p class="nickname"><@=item.name@></p>
+            <p class="nickname"><@=item.name@><i class="fas fa-circle"></i></p>
             <p class="message"><@=item.title@></p>
             <time class="time"><@=moment(item.lastTime).fromNow()@></time>
             <input type="checkbox" class="listEditCheckBox" data-room="<@=item.roomNo@>"/>
@@ -269,6 +269,8 @@
 				
 				$this.addClass("on");
 				
+				$this.removeClass("receive");
+				
 				roomNo = $this.children(".listEditCheckBox").attr("data-room");
 				
 				nowRoomNo = roomNo;
@@ -352,11 +354,18 @@
 							
 							$(".message_list ").each(function() {
 								if(this.dataset.room == msg.roomNo) {
-									console.log(this);
-								
+									console.log("regdate" + msg.regdate);
+									
 									$("#messageListInner").prepend(this);
 										
-									console.log($(this).children("p.message").text(msg.content));
+									$(this).children("p.message").text(msg.content);
+									
+									$(this).children(".time").text(moment(msg.regdate).fromNow());
+									
+									
+									if(roomNo != msg.roomNo) {
+										$(this).addClass("receive");
+									}
 									
 								}//if() end
 							});// message_list.each() end

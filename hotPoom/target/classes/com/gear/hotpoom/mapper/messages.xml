@@ -12,8 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertMessage" parameterType="Message">
+		<selectKey order="BEFORE" keyProperty="regdate" resultType="java.sql.Timestamp">
+			SELECT systimestamp
+			FROM dual	
+		</selectKey>
 		INSERT INTO messages (no, content, regdate, user_no, room_no)
-		VALUES(MESSAGES_SEQ.nextval, #{content}, systimestamp, #{userNo}, #{roomNo})
+		VALUES(MESSAGES_SEQ.nextval, #{content}, #{regdate}, #{userNo}, #{roomNo})
 	</insert>
 
 </mapper>
