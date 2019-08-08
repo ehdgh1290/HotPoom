@@ -95,7 +95,7 @@ function setPhotoBoxWidth($this) {
     poomPhotoLeft = 246 * photoCnt - 246;
     // photo_box의 width 설정
     $(".photo_box").css("width", 246 * photoCnt);
-
+    console.log(poomPhotoLeft);
     if (photoCnt <= 1) {
         $(".btn_photo_card").hide();
     }

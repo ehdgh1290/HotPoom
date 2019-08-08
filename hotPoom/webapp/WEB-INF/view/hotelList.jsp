@@ -27,8 +27,11 @@
     		cursor:pointer;
     		background-color: #eee;
     	}
-    		
-   
+    	#paginate{
+    		right: 230px;
+			bottom: 10px;
+    	}
+    	
     </style>
 </head>
 <body>
@@ -114,7 +117,9 @@
         <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
         <p class="poom_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</p>
         <p class="poom_price">￦ <@=poom.price@> / 박</p>
-        <div class="poom_bookmark"></div>
+		<c:if test="${loginUser!=null }">
+        	<div class="poom_bookmark" style="background-image: url('/img/<@=poom.hasBookmark@>')"></div>
+		</c:if>
     </div><!--//poom_content-->
 </div><!--//big_card_content-->
 <@})@>
@@ -405,7 +410,7 @@
     })//$priceBtn click end
 
     let page = 1;
-    $("#paginate").on("click",".paginate a",function(e){
+    $("#paginate").on("click","a",function(e){
 		e.preventDefault();
 		
 		page = this.dataset.no;
@@ -476,7 +481,7 @@
             },//error end
             success: function(json){
                 
-            	
+            	console.log(json);
             	// 오버레이 마커 전부 리셋
             	$(overlays).each(function() {
         			this.setMap(null);
@@ -506,10 +511,8 @@
             	// 마커 이미지의 이미지 주소입니다
                 var imageSrc = "img/marker.png";
             	
-                
                 $(json.poomList).each(function(idx){
                 	//alert(this.lat);
-                	
                 	
                 	let lat = this.lat;
                 	let lng = this.lng;

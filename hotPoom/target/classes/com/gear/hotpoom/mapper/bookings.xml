@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bookings">
 
-	<update id="updateType" parameterType="Booking">
+	<update id="updateState" parameterType="Booking">
 		UPDATE bookings
 		SET user_state = 'F', host_state = 'F'
 		WHERE user_state = 'D'
