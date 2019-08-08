@@ -112,7 +112,7 @@
         <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
     </div><!--//photo_cover-->
     <div class="poom_content">
-        <a class="poom_name" href=""><i class="fas fa-home"></i> <@=poom.title@></a>
+        <a class="poom_name" href=""><@if(poom.type=='C'){@><i class="fas fa-hotel"></i><@}else{@><i class="fas fa-home"></i><@}@> <@=poom.title@></a>
         <a class="poom_address" href=""><@=poom.mainAddress@></a>
         <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
         <p class="poom_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</p>
