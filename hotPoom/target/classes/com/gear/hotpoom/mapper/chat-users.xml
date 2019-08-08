@@ -22,5 +22,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE user_no = #{userNo} AND room_no = #{roomNo}
 	</update>
 	
+	<select id="checkRoom" resultType="int" parameterType="CheckRoom">
+		SELECT COUNT(*)
+		FROM (SELECT *
+	  		  FROM chat_users
+	  		  WHERE user_no = #{no}) u1, (SELECT *
+							   		   FROM chat_users
+							   		   WHERE user_no = #{userNo}) u2
+		WHERE u1.room_no = u2.room_no
+	</select>
+
+	<insert id="insertUser" parameterType="CheckRoom">
+		INSERT INTO chat_users(no, user_no, room_no, type, regdate)
+		VALUES(chat_users_seq.nextval, #{userNo}, #{roomNo}, 'V', systimestamp )
+	</insert>
 
 </mapper>

@@ -11,6 +11,7 @@ import com.gear.hotpoom.dao.ChatRoomsDAO;
 import com.gear.hotpoom.dao.ChatUsersDAO;
 import com.gear.hotpoom.dao.MessagesDAO;
 import com.gear.hotpoom.vo.ChatUser;
+import com.gear.hotpoom.vo.CheckRoom;
 import com.gear.hotpoom.vo.Message;
 
 @Service
@@ -53,5 +54,11 @@ public class ChatUsersServiceImpl implements ChatUsersService {
 		ChatUser chatUser = new ChatUser(roomNo, userNo);
 
 		return chatUsersDAO.updateInvisible(chatUser);
+	}
+	
+	//채팅방 있는지 확인
+	@Override
+	public int checkRoom(CheckRoom checkRoom) {
+		return chatUsersDAO.checkRoom(checkRoom);
 	}
 }
