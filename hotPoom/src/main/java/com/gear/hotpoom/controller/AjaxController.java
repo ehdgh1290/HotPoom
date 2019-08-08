@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,8 +79,13 @@ public class AjaxController {
 	
 	
 	@RequestMapping(value="poom/page/{page}", method=RequestMethod.GET)
-	public Map<String, Object> getPoomList(@PathVariable int page, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort){
-		return poomsService.getPoomList(page, 5, speciesNo, petCnt, lowPrice, highPrice, sort);
+	public Map<String, Object> getPoomList(@PathVariable int page, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, HttpSession session){
+		User loginUser = (User)session.getAttribute("loginUser");
+		int userNo = 0;
+		if (loginUser!=null) {
+			userNo=loginUser.getNo();
+		}
+		return poomsService.getPoomList(page, 5, speciesNo, petCnt, lowPrice, highPrice, sort, userNo);
 	}
 	
 	@RequestMapping(value="poom/species/{name}", method=RequestMethod.GET)

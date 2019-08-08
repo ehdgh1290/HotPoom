@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Poom {
 	private int no, userNo, speciesNo, price, petCnt, count;
-	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, img, petName;
+	private String type, title, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, img, petName, speciesName, hasBookmark;
 	private double score;
 	private double lat, lng;
 	private List<Photo> poomPhotos;
@@ -15,6 +15,34 @@ public class Poom {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	public String getHasBookmark() {
+		if(hasBookmark!=null) {
+			switch(hasBookmark) {
+			case "1":return "bookmark_on.png";
+			case "0":return "bookmark.png";
+			case "null":return "";
+			default : return null;
+			}
+		}else {
+			return hasBookmark;
+		}
+	}
+
+
+	public void setHasBookmark(String hasBookmark) {
+		this.hasBookmark = hasBookmark;
+	}
+
+
+	public String getSpeciesName() {
+		return speciesName;
+	}
+
+	public void setSpeciesName(String speciesName) {
+		this.speciesName = speciesName;
+	}
+
 	public double getLat() {
 		return lat;
 	}

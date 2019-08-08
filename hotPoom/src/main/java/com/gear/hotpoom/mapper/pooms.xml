@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="lng" column="lng" javaType="double"/>
 		<result property="score" column="score" javaType="int"/>
 		<result property="count" column="count" javaType="int"/>
+		<result property="hasBookmark" column="hasBookmark" javaType="String"/>
 		<result property="type" column="type" javaType="String"/>
 		<result property="title" column="title" javaType="String"/>
 		<result property="mainAddress" column="mainAddress" javaType="String"/>
@@ -24,8 +25,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectPoomList" resultMap="selectPoom" parameterType="PageVO">
 		SELECT no, type, title, speciesNo, speciesName, price, petCnt, mainAddress, lat, lng, score, count, r
+		<if test="userNo>10">
+			, hasBookmark
+		</if>
 		FROM(SELECT  no, type, title, speciesNo, speciesName, price, petCnt, mainAddress, lat, lng, score, count, rownum r
-			FROM(SELECT p.no no, type, title, species_no speciesNo, s.name speciesName, price, pet_cnt petCnt, main_address mainAddress, lat, lng, NVL(score.score,0) score, NVL(count.count, 0) count
+			<if test="userNo>10">
+				 , hasBookmark
+			</if>
+			FROM(SELECT p.no no, type, title, species_no speciesNo, s.name speciesName, price, pet_cnt petCnt, main_address mainAddress, lat, lng, NVL(score.score,0) score, NVL(count.count, 0) count 
+					<if test="userNo>10">
+						, DECODE(b.userNo, null, '0', '1') hasBookmark
+					</if>
 					FROM pooms p, species s, 
 					(SELECT b.poom_no poom_no, TRUNC(AVG(score),1) score
 					FROM reviews r, bookings b
@@ -35,7 +45,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					FROM reviews r, bookings b
 					WHERE r.booking_no=b.no
 					GROUP BY b.poom_no) count
-					WHERE p.species_no=s.no AND score.poom_no(+)=p.no AND p.no=count.poomNo(+)
+					
+					<if test="userNo>10"> 
+						, (SELECT b.user_no userNo, p.no poomNo
+						FROM bookmarks b, pooms p
+						WHERE b.poom_no(+)=p.no 
+						AND b.user_no=#{userNo}) b
+					</if>
+					WHERE p.species_no=s.no AND score.poom_no(+)=p.no AND p.no=count.poomNo(+) 
+					<if test="userNo>10">
+						AND b.poomNo(+)=p.no
+					</if>
 					<if test="speciesNo>0">
 						AND species_no=#{speciesNo}
 					</if>
@@ -124,8 +144,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				ORDER BY price 
 			</if>
 	</select>
-
-<!-- //////////////////////////////////////////////자혀니///////////////////////////////////////////////////////  -->
+	
+	<!-- //////////////////////////////////////////////자혀니///////////////////////////////////////////////////////  -->
 
 <!-- New poom -->
 <select id="selectListNP" resultType="POOM">
