@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.gear.hotpoom.service.ReviewsService;
 import com.gear.hotpoom.service.BookingsService;
 import com.gear.hotpoom.service.BookmarksService;
@@ -50,8 +49,12 @@ public class AjaxController {
 	private BookmarksService bookmarksService;
 	@Autowired
 	private ReportsService reportsService;
+	@Autowired
 	
 	
+	public Map<String, Object> getReviews(int no, int pageNo) {
+		return reviewsService.getReviewList(no, pageNo);
+	}
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)

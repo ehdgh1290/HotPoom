@@ -1,10 +1,10 @@
 package com.gear.hotpoom.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.gear.hotpoom.vo.PageVO;
 import com.gear.hotpoom.vo.Poom;
 
@@ -17,6 +17,7 @@ public class PoomsDAOImpl implements PoomsDAO{
 	public Poom selectPoomDetail(int no) {
 		return session.selectOne("pooms.selectPoomDetail", no);
 	}
+	
 	@Override
 	public List<Poom> selectPoomList(PageVO pageVO) {
 		// TODO Auto-generated method stub

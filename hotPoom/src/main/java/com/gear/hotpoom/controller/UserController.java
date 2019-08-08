@@ -28,11 +28,16 @@ public class UserController {
 		return "redirect:"+referer;
 	}
 	
+	//로그아웃
 	@RequestMapping(value="/session",method=RequestMethod.DELETE)
 	public String logout(HttpSession session, @RequestHeader String referer) {
 		session.removeAttribute("loginUser");
 		return "redirect:"+referer;
 	}
 	
-
+	//인덱스
+	@RequestMapping(value="/index",method=RequestMethod.GET)
+	public String index() {
+		return "index";
+	}
 }
