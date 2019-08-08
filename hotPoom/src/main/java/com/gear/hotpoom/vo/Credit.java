@@ -4,11 +4,19 @@ import java.sql.Timestamp;
 
 public class Credit {
 	private int no, userNo, bankNo;
-	private String num, cvc, dueMonth, dueYear, basic, engName;
+	private String num, cvc, dueMonth, dueYear, basic, engName, bankName;
 	private Timestamp regdate;
 	
 	public Credit() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 
 	public int getNo() {

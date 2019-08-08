@@ -10,5 +10,6 @@ public interface BookingsDAO {
 	public List<Booking> selectList(PageVO pageVO);
 	public int selectTotal(int userNo);
 	public int updateState(Booking booking);
+	public int insert(Booking booking);
 	
 }

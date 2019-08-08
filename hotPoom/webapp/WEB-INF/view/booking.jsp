@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/booking.css">
 </head>
 <body>
+<c:if test="${loginUser==null }">
+	<c:redirect url="/index"/>
+</c:if>
 <c:import url="/WEB-INF/template/header.jsp"/>
     <div id="reviewRegisterBg" class="bg">
         <div id="reviewRegisterPopup">
@@ -66,7 +69,7 @@
                 <div class="detail_link"><a href="/poom/<@=booking.poomNo@>">해당 품 상세 페이지 바로가기</a></div>
                 <div class="price">&#8361; <@=Number(booking.price).toLocaleString('en').split(".")[0]@> / 박</div>
                 <div class="btns_wrap">
-                    <a href="/bill/<@=booking.no@>" class='bill_btn btn <@=booking.userState=="F" && booking.hostState=="F"?"":"middle"@>'>예약 명세서</a>
+                    <a href="/bill/<@=booking.no@>" class='bill_btn btn <@= booking.userState=="C" || booking.hostState=="C"?"disable":""@> <@=booking.userState=="F" && booking.hostState=="F"?"":"middle"@>'>예약 명세서</a>
                     <@if(booking.userState=="F" && booking.hostState=="F"){@>
                     <button class='review_btn btn <@=booking.isReview?"disable":""@>' data-no="<@=booking.no@>">리뷰 작성</button>
                     <@}@>
@@ -95,6 +98,12 @@ _.templateSettings = {interpolate: /\<\@\=(.+?)\@\>/gim,evaluate: /\<\@([\s\S]+?
     const $paginate = $("#paginate");
     let star = 0;
     let pageNo = 1;
+    
+    
+    //예약 명세서가 회색이 되어있을 때 누르면
+    $("body").on("click", ".bill_btn.disable",function(e){
+    	e.preventDefault();
+    });//.bill_btn.disable end
 
     //팝업에서 x를 눌렀을 때
     $closePopup.on("click",function () {

@@ -30,21 +30,19 @@ public class PoomsServiceImpl implements PoomsService{
 	private PetsDAO petsDAO;
 	@Autowired
 	private BanksDAO banksDAO;
+	@Autowired
+	private PaginateUtil paginateUtil;
 	
 
 	@Override //동호, poomDetail 정보 가져오기
 	public Map<String, Object> getDetail(int no) {
 		
-		System.out.println("PoomsService getDetail() no : "+no);
-		
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 		
 		Poom poom = poomsDAO.selectPoomDetail(no);
-		System.out.println(poom);
 		List<Photo> photos = photosDAO.selectPoomPhotos(no);
-		System.out.println(photos);
 		List<Pet> pets = petsDAO.selectPetListByUserNo(poom.getUserNo());
-		System.out.println(pets);
+		
 		map.put("poom", poom);
 		map.put("photoList", photos);
 		map.put("petList", pets);
@@ -59,14 +57,13 @@ public class PoomsServiceImpl implements PoomsService{
 		return poomsDAO.selectListHP();
 	}//getList() end
 	
+	
 	//new poom
 	@Override
 	public List<Poom> getListNP() {
 		return poomsDAO.selectListNP();
 	}//getListNP() end
-	
-	@Autowired
-	private PaginateUtil paginateUtil;
+
 	
 	@Override
 	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort) {

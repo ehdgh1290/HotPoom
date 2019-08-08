@@ -71,6 +71,7 @@
     width: 280px;
     height: 60px;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 #poomDate {
     position: absolute;
@@ -127,9 +128,12 @@ h2 {
 }
 #bookingSection .name {
     position: absolute;
+    width: 420px;
     font-size: 28px;
     left : 310px;
     top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #bookingSection .address {
     position: absolute;
@@ -214,6 +218,19 @@ h2 {
     width: 140px;
     height: 40px;
     font-size: 18px;
+}
+#bookingSection .bill_btn.disable {
+	cursor: default;
+    color: #bdbdbd;
+    border-color: #bdbdbd;
+}
+#bookingSection .bill_btn.disable:hover {
+	cursor: default;
+    color: #bdbdbd;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    box-shadow: none;
+    font-weight: normal;
 }
 #bookingSection .review_btn.disable {
     cursor: default;

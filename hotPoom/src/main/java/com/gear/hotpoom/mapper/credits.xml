@@ -10,10 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="selectCardList" parameterType="int" resultType="Credit">
-		SELECT c.no, user_no userNo, bank_no bankNo, num, cvc, due_month dueMonth, due_year dueYear, basic, eng_name engName, c.regdate, b.name
+		SELECT c.no, user_no userNo, b.name bankName, num, cvc, due_month dueMonth, due_year dueYear, basic, eng_name engName, c.regdate, b.name
 		FROM credits c, banks b
 		WHERE user_no = #{userNo}
 		AND c.bank_no = b.no
+		AND c.basic = 'D'
 	</select>
 
 </mapper>

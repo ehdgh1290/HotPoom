@@ -14,33 +14,80 @@
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
+<div id="reportBg">
+    <form id="reportForm" action="/report" method="post">
+    <input type="hidden" name="userNo" value="${loginUser.no }"/>
+    <input id="reviewNo" type="hidden" name="reviewNo" value=""/>
+        <div id="reportPopup">
+            <div id="reportHeader">
+                <h1 id="reportTitle">신고하기</h1>
+                <div class="report_popup_close"><i class="far fa-times-circle"></i></div>
+                <div id="reportedPerson">작성자 : ${loginUser.name }</div>
+            </div>
+            <div id="reportContent">
+                <div>
+                    <label class="choice_reason" for="report1">음란 또는 청소년에게 부적합한 내용</label>
+                    <input id="report1" type="radio" name="type" value="O">
+                </div>
+                <div>
+                    <label class="choice_reason" for="report2">부적절한 홍보</label>
+                    <input id="report2" type="radio" name="type" value="I">
+                </div>
+                <div>
+                    <label class="choice_reason" for="report3">개인정보 노출</label>
+                    <input id="report3" type="radio" name="type" value="P">
+                </div>
+                <div>
+                    <label class="choice_reason" for="report4">저작권 및 명예훼손, 기타권리 침해</label>
+                    <input id="report4" type="radio" name="type" value="D">
+                </div>
+            </div><!--//reportContent-->
+            <div id="reportFooter">
+                <button id="reportSubmitBtn" class="btn">신고하기</button>
+            </div><!--//reportFooter-->
+        </div><!--//reportPopup -->
+    </form>
+</div> <!--// reportBg end-->
+<div id="reportMsgBg" class="bg">
+	<div id="reportMsgPopup">
+		<div id="reportMsgPopupClose" class="far fa-times-circle"></div>
+		<div class="msg">이미 신고한 유저입니다.</div>
+	</div><!-- //reportMsgPopup -->
+</div><!-- //reportMsgBg -->
 
 <div id="paymentBg" class="bg">
     <div id="paymentPopup">
         <button type="button" class="close_popup far fa-times-circle"></button>
         <h3>결제</h3>
-            <form id="reviewRegisterForm" action="" method="post">
+            <form id="reviewRegisterForm" action="/booking" method="post">
+            <input name="poomNo" value="${poom.no }" type="hidden"/>
+            <input name="userNo" value="${loginUser.no }" type="hidden"/>
+            <input class="start_day" name="startDay" type="hidden"/>
+            <input class="end_day" name="endDay" type="hidden"/>
+            <input class="price" name="price" type="hidden"/>
+            <input class="pet_cnt" name="petCnt" type="hidden"/>
+            
             <div id="date" class="title">기간</div>
             <div id="dateContent">08.18 ~ 08.19, 2019</div>
             <div id="pet" class="title">펫</div>
             <div id="petContent">고양이 2마리</div>
             <div id="pay" class="title">금액</div>
             <div id="payContent">88,000원</div>
-            <div id="paymentMethod" class="title">결제수단 선택</div>
-            <select name="cardNo" id="paymentMethodSelect">
+            <div id="paymentMethod" class="title">결제수단</div>
+            <select id="paymentMethodSelect">
             	<!-- //cardListTmp -->
             </select>
             <button type="button" id="addCredit" class="btn">결제수단 추가</button><!--//없을때만 select없애고 넣기-->
             <div id="request" class="title">요청사항 작성</div>
-            <textarea id="requestTextarea" name="" placeholder="요청사항을 입력해주세요."></textarea>
-        <button type="submit" id="paymentBtn" class="btn">결제하기</button>
+            <textarea id="requestTextarea" name="request" placeholder="요청사항을 입력해주세요."></textarea>
+        	<button type="submit" id="paymentBtn" class="btn">결제하기</button>
         </form>
     </div><!--//paymentPopup-->
 
     <div id="creditCardAddPopup">
         <button type="button" class="close_popup far fa-times-circle"></button>
         <h4>결제수단 추가</h4>
-        <form id="creditCardAddForm" action="" method="post">
+        <form id="creditCardAddForm" action="/credit" method="post">
         <div id="creditCardSelectWrap">
             <h5 class="title">카드</h5>
             <input type="hidden" name="bankType" value="C"/>
@@ -79,11 +126,13 @@
 </div><!-- //paymentBg -->
 
     <div id="poomDetailSection">
-        <div id="poomMainImage" style="background-image: url(/img/poom/${poom.mainImg})">
-        </div><!--//poomMainImage end-->
+        <div id="poomMainImage" style="background-image: url(/img/poom/${poom.mainImg})"></div><!--//poomMainImage end-->
         <button id="viewPhotosBtn" type="button" class="btn">View Photos</button>
         <div id="poomDetailWrap">
             <h2>${poom.title}</h2>
+            <c:if test="${loginUser!=null }">
+	            <div id="DetailBookmark" class="poom_bookmark"></div>
+            </c:if>
             <div id="poomAddress">${poom.mainAddress }</div>
             <div id="hostUserProfile">
                 <a href="/user/${poom.userNo }"><img id="hostUserProfileImage" src="/profile/user/${poom.hostImg }"/></a>
@@ -91,7 +140,7 @@
                     <a href="/user/${poom.userNo }">${poom.hostName }</a>
                 </div>
                 <c:if test="${loginUser!=null }">
-                <div id="sendMessage" class="btn"><a href="/message/${poom.userNo }">호스트에게 연락하기</a></div>
+                <div id="sendMessage" class="btn"><a target="_blank" href="/message/${poom.userNo }">호스트에게 연락하기</a></div>
                 </c:if>
             </div>
             <div id="poomInformationInner">
@@ -170,6 +219,7 @@
                         <span id="totalAmount"></span>
                     </div>
                 </div>
+                <div class="msg">날짜를 입력해주세요</div>
                 <button id="bookingBtn" class="btn" type="submit">예약하기</button>
             </form>
         </div><!--//bookingWrap end-->
@@ -225,7 +275,7 @@
 </script>
 <script type="text/temlpate" id="cardListTmp">
 <@_.each(cards,function(card){@>
-	<option value="<@=card.no@>"><@=card.bankNo@> - <@=card.num.substring(12,16)@></option>
+	<option value="<@=card.no@>"><@=card.bankName@> - <@=card.num.substring(12,16)@></option>
 <@});@>
 </script>
 <script>
@@ -235,16 +285,92 @@ let cardListTmp = _.template($("#cardListTmp").html());
 
 	const $reviewCard = $(".review_card");
 	const $paginate = $("#paginate");
+	const $reportBg = $("#reportBg");
+	$DetailBookmark = $("#DetailBookmark");
 	let userNo = 0;
-	
 	let pageNo = 1;
-
-	$reviewCard.on("click","paginte a",function(e){
-		e.preventDefault();
-    	pageNo = this.dataset.no;
-		getReviewList();
-	});//paginte a click end
 	
+
+    <c:if test="${loginUser!=null}">
+	    getMyCardList();
+		userNo = ${loginUser.no};
+    </c:if>
+	
+    //신고중복 메세지 팝업 종료
+    $("#reportMsgPopupClose").on("click",function(){
+    	$("#reportMsgBg").hide();
+    });//#reportMsgPopupClose end
+    
+    //신고 누름
+    $("body").on("click", ".review_card_warning",function(){
+    	$("#reviewNo").val(this.dataset.no);
+    	let reviewNo = this.dataset.no;
+    	$.ajax({
+			url:"/ajax/report",
+			type:"get",
+			dataType:"json",
+			data:{
+				"reviewNo":reviewNo
+			},error:function(){
+				alert("점검중!!");
+			},
+			success:function(data){
+				//console.log(data);
+				if(data==0) {
+		        	$reportBg.show();
+		    	}else {
+		    		$("#reportMsgBg").show();
+		    	};//if~else end
+			}//success end
+		});//ajax end
+    });//.review_card_warning click end
+    
+    //신고 창 종료
+    $("#reportBg .far.fa-times-circle").on("click", function(){
+    	$reportBg.hide();
+    });//#reportBg .far.fa-times-circle click end
+    
+    //신고하기 끝
+    $("#reportForm").on("submit",function(){
+    	
+    });//#reportForm submit end
+    
+    //북마크 ajax
+    $DetailBookmark.on("click", getBookmark);//$DetailBookmark end
+    
+    
+    //북마크가 되어있는지 확인
+    function getBookmark() {
+    	$.ajax({
+    		url:"/ajax/bookmark",
+    		type:"post",
+    		dataType:"json",
+    		data:{
+    			userNo:userNo,
+    			poomNo:${poom.no}
+    		},
+    		error:function(){
+    			alert("점검중!");
+    		},
+    		success:function(data){
+    			//console.log(data);
+    			if(data) {
+	    			$DetailBookmark.addClass("on");
+    			}else {
+    				$DetailBookmark.removeClass("on");
+    			};//if~else end
+    		}//success end
+    	});//ajax end
+	};//getBookmark() end
+    
+    
+	//페이지 클릭
+    $paginate.on("click","a",function(e){
+    	e.preventDefault();
+    	
+    	pageNo = this.dataset.no;
+    	getReviewList();
+    })//$paginate a click end
 	
 	//리뷰리스트 불러옴
 	function getReviewList() {
@@ -260,7 +386,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
 				alert("점검중!!");
 			},//error end
 			success:function(data){
-				console.log(data);
+				//console.log(data);
 				$reviewCard.children().html(reviewListTmp({reviewList:data.reviewList}));
 				$paginate.html(data.paginate);
 			}//success end
@@ -284,23 +410,21 @@ let cardListTmp = _.template($("#cardListTmp").html());
     			alert("서버 점검중!");
     		},
     		success:function(json){
-    			console.log("내 카드 리스트");
-    			console.log(json);
-    			console.log(json.length);
+    			//console.log("내 카드 리스트");
+    			//console.log(json);
+    			//console.log(json.length);
     				$("#paymentMethodSelect").show();
     			if(json.length==0) {
+    				$("#addCredit").show();
     				$("#paymentMethodSelect").hide();
     			}else {
+    				$("#addCredit").hide();
 	    			$("#paymentMethodSelect").html(cardListTmp({"cards":json}));
     			}//if~else end
     		}//success end
     	});//$.ajax() end
     }// getMyCardList() end 
     
-    <c:if test="${loginUser!=null}">
-	    getMyCardList();
-		userNo = ${loginUser.no};
-    </c:if>
     
     $("#creditCardAddForm").on("submit",function(e){
     	console.log("submit");
@@ -380,14 +504,15 @@ let cardListTmp = _.template($("#cardListTmp").html());
     $window.on("scroll",function () {
         //스크롤탑
         let sTop = $window.scrollTop();
-        if(sTop>=730) {
+        if(sTop>=735) {
             $bookingDetail.css({
                 position: "fixed",
                 top:"20px"
             });
         }else {
             $bookingDetail.css({
-                position: "relative"
+                position: "relative",
+                top:"0"
             });
         }//if~else end
     });//on() end
@@ -423,11 +548,12 @@ let cardListTmp = _.template($("#cardListTmp").html());
 
     //날짜
     picker.on('change:end', getTotalAmount);
-    //마리 수
+    
+    //마리 수 변화 될 때
     $count.on('change', function(){
-    	if($("#endpicker-input").val()>0) {
+    	if($("#endpicker-input").val().length>0) {
 	    	getTotalAmount();
-    	}
+    	}//if end
     });//$count change end
 
   	//가격계산
@@ -443,13 +569,14 @@ let cardListTmp = _.template($("#cardListTmp").html());
         $petCnt.text(petCnt);
 
 
-        let priceCount = 15000*date*petCnt;
+        let priceCount = ${poom.price}*date*petCnt;
         $priceCount.text(priceCount.toLocaleString());
 
-        let fees = (15000*date*petCnt)/10;
+        let fees = priceCount/10;
         $fees.text(fees.toLocaleString());
 
-        let totalPrice = priceCount+fees
+        let totalPrice = priceCount+fees;
+        amount = totalPrice;
         $totalAmount.text(totalPrice.toLocaleString());
 
     };//getTotalAmount end
@@ -457,12 +584,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
 
 	$reviewInner = $("#reviewInner");
     
-    //리뷰에서 신고하기를 눌렀을 때
-	$reviewInner.on("click",".review_card_warning", function() {
-		const reviewNo = this.dataset.no;
-		
-	});//.review_card_warning click end
-    
+
     /*----------------------------------팝업----------------------------------------*/
     //버튼클릭하면 팝업 열림
     $("#viewPhotosBtn").on("click",function () {
@@ -668,10 +790,38 @@ let cardListTmp = _.template($("#cardListTmp").html());
         $("#poomBg").hide();
     });//#poomInfoSection .fas click() end
     
+    
+    let endDate;
+    let startDate;
+    let speciesName = "${poom.speciesName}";
+    let amount;
+    
     //예약하기 눌렀을 때
     $bookingDetail.on("submit", function(e){
     	e.preventDefault();
-    	$paymentBg.show();
+    	endDate = $("#endpicker-input").val();
+    	
+    	if(endDate == null || endDate=="") {
+    		$("#bookingDetail .msg").show();
+    	}else {
+    		$("#bookingDetail .msg").hide();
+    		
+    		startDate = $("#startpicker-input").val();
+    		count = $("#count").val();
+    		
+    		$("#dateContent").text(moment().format("MM.DD ~ ")+moment(endDate).format("MM.DD, YYYY"));
+    		$("#petContent").text(speciesName+" "+count+"마리");
+    		$("#payContent").text(amount.toLocaleString()+" 원");
+    		$("#requestTextarea").val("");
+    		
+    		//결제 폼 input type=hidden에 값 넣기
+    		$("#reviewRegisterForm .start_day").val(startDate);
+    		$("#reviewRegisterForm .end_day").val(endDate);
+    		$("#reviewRegisterForm .price").val(amount);
+    		$("#reviewRegisterForm .pet_cnt").val(count);
+    		
+    		$paymentBg.show();
+    	}//if~else end
     });//$bookingDetail submit end
     
     /************************paymentPopup******************************/
@@ -683,7 +833,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
     $creditCardAddForm = $("#creditCardAddForm");
     $addCredit = $("#addCredit");
 
-
+	//카드 추가 버튼
     $addCredit.on("click",function () {
         $creditCardAddPopup.show();
     });//$addCredit end
@@ -704,6 +854,9 @@ let cardListTmp = _.template($("#cardListTmp").html());
         $creditCardAddPopup.hide();
     });//$creditCardAddForm end
 
+    
+    
+    
 
     /************************paymentPopup******************************/
 </script>

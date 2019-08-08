@@ -34,9 +34,5 @@ public class UserController {
 		return "redirect:"+referer;
 	}
 	
-	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public String index() {
-		return "index";
-	}
 
 }

@@ -15,19 +15,24 @@ public class BookingsDAOImpl implements BookingsDAO{
 	private SqlSession session;
 	
 	
+	@Override //poomDetail에서 예약했을 때 추가
+	public int insert(Booking booking) {
+		return session.insert("bookings.insert", booking);
+	}
+	
 	@Override //booking 페이지 볼 때 기간이 지난 것 F로 바꿈
 	public int updateState(Booking booking) {
-		return session.update("updateState", booking);
+		return session.update("bookings.updateState", booking);
 	}
 	
 	@Override //예약 수 가져옴
 	public int selectTotal(int userNo) {
-		return session.selectOne("selectTotal",userNo);
+		return session.selectOne("bookings.selectTotal",userNo);
 	}
 	
 	@Override //동호, 예약 리스트를 가져옴
 	public List<Booking> selectList(PageVO pageVO) {
-		return session.selectList("selectList",pageVO);
+		return session.selectList("bookings.selectList",pageVO);
 	}
 	
 }

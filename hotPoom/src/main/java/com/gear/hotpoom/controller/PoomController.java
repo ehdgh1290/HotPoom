@@ -19,7 +19,6 @@ public class PoomController {
 	@RequestMapping(value="/poom/{no}",method=RequestMethod.GET)
 	public String poomDetail(@PathVariable int no, Model model) {
 		
-		System.out.println("PoomController poomDetail() no:"+no);
 		model.addAllAttributes(service.getDetail(no));
 		
 		return "poomDetail";

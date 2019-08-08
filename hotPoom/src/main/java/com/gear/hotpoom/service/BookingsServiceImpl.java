@@ -6,8 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gear.hotpoom.dao.BookingsDAO;
+import com.gear.hotpoom.dao.PaymentsDAO;
 import com.gear.hotpoom.dao.ReviewsDAO;
 import com.gear.hotpoom.util.PaginateUtil;
 import com.gear.hotpoom.vo.Booking;
@@ -21,6 +23,18 @@ public class BookingsServiceImpl implements BookingsService{
 	private ReviewsDAO reviewsDAO; 
 	@Autowired
 	private PaginateUtil paginateUtil;
+	@Autowired
+	private PaymentsDAO paymentsDAO;
+	
+	
+	
+	@Override //예약 완료
+	@Transactional
+	public int register(Booking booking) {
+		bookingsDAO.insert(booking);
+		paymentsDAO.insert(booking);
+		return 1;
+	}
 	
 	@Override //동호, 리스트 가져옴
 	public Map<String, Object> getList(int userNo, int pageNo) {
@@ -32,10 +46,10 @@ public class BookingsServiceImpl implements BookingsService{
 		//기간이 지난것 중 리뷰를 쓴 것이 있는지
 		if(!list.isEmpty()) {
 			for(Booking booking : list) {
-				System.out.println("bookingNo:"+booking.getNo());
-				int type = bookingsDAO.updateState(booking);
-				System.out.println("type:"+type);
-				if(type==1) {
+				//System.out.println("bookingNo:"+booking.getNo());
+				int isUpdate = bookingsDAO.updateState(booking);
+				//System.out.println("isUpdate:"+isUpdate);
+				if(isUpdate==1) {
 					booking.setUserState("F");
 					booking.setHostState("F");
 				};//if end
