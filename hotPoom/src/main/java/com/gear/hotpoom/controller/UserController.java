@@ -35,9 +35,5 @@ public class UserController {
 		return "redirect:"+referer;
 	}
 	
-	//인덱스
-	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public String index() {
-		return "index";
-	}
+
 }

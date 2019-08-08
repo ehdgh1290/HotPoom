@@ -50,11 +50,7 @@ public class AjaxController {
 	@Autowired
 	private ReportsService reportsService;
 	@Autowired
-	
-	
-	public Map<String, Object> getReviews(int no, int pageNo) {
-		return reviewsService.getReviewList(no, pageNo);
-	}
+
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)
@@ -78,7 +74,7 @@ public class AjaxController {
 	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
 	public List<Credit> getMyCardList(int userNo) {
 		
-		return creditsService.getMyCardList(userNo);
+		return creditsService.getMyCardDefault(userNo);
 	}
 	
 	//poomDetail에서 리뷰 가져오기

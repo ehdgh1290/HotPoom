@@ -22,15 +22,5 @@ public class IndexController {
 		model.addAttribute("newPoomList",poomsService.getListNP());
 		return "index";
 	}//index() end
-	
-	
-	/*
-	 * //new poom
-	 * 
-	 * @RequestMapping(value="/new/poom", method=RequestMethod.GET) public void
-	 * getNewPoom(Model model) {
-	 * 
-	 * 
-	 * }//getNewPoom() end
-	 */	
+
 }

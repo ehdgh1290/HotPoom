@@ -23,5 +23,11 @@ public class PoomController {
 		
 		return "poomDetail";
 	}
+	
+	
+	@RequestMapping(value="/poom", method=RequestMethod.GET)
+	public String getPoomList() {
+		return "hotelList";
+	}
 
 }

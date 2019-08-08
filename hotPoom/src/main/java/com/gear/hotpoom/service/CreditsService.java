@@ -6,7 +6,7 @@ import com.gear.hotpoom.vo.Credit;
 
 public interface CreditsService {
 	
-	public List<Credit> getMyCardList(int userNo);
+	public List<Credit> getMyCardDefault(int userNo);
 	public int registerBasicCard(Credit credit);
 	
 }

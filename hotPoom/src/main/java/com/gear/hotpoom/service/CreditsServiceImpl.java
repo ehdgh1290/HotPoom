@@ -19,8 +19,8 @@ public class CreditsServiceImpl implements CreditsService{
 	}
 	
 	@Override
-	public List<Credit> getMyCardList(int userNo) {
-		return creditsDAO.selectCardList(userNo);
+	public List<Credit> getMyCardDefault(int userNo) {
+		return creditsDAO.selectCardDefault(userNo);
 	}
 	
 }
