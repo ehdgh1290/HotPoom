@@ -31,5 +31,36 @@ public class UsersDAOImpl implements UsersDAO{
 	public int updatePassword(User user) {
 		return session.update("users.updatePassword",user);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public User getOneUser(int userNo) {
+		return session.selectOne("users.selectOne", userNo);
+	}
+	
+	@Override
+	public int updateName(User user) {
+		// TODO Auto-generated method stub
+		return session.update("users.updateName",user);
+	}
+	
+	@Override
+	public int updatePhoneNum(User user) {
+		// TODO Auto-generated method stub
+		return session.update("users.updatePhoneNum",user);
+	}
+	
+	
 
 }

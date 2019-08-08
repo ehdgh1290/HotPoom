@@ -5,7 +5,7 @@
     /*padding-left: 40px;*/
     /*padding-top: 10px;*/
     margin: auto;
-    width: 500px; height: 800px;
+    width: 500px; min-height: 800px;
 }
 .personal_information_inner {
     position: absolute;
@@ -14,7 +14,6 @@
 .personal_information_inner_head {
     position: absolute;
     width: 100px; height: 40px;
-    /*border: 1px solid #424242;*/
     line-height: 40px;
 }
 .personal_information_inner_middle {
@@ -23,21 +22,29 @@
     background-color: white;
     line-height: 40px;
     left: 100px;
-    text-indent: 10px;
+    text-indent: 5px;
+    font-size: 18px;
+
 }
 .personal_information_inner_middle.personal_information_input {
     width: 200px;
-    border: none;
-    pointer-events: none;
+  	top : 7px;
     font-size: 18px;
-    font-weight: bold;
     text-indent: 10px;
 }
+
+.personal_information_inner_middle.personal_information_div {
+    width: 200px;
+    font-size: 18px;
+
+}
+
 .personal_information_inner_foot {
     position: absolute;
     width: 70px; height: 40px;
     line-height: 40px;
     right: 10px;
+    top: 0;
 }
 button {
     background-color: #fff;
@@ -49,7 +56,7 @@ button {
     border-radius: 10px;
     color: #C50532;
 }
-button:hover {
+#content button:hover {
     background-color: #C50532;
     color: white;
 }
@@ -60,42 +67,44 @@ button>a:hover {
     color: #fff;
 }
 #personalInformationWrap {
-    position: absolute;
-    width: 500px; min-height: 250px;
+    position: relative;
+    width: 500px; height:280px;
+    margin-bottom: 50px;
     /*background-color: #dedede;*/
 }
 /*#nameUpdateInner {*/
 /*    background-color: blanchedalmond;*/
 /*}*/
 #genderUpdateInner {
-    top: 102px;
+    top: 75px;
     /*background-color: darkgoldenrod;*/
 }
 #birthUpdateInner {
-    top: 147px;
+    top: 112px;
     /*background-color: darkseagreen;*/
 }
 #emailUpdateInner {
-    top: 195px;
+    top: 158px;
     /*background-color: green;*/
 }
 #phoneNumUpdateInner {
-    top: 248px;
+    top: 202px;
     /*background-color: deeppink;*/
 }
 #paymentInformationWrap {
-    top: 400px;
-    position: absolute;
+    position: relative;
     width: 500px; min-height: 450px;
+    margin: 100px 0 70px 0;
     /*background-color: cadetblue;*/
 }
 #creditCardSelectInner {
-    position: absolute;
+    position: relative;
     width: 500px; min-height: 230px;
+    margin-bottom:80px;
     /*background-color: coral;*/
 }
 .creditCardDetailBox {
-    position: absolute;
+    position: relative;
     width: 500px; min-height: 80px;
     /*background-color: fuchsia;*/
 }
@@ -128,11 +137,12 @@ button>a:hover {
     top: 15px;
 }
 .payment_information_credit_card_btn.add_card {
-    width: 170px; bottom: 18px; left: 10px;
+    width: 170px; left: 175px; position:relative;
+    margin-top: 20px;
 }
 #receiptAccountSelectInner {
-    position: absolute;
-    top: 303px; width: 500px; height: 122px;
+    position: relative;
+    width: 500px; min-height: 200px;
     /*background-color: gold;*/
 }
 .receipt_account_detail {
@@ -220,20 +230,23 @@ button>a:hover {
 }
 .card_list_select {
     position: absolute;
-    left: 30px;
-    width: 120px; height: 30px;
+    left: 8px;
+    width: 135px; height: 30px;
     font-size: 15px;
 }
 .card_name_insert_input {
     width: 130px; height: 25px;
     position: absolute;
-    left: 30px;
+    left: 8px;
     font-size: 15px;
 }
-.card_information_insert_input {
-    width: 220px; height: 25px;
-    position: absolute;
-    left: 30px;
+.card_information_insert_input1,
+.card_information_insert_input2,
+.card_information_insert_input3,
+.card_information_insert_input4 {
+    width: 70px; height: 25px;
+    position: relative;
+    left: 8px;
     font-size: 15px;
 }
 .card_information_detail_input {
@@ -247,7 +260,7 @@ button>a:hover {
     position: absolute;
     font-size: 18px;
     font-weight: bold;
-    right: 120px; top: 18px;
+    right: 135px; top: 18px;
 }
 .credit_card_month {
     left: 90px;
@@ -256,7 +269,7 @@ button>a:hover {
     left: 220px;
 }
 .limit {
-    left: 20px;
+    left: 10px;
     font-size: 15px;
     top: 20px;
 }
@@ -280,11 +293,11 @@ button>a:hover {
     font-size: 19px;
     font-weight: bold;
     margin-top: 8px;
-    margin-bottom: 15px;
+    margin: 20px 0 15px 0;
     text-indent: 8px;
 }
 #receiptAccountAddSection {
-    width: 500px; height: 600px;
+    width: 500px; height: 500px;
     position: fixed;
     padding: 5px 30px;
     top: 50%; left: 50%;
@@ -297,22 +310,23 @@ button>a:hover {
     width: 500px; height: 110px;
 }
 #personInsertWrap {
-    top: 210px;
-    position: absolute;
+    top: 140px;
+    position: relative;
     /*background-color: green;*/
     width: 500px; height: 130px;
 }
 #accountInsertWrap {
-    position: absolute;
-    top: 350px;
+    position: relative;
+    top: 130px;
     /*background-color: gold;*/
     width: 500px; height: 130px;
 }
 #accountInsertBtnWrap {
     /*background-color: #C50532;*/
-    position: absolute;
+    position: relative;
     bottom: 30px;
     width: 500px; height: 80px;
+    top: 90px;
 }
 .account_insert_btn {
     border: none;
@@ -340,15 +354,16 @@ button>a:hover {
 }
 .bank_list_select {
     position: absolute;
-    left: 30px;
-    width: 120px; height: 30px;
+    left: 8px;
+    width: 120px; height: 35px;
     font-size: 15px;
 }
 .account_insert_input {
-    position: absolute;
-    left: 30px;
+    position: relative;
+    left: 8px;
     width: 200px; height: 35px;
     font-size: 15px;
+
 }
 #bg {
     z-index: 2;
@@ -381,16 +396,22 @@ button>a:hover {
 }
 .name_change_success {
     /*display: none;*/
-    color: #C50532;
+    color: #0080ff;
     position: absolute;
     top: 40px; left: 80px;
+}
+
+.phone_change_success{
+	 color: #0080ff;
+	
 }
 #accountPhoneConfirm {
     position: absolute;
     top: 75px;
     display: none;
-    /*background-color: #0055aa;*/
-    border: 1px solid #424242;
+    font-size: 18px;
+    height: 25px;
+
 }
 .phone_num_confirm {
     position: absolute;
@@ -404,4 +425,12 @@ button>a:hover {
 .send_number {
     right: 90px;
     display: none;
+}
+
+#creditCardAddSection input{
+	text-indent: 5px;
+}
+
+#receiptAccountAddSection input{
+	text-indent: 5px;
 }

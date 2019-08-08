@@ -7,8 +7,10 @@ import com.gear.hotpoom.dao.UsersDAO;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -18,7 +20,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import com.gear.hotpoom.dao.BankAccountsDAO;
+import com.gear.hotpoom.dao.BanksDAO;
 import com.gear.hotpoom.dao.CertsDAO;
+import com.gear.hotpoom.dao.ChatRoomsDAO;
+import com.gear.hotpoom.dao.ChatUsersDAO;
 import com.gear.hotpoom.vo.Cert;
 import com.gear.hotpoom.vo.User;
 
@@ -29,6 +35,17 @@ public class UsersServiceImpl implements UsersService{
 	private UsersDAO usersDAO;
 	@Autowired
 	private CertsDAO certsDAO;
+	
+	@Autowired
+	private BanksDAO banksDAO;
+	@Autowired
+	private BankAccountsDAO bankAccountsDAO;
+	@Autowired
+	private ChatRoomsDAO chatRoomsDAO;
+	@Autowired
+	private ChatUsersDAO chatUsersDAO;
+	
+	
 	
 	@Override //로그인 정보가 맞는지 확인
 	public User loginCheck(User user) {
@@ -129,5 +146,52 @@ public class UsersServiceImpl implements UsersService{
 		usersDAO.updatePassword(user);
 		certsDAO.delete(no);
 		return 1;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public Map<String, Object> getAccountDetail(int userNo) {
+		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
+		
+	
+		if(bankAccountsDAO.selectMyAccount(userNo)!=null) {
+
+			map.put("bankList", banksDAO.banksList());
+			map.put("cardList", banksDAO.banksList());
+			map.put("user", usersDAO.getOneUser(userNo));
+			map.put("userAccount", bankAccountsDAO.selectMyAccount(userNo));
+		}else {
+			map.put("bankList", banksDAO.banksList());
+			map.put("cardList", banksDAO.banksList());
+			map.put("user", usersDAO.getOneUser(userNo));
+			
+		}
+	
+		return map;
+	}
+	
+	@Override
+	public int modifyName(User user) {
+		// TODO Auto-generated method stub
+		return usersDAO.updateName(user);
+	}
+	
+	@Override
+	public int modifyPhoneNum(User user) {
+		// TODO Auto-generated method stub
+		return usersDAO.updatePhoneNum(user);
 	}
 }
