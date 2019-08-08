@@ -1,15 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>account</title>
+    <title>개인 정보</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
     <link rel="stylesheet" href="/css/account.css"/>
+
+<style>
+
+#content{
+	position: relative;
+	margin: auto;
+	min-height: 800px;
+	margin-top: 50px;
+}
+
+.personal_information_inner_middle.personal_information_input {
+	height: 25px;
+}
+
+#nameUpdateInner input{
+	display: none;
+}
+
+#nameUpdateCompleteBtn{
+	display: none;
+}
+
+#phoneNumUpdateCompleteBtn{
+	display: none;
+}
+
+#defaultBtn{
+	background: #C50532;
+	color: #fff;
+}
+
+#userPhoneInput{
+	display: none;
+}
+
+.phone_num_confirm_success{
+	color : #0080ff;
+	position : absolute;
+	top : 123px;
+	left : 100px;
+}
+
+.hypoon_span{
+	position: relative;
+	left: 10px;
+}
+
+
+</style>
 </head>
 <body>
+
+<%-- <c:if test="${loginUser==null}"> --%>
+<%-- <c:redirect url="/index"/> --%>
+<%-- </c:if> --%>
+
 <c:import url="/WEB-INF/template/header.jsp"/>
 <div id="bg"></div>
 <div id="accountUpdateSection">
@@ -17,62 +72,71 @@
         <h2 class="account_h2">개인정보</h2>
         <div id="nameUpdateInner" class="personal_information_inner">
             <span class="personal_information_inner_head">이름</span>
-            <input class="personal_information_inner_middle personal_information_input user_name_input" value="고하선"/>
-            <button class="personal_information_inner_foot user_name">수정</button>
+            <div id="userNameDiv" class="personal_information_inner_middle personal_information_div" value="${user.name }">${user.name }</div>
+            <input id="userNameInput" name="name" class="personal_information_inner_middle personal_information_input" value="${user.name }"/>
+            <button id="nameUpdateBtn" class="personal_information_inner_foot user_name">수정</button>
+            <button id="nameUpdateCompleteBtn" class="personal_information_inner_foot user_name">완료</button>
             <div class="name_change_success"></div>
         </div>
         <div id="genderUpdateInner" class="personal_information_inner">
             <span class="personal_information_inner_head">성별</span>
-            <span class="personal_information_inner_middle">여자</span>
+            <span class="personal_information_inner_middle">${user.gender=="F" ? "여자" : "남자" }</span>
         </div>
         <div id="birthUpdateInner" class="personal_information_inner">
             <span class="personal_information_inner_head">생년월일</span>
-            <span class="personal_information_inner_middle">1996-11-29</span>
+            <span class="personal_information_inner_middle">${user.birthDate }</span>
         </div>
         <div id="emailUpdateInner" class="personal_information_inner">
             <span class="personal_information_inner_head">이메일</span>
-            <span class="personal_information_inner_middle">ghdrlfehd@naver.com</span>
+            <span class="personal_information_inner_middle">${user.email }</span>
         </div>
         <div id="phoneNumUpdateInner" class="personal_information_inner">
             <span class="personal_information_inner_head">전화번호</span>
-            <input class="personal_information_inner_middle personal_information_input user_phone_num_input" value="01012345478"/>
+
+            <div id="userPhoneDiv" class="personal_information_inner_middle personal_information_ user_phone_num_input" value="${user.phoneNum }">${user.phoneNum }</div>            
+            <input id="userPhoneInput" class="personal_information_inner_middle personal_information_input user_phone_num_input" maxlength="11" value="${user.phoneNum }"/>
+            
             <button class="personal_information_inner_foot send_number">발송</button>
-            <button class="personal_information_inner_foot user_phone_num">수정</button>
-            <div class="msg phone_num_change_success"></div>
-            <input id="accountPhoneConfirm" name="accountPhoneConfirm" autocomplete="off" placeholder=" 인증번호 입력" class="personal_information_inner_middle personal_information_input"/>
+            <button id="phoneNumUpdateBtn" class="personal_information_inner_foot user_phone_num">수정</button>
+            <button id="phoneNumUpdateCompleteBtn" class="personal_information_inner_foot user_phone_num">완료</button>
+            <div class="phone_change_success"></div>
+            
+            <div class="account_msg phone_num_change_success"></div>
+
+            <input id="accountPhoneConfirm" name="accountPhoneConfirm" placeholder=" 인증번호 입력" class="personal_information_inner_middle"/>
             <button class="phone_num_confirm">확인</button>
-            <div class="msg phone_num_confirm_success"></div>
+            <div class="account_msg phone_num_confirm_success"></div>
         </div>
     </div>
     <div id="paymentInformationWrap">
         <h2 class="account_h2">결제 정보</h2>
         <div id="creditCardSelectInner">
-            <h3 class="account_h3">결제 수단</h3>
-            <div class="creditCardDetailBox">
-                <img class="creditCardBankIcon" src="/img/신한.JPG" alt="신한"/>
-                <div class="creditCardDetail">
-                    <span>신한 - 8409</span>
-                    <span>만료일 05/24</span>
-                </div>
-                <button class="payment_information_credit_card_btn default_setting">기본으로 설정</button>
-                <button class="payment_information_credit_card_btn delete_card">삭제하기</button>
-            </div>
-            <button class="payment_information_credit_card_btn add_card">결제 수단 추가</button>
+            
         </div>
         <div id="receiptAccountSelectInner">
             <h3 class="account_h3">수령 계좌</h3>
+            <c:choose>
+            <c:when test="${userAccount==null }">
             <div class="receipt_account_detail">
                 <span class="receipt_account_no">아직 등록된 계좌가 없습니다.</span>
-                <button class="receipt_account_btn add_card">계좌 추가</button>
+                <button id="addAccount" class="receipt_account_btn add_card">계좌 추가</button>
             </div>
+            </c:when>
+            <c:otherwise>
             <div id="receiptAccountDetailBox" class="receipt_account_detail">
-                <span>신한은행</span>
+                <span>${userAccount.name }</span>
                 <div id="receiptAccountDetail">
-                    <span>고하선</span>
-                    <span>111-111-123457</span>
+                    <span>${userAccount.userName }</span>
+                    <span>${userAccount.num }</span>
                 </div>
-                <button class="receipt_account_btn delete_card">삭제하기</button>
+                <form method="POST" action="/user/account/${userAccount.no}/${loginUser.no}">
+	                   <input type="hidden" name="_method" value="DELETE"/>
+	                   <button data-accountNo = "${userAccount.no}" id="removeAccount" class="receipt_account_btn delete_card ">삭제하기</button>
+	            </form>
+                
             </div>
+            </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
@@ -83,230 +147,486 @@
         <h3 class="account_h3">카드</h3>
         <select name='cardName'  class='card_list_select'>
             <option value=''>-선택-</option>
-            <option value='SC제일은행'>SC제일은행</option>
-            <option value='경남은행'>경남은행</option>
-            <option value='광주은행'>광주은행</option>
-            <option value='국민은행'>국민은행</option>
-            <option value='기업은행'>기업은행</option>
-            <option value='농협중앙회'>농협중앙회</option>
-            <option value='대구은행'>대구은행</option>
-            <option value='뱅크오브아메리카(BOA)'>뱅크오브아메리카(BOA)</option>
-            <option value='부산은행'>부산은행</option>
-            <option value='산업은행'>산업은행</option>
-            <option value='새마을금고'>새마을금고</option>
-            <option value='수협중앙회'>수협중앙회</option>
-            <option value='신한은행'>신한은행</option>
-            <option value='신협중앙회'>신협중앙회</option>
-            <option value='외환은행'>외환은행</option>
-            <option value='우리은행'>우리은행</option>
-            <option value='우체국'>우체국</option>
-            <option value='전북은행'>전북은행</option>
-            <option value='제주은행'>제주은행</option>
-            <option value='하나은행'>하나은행</option>
-            <option value='한국씨티은행'>한국씨티은행</option>
+            <c:forEach items="${cardList }" var="card">
+            <option value='${card.no }'>${card.name }</option>
+            </c:forEach>
         </select>
     </div>
     <div id="cardPersonInsertWrap">
         <div id="cardPersonFirstNameInsertInner">
-            <h3 class="account_h3">성</h3>
-            <input class="card_name_insert_input" placeholder="성"/>
+        	
+            <h2 class="account_h3">성</h2>
+            <input class="card_name_insert_input last_name" placeholder="last name"/>
         </div>
         <div id="cardPersonNameInsertInner">
             <h3 class="account_h3">이름</h3>
-            <input class="card_name_insert_input" placeholder="이름"/>
+            <input class="card_name_insert_input first_name" placeholder="first name"/>
         </div>
     </div>
     <div id="cardInformaionInsertWrap">
         <h3 class="account_h3">카드 정보</h3>
-        <input class="card_information_insert_input" placeholder="카드번호"/>
+        <input class="card_information_insert_input1" maxlength="4" placeholder="카드번호"/><span class="hypoon_span"> -</span>&nbsp;
+        <input class="card_information_insert_input2" maxlength="4" placeholder="카드번호"/><span class="hypoon_span"> -</span>&nbsp;
+        <input class="card_information_insert_input3" maxlength="4" placeholder="카드번호"/><span class="hypoon_span"> -</span>&nbsp;
+        <input class="card_information_insert_input4" maxlength="4" placeholder="카드번호"/>
         <div id="cardInformaionInsertInner">
             <span class="card_information_detail limit">만료일</span>
-            <input class="card_information_detail_input credit_card_month" placeholder="MM"/>
+            <input class="card_information_detail_input credit_card_month" maxlength="2" placeholder="MM"/>
             <span class="card_information_detail slash">/</span>
-            <input class="card_information_detail_input credit_card_year" placeholder="YY"/>
+            <input class="card_information_detail_input credit_card_year" maxlength="2" placeholder="YY"/>
             <span class="card_information_detail">cvc</span>
-            <input class="card_information_detail_input" placeholder="cvc"/>
+            <input class="card_information_detail_input credit_card_cvc" maxlength="3" placeholder="cvc"/>
         </div>
     </div>
 
     <div id="creditCardInsertBtnWrap">
         <button type="button" class="credit_card_insert_btn credit_card_popup_cancel">취소</button>
-        <button type="submit" class="credit_card_insert_btn credit_card_popup_register">등록</button>
+        <button type="button" class="credit_card_insert_btn credit_card_popup_register">등록</button>
     </div>
 </div>
 
-<div id="receiptAccountAddSection">
+<form id="receiptAccountAddSection" action="/user/account" method="POST">
     <h1 class="account_h1">수령 계좌 추가</h1>
     <div id="bankSelectWrap">
         <h3 class="account_h3">은행</h3>
         <select name='bankName'  class='bank_list_select'>
             <option value=''>-선택-</option>
-            <option value='SC제일은행'>SC제일은행</option>
-            <option value='경남은행'>경남은행</option>
-            <option value='광주은행'>광주은행</option>
-            <option value='국민은행'>국민은행</option>
-            <option value='굿모닝신한증권'>굿모닝신한증권</option>
-            <option value='기업은행'>기업은행</option>
-            <option value='농협중앙회'>농협중앙회</option>
-            <option value='농협회원조합'>농협회원조합</option>
-            <option value='대구은행'>대구은행</option>
-            <option value='대신증권'>대신증권</option>
-            <option value='대우증권'>대우증권</option>
-            <option value='동부증권'>동부증권</option>
-            <option value='동양종합금융증권'>동양종합금융증권</option>
-            <option value='메리츠증권'>메리츠증권</option>
-            <option value='미래에셋증권'>미래에셋증권</option>
-            <option value='뱅크오브아메리카(BOA)'>뱅크오브아메리카(BOA)</option>
-            <option value='부국증권'>부국증권</option>
-            <option value='부산은행'>부산은행</option>
-            <option value='산림조합중앙회'>산림조합중앙회</option>
-            <option value='산업은행'>산업은행</option>
-            <option value='삼성증권'>삼성증권</option>
-            <option value='상호신용금고'>상호신용금고</option>
-            <option value='새마을금고'>새마을금고</option>
-            <option value='수출입은행'>수출입은행</option>
-            <option value='수협중앙회'>수협중앙회</option>
-            <option value='신영증권'>신영증권</option>
-            <option value='신한은행'>신한은행</option>
-            <option value='신협중앙회'>신협중앙회</option>
-            <option value='에스케이증권'>에스케이증권</option>
-            <option value='에이치엠씨투자증권'>에이치엠씨투자증권</option>
-            <option value='엔에이치투자증권'>엔에이치투자증권</option>
-            <option value='엘아이지투자증권'>엘아이지투자증권</option>
-            <option value='외환은행'>외환은행</option>
-            <option value='우리은행'>우리은행</option>
-            <option value='우리투자증권'>우리투자증권</option>
-            <option value='우체국'>우체국</option>
-            <option value='유진투자증권'>유진투자증권</option>
-            <option value='전북은행'>전북은행</option>
-            <option value='제주은행'>제주은행</option>
-            <option value='키움증권'>키움증권</option>
-            <option value='하나대투증권'>하나대투증권</option>
-            <option value='하나은행'>하나은행</option>
-            <option value='하이투자증권'>하이투자증권</option>
-            <option value='한국씨티은행'>한국씨티은행</option>
-            <option value='한국투자증권'>한국투자증권</option>
-            <option value='한화증권'>한화증권</option>
-            <option value='현대증권'>현대증권</option>
-            <option value='홍콩상하이은행'>홍콩상하이은행</option>
+            <c:forEach items="${cardList}" var="card">
+            <option value='${card.no }'>${card.name }</option>
+            </c:forEach>
         </select>
+        
+        
     </div>
     <div id="personInsertWrap">
         <h3 class="account_h3">예금주명</h3>
-        <input class="account_insert_input" placeholder="이름"/>
+        <input id="accountUserName" name="name" class="account_insert_input" placeholder="이름"/>
     </div>
     <div id="accountInsertWrap">
         <h3 class="account_h3">계좌번호</h3>
-        <input class="account_insert_input" placeholder="계좌번호"/>
+        <input id="accountNum" name="num" class="account_insert_input" placeholder="계좌번호"/>
     </div>
     <div id="accountInsertBtnWrap">
         <button type="button" class="account_insert_btn account_popup_cancel">취소</button>
-        <button type="submit" class="account_insert_btn account_popup_register">등록</button>
+        <button type="button" class="account_insert_btn account_popup_register">등록</button>
     </div>
-</div>
+</form>
 
 
 <c:import url="/WEB-INF/template/footer.jsp"/>
+
+<script type="text/temlpate" id="cardListTmp">
+<h3 class="account_h3">결제 수단</h3>
+<@_.each(cards,function(card){	
+	let bankName = card.name;
+	let bName = bankName.substring(0,2);
+
+	let cardNum = card.num.substring(12,16); 
+@>
+	<div class="creditCardDetailBox">
+                <img class="creditCardBankIcon" src="/img/<@=bName@>.JPG" alt="<@=bName@>"/>
+                <div class="creditCardDetail">
+                    <span><@=bName@> - <@=cardNum@></span>
+                    <span>만료일 <@=card.dueMonth@>/<@=card.dueYear@></span>
+                </div>
+				<@ if(card.basic=="D") {@>
+                <button id="defaultBtn" data-cardNo="<@=card.no@>" class="payment_information_credit_card_btn default_setting">기본 카드</button>
+				<button data-cardNo="<@=card.no@>" class="payment_information_credit_card_btn remove_card delete_card">삭제하기</button>
+				<@ } else if(card.basic=="N") { @>
+                <button data-cardNo="<@=card.no@>" class="payment_information_credit_card_btn default_setting">기본으로 설정</button>
+                <button data-cardNo="<@=card.no@>" class="payment_information_credit_card_btn remove_card delete_card">삭제하기</button>
+				<@ } @>    
+				</div>
+<@})@>
+<button class="payment_information_credit_card_btn add_card">결제 수단 추가</button>
+</script>
+
+<script type="text/temlpate" id="accountTmp">
+<h3 class="account_h3">수령 계좌</h3>
+            <div id="receiptAccountDetailBox" class="receipt_account_detail">
+                <span><@=account.bankName@></span>
+                <div id="receiptAccountDetail">
+                    <span><@=account.name@></span>
+                    <span><@=account.num@></span>
+                </div>
+                <form id="deleteForm" method="POST" action="/user/account/<@=account.no@>/<@=account.userNo@>">
+	                   <input type="hidden" name="_method" value="DELETE"/>
+	                   <button form="deleteForm" data-accountNo = "<@=account.userNo@>" id="removeAccount" class="receipt_account_btn delete_card">삭제하기</button>
+	            </form>
+                
+ 			</div>
+</script>
+
+<script type="text/template" id="notYetTmp">
+    	<span class="receipt_account_no">아직 등록된 카드가 없습니다.</span>
+		<button class="payment_information_credit_card_btn add_card">결제 수단 추가</button>
+</script>
+
 <script>
+
+
+
+	let userNo = ${loginUser.no};
+
+	_.templateSettings = {
+		interpolate : /\<\@\=(.+?)\@\>/gim,
+		evaluate : /\<\@([\s\S]+?)\@\>/gim,
+		escape : /\<\@\-(.+?)\@\>/gim
+	};
 
     let $nameInput = $(".user_name_input");
     let $phoneNumImput = $(".user_phone_num_input");
+    
+    const cardListTmp = _.template($("#cardListTmp").html());
+    const accountTmp = _.template($("#accountTmp").html());
+    const notYetTmp = _.template($("#notYetTmp").html());
+
+    // ************************************* pop up 처리 *************************************************
+    
+    $("#paymentInformationWrap").on("click",".payment_information_credit_card_btn.add_card",function(){
+    	$("#bg").css("display","block");
+        $("#creditCardAddSection").css("display","block");
+    });// 결제 수단 추가 btn click end
+
+    $(".credit_card_insert_btn").on("click",function () {
+        $("#bg").css("display","none");
+        $("#creditCardAddSection").css("display","none");
+    });// popup 취소, 등록 btn click end
+
+    $(".receipt_account_btn.add_card").on("click",function () {
+        $("#bg").css("display","block");
+        $("#receiptAccountAddSection").css("display","block");
+    });// 계좌 추가 btn click end
+
+    $(".account_insert_btn").on("click",function () {
+        $("#bg").css("display","none");
+        $("#receiptAccountAddSection").css("display","none");
+    });// popup 취소, 등록 btn click end
+    
+    // ************************************* pop up 처리 end *************************************************
 
     $(".user_name").on("click", function () {
-        $nameInput.css({"border":"1px solid #424242","pointer-events":"auto"});
-    });//이름 수정 btn click end
+    	
+    	$(".name_change_success").css("display","none");
+    	$(".phone_change_success").css("display","none");
+    	$("#userNameDiv").css("display","none");
+    	$("#userNameInput").css({"display":"block","pointer-events":"auto"});
+    	
+    	$("#nameUpdateBtn").css("display","none");
+    	$("#nameUpdateCompleteBtn").css("display","block");
+    	
+    });// 이름 수정 btn click end
+    
+    $("#nameUpdateCompleteBtn").on("click",function(){
+    	
+    	let name = $("#userNameInput").val();
+    	console.log(name);
 
-    $nameInput.on("keyup",function () {
-        let name = $nameInput.val();
-        console.log(name);
+    	$.ajax({
+    		url:"/ajax/updateName/${loginUser.no}/"+name,
+    		type:"PUT",
+    		datatype:"json",
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			// console.log(json);
+    			
+    			$("#userNameInput").css("display","none");
+    			$("#userNameDiv").text(name);
+    			$("#userNameDiv").css("display","block");
+    			$("#nameUpdateCompleteBtn").css("display","none");
+    			$("#nameUpdateBtn").css("display","block");
+    			
 
-        $.ajax({
-            url: "json/checkingUser.json",
-            type: "get",
-            dataType: "json",
-            data:{"name":name},
-            error:function() {
-                alert("서버 점검 중");
-            },
-            success:function(json) {
-                $(".name_change_success").text(name+" 으로 변경되었습니다.").css(
-                    {"color": "#C50532","position":"absolute","top":"50px","left":"110px"});
-                return false;
-            }//success end
-        })//ajax end
-    });//keyup end
+                $(".name_change_success").text("이름이 성공적으로 변경되었습니다.").css({"display":"block","position":"relative","z-index":"1","left":"105px","top":"33px"});
+    		}
+    	});//$.ajax() end
+    }) // 이름 수정 완료 btn click end
+
+//     $nameInput.on("keyup",function () {
+//         let name = $nameInput.val();
+//         console.log(name);
+
+//         $.ajax({
+//             url: "json/checkingUser.json",
+//             type: "get",
+//             dataType: "json",
+//             data:{"name":name},
+//             error:function() {
+//                 alert("서버 점검중!");
+//             },
+//             success:function(json) {
+//                 $(".name_change_success").text(name+" 으로 변경되었습니다.").css(
+//                     {"color": "#C50532","position":"absolute","top":"50px","left":"110px"});
+//                 return false;
+//             }//success end
+//         })//ajax end
+//     });//keyup end
 
     $(".user_phone_num").on("click", function () {
-        $phoneNumImput.css({"border":"1px solid #424242","pointer-events":"auto"});
-        $("#accountPhoneConfirm").css({"display":"block","pointer-events":"auto"});
-        $(".phone_num_confirm").css("display","block");
+    	
+		$("#phoneNumUpdateBtn").css("display","none");
+		$("#phoneNumUpdateCompleteBtn").css("display","block");
+        $("#userPhoneInput").css({"display":"block","pointer-events":"auto"});
+        $("#accountPhoneConfirm").css({"display":"block","`":"auto"});
+        $(".phone_num_confirm").css({"display":"block","pointer-events":"auto"});
         $(".send_number").css("display","block");
-    });//핸드폰 수정 btn click end
+        
 
-    let phoneNum = null;
+    });// 핸드폰 수정 btn click end
 
-    $phoneNumImput.on("keyup",function () {
-        phoneNum = $phoneNumImput.val();
-        console.log(phoneNum);
 
-        $.ajax({
-            url: "json/checkingUser.json",
-            type: "get",
-            dataType: "json",
-            data:{"phoneNum":phoneNum},
-            error:function() {
-                alert("서버 점검 중");
-            },
-            success:function(json) {
-                $(".phone_num_change_success").text(phoneNum+" 으로 변경되었습니다.").css(
-                    {"color": "#C50532","position":"absolute","top":"50px","left":"110px"});
-                return false;
-            }//success end
-        })//ajax end
-    });//keyup end
+//     $phoneNumImput.on("keyup",function () {
+//         phoneNum = $phoneNumImput.val();
+//         console.log(phoneNum);
+
+//         $.ajax({
+//             url: "json/checkingUser.json",
+//             type: "get",
+//             dataType: "json",
+//             data:{"phoneNum":phoneNum},
+//             error:function() {
+//                 alert("서버 점검 중");
+//             },
+//             success:function(json) {
+//                 $(".phone_num_change_success").text(phoneNum+" 으로 변경되었습니다.").css(
+//                     {"color": "#C50532","position":"absolute","top":"50px","left":"110px"});
+//                 return false;
+//             }//success end
+//         })//ajax end
+//     });//keyup end
 
     $(".send_number").click(function () {
+    	
+    	let phoneNum = $("#userPhoneInput").val();
+    	// console.log(phoneNum);
+    	
         alert(phoneNum+"로 인증번호를 발송했습니다. 확인하여 3분 안에 기입해주세요.");
-        $(".phone_num_change_success").text('');
+        // $(".phone_num_change_success").text('');
         return false;
-    }); //발송 btn click end
+    }); // 휴대폰 인증번호 발송 btn click end
 
+  	//인증번호 일치 유효성 검사.
+	function testPhoneNumConfirm() {
+    	
+        let phoneNumconfirm = $("#accountPhoneConfirm");
+        let confirmSuccess = $("#accountPhoneConfirm").val();
+
+	    if ( phoneNumconfirm == null || confirmSuccess != "1234") {
+	        $(".phone_num_confirm_success").text("올바른 인증 번호를 입력해주세요.").css(
+	            {"color": "#C50532","position":"absolute","top":"123px","left":"100px"});
+	        phoneNumconfirm.val('');
+	        phoneNumconfirm.focus();
+	        return false;
+	    }else {
+	        $(".phone_num_confirm_success").text("본인 인증이 완료되었습니다.");
+	    }//if ~ else end
+    
+    }
+    
     $(".phone_num_confirm").on("click", function () {
 
         let phoneNumconfirm = $("#accountPhoneConfirm");
         let confirmSuccess = $("#accountPhoneConfirm").val();
 
-        if ( phoneNumconfirm == null || confirmSuccess != "5412") {
-            $(".phone_num_confirm_success").text("올바른 인증 번호를 입력해주세요.").css(
-                {"color": "#C50532","position":"absolute","top":"123px","left":"100px"});
-            phoneNumconfirm.val('');
-            phoneNumconfirm.focus();
-            return false;
-        }else {
-            $(".phone_num_confirm_success").text(' ');
-        }//if ~ else end
-    });//확인 btn end
+        
+        testPhoneNumConfirm();
+        
+    });// 인증번호 확인 btn end
+    
+    $("#phoneNumUpdateCompleteBtn").on("click",function(){
+    	
+    	let phoneNum = $("#userPhoneInput").val();
 
-    $(".payment_information_credit_card_btn.add_card").on("click",function () {
-        $("#bg").css("display","block");
-        $("#creditCardAddSection").css("display","block");
-    });//결제 수단 추가 btn click end
+    	$.ajax({
+    		url:"/ajax/updatePhoneNum/${loginUser.no}/"+phoneNum,
+    		type:"PUT",
+    		datatype:"json",
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			console.log(json);
+    			
+    			$("#userPhoneInput").css("display","none");
+    			$("#userPhoneDiv").text(phoneNum);
+    			$("#userPhoneDiv").css("display","block");
+    			$("#phoneNumUpdateCompleteBtn").css("display","none");
+    			$("#phoneNumUpdateBtn").css("display","block");
+    			$("#accountPhoneConfirm").css("display","none");
+    			$(".phone_num_confirm").css("display","none");
+    			$(".send_number").css("display","none");
+    			$(".phone_num_confirm_success").css("display","none");
+    			
 
-    $(".credit_card_insert_btn").on("click",function () {
-        $("#bg").css("display","none");
-        $("#creditCardAddSection").css("display","none");
-    });//popup 취소, 등록 btn click end
+                $(".phone_change_success").text("전화번호가 성공적으로 변경되었습니다.").css({"display":"block","position":"relative","z-index":"1","left":"105px","top":"35px"});
+    		}
+    	});//$.ajax() end
 
-    $(".receipt_account_btn.add_card").on("click",function () {
-        $("#bg").css("display","block");
-        $("#receiptAccountAddSection").css("display","block");
-    });//계좌 추가 btn click end
+    }) // 전화번호 수정 완료 btn click end
+    
+    
+    function getMyCardList(){
+    	$.ajax({
+    		url:"/ajax/myCardList/${loginUser.no}",
+    		type:"GET",
+    		datatype:"json",
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			
+    			if(json.length==0){
+    				$("#creditCardSelectInner").html(notYetTmp({"cards":json}));
+    			} else{
+    				$("#creditCardSelectInner").html(cardListTmp({"cards":json}));
+    			}    		
+    		}
+    	});//$.ajax() end
+    }// getMyCardList() end 
+    
+    getMyCardList();
+    
+ 	// ***************************************************** 카드 관련 메소드
+ 	
+    $(".credit_card_popup_register").on("click",function(){
+    	
+    	let bankNo = $(".card_list_select").val();
+    	let engName = $(".last_name").val()+$(".first_name").val();
+    	let num1 = $(".card_information_insert_input1").val();
+    	let num2 = $(".card_information_insert_input2").val();
+    	let num3 = $(".card_information_insert_input3").val();
+    	let num4 = $(".card_information_insert_input4").val();
+    	let num = num1 + num2 + num3+ num4;
+    	let dueMonth = $(".credit_card_month").val();
+    	let dueYear = $(".credit_card_year").val();
+    	let cvc = $(".credit_card_cvc").val();
+    	
+    	// let userNo = ${loginUser.no};
+    
+    	$.ajax({
+    		url:"/ajax/addCard",
+    		type:"POST",
+    		datatype:"json",
+    		data:{
+    			bankNo : bankNo,
+    			engName : engName,
+    			num : num,
+    			dueMonth : dueMonth,
+    			dueYear : dueYear,
+    			cvc : cvc,
+    			userNo : userNo
+    		},
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			getMyCardList();
+    		}
+    	});//$.ajax() end
+    }) // 카드 등록 버튼 클릭시 
+    
+    $("#creditCardSelectInner").on("click",".remove_card",function(){
+    	
+    	let cardNo = this.dataset.cardno;
+    	
+    	$.ajax({
+    		url:"/ajax/removeCard/"+cardNo,
+    		type:"DELETE",
+    		datatype:"json",
+    		error:function(){
+    			alert("에런데영");
+    		},
+    		success:function(){
+    			getMyCardList();
+    		}
+    	})
+    	
+    }); // 카드 제거 end
 
-    $(".account_insert_btn").on("click",function () {
-        $("#bg").css("display","none");
-        $("#receiptAccountAddSection").css("display","none");
-    });//popup 취소, 등록 btn click end
+    
+	$("#creditCardSelectInner").on("click",".default_setting",function(){
+    	
+    	let cardNo = this.dataset.cardno;
+    	
+    	
+    	let userNo = ${loginUser.no};
+    	
+    	$.ajax({
+    		url:"/ajax/setDefault/"+userNo+"/"+cardNo,
+    		type:"PUT",
+    		datatype:"json",
+    		error:function(){
+    			alert("에런데영");
+    		},
+    		success:function(){
+    			getMyCardList();
+    		}
+    	})
+    	
+    }); // 기본 카드로 지정
+	
+    $("#removeAccount").on("click",function(){
+    	
+    	location.reload();
+    });
+    
+ 	// ***************************************************** 계좌 추가
 
+ 	    $(".account_popup_register").on("click",function(){
+    	
+    	let bankNo = $(".bank_list_select").val();
+    	let name = $("#accountUserName").val();
+    	console.log(name);
+    	let num = $("#accountNum").val();
+
+    	let userNo = ${loginUser.no};
+    
+    	$.ajax({
+    		url:"/ajax/addAccount",
+    		type:"POST",
+    		datatype:"json",
+    		data:{
+    			bankNo : bankNo,
+    			name : name,
+    			num : num,
+    			userNo : userNo
+    		},
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			getMyAccount();
+    		}
+    	});//$.ajax() end
+    }) // 계좌 등록 버튼 클릭시 
+ 	
+    function getMyAccount(){
+    	$.ajax({
+    		url:"/ajax/myAccount/${loginUser.no}",
+    		type:"GET",
+    		datatype:"json",
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			// console.log(json);
+    			console.log(json);
+    			// remove(this);
+    			$("#receiptAccountSelectInner").html(accountTmp({"account":json}));
+    		}
+    	});//$.ajax() end
+    }// getMyAccount() end 
+    
+    
+//     $("#logout").click(function () {
+		
+//     	window.location.href = 'http://localhost/index'
+// 	});
+    
+ 
+    
 </script>
 </body>
 </html>

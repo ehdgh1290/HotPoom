@@ -28,6 +28,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET password = #{password}
 		WHERE no = #{no}
 	</update>
+	
+	<select id="selectOne" parameterType="int" resultType="User">
+	SELECT no, email, password, name, phone_num phoneNum, profile_img profileImg, gender, birth_date birthDate, introduce, regdate 
+	FROM users
+	WHERE no = #{no}
+	</select>
+	
+	<update id="updateName" parameterType="User">
+		UPDATE users
+		SET name = #{name}
+		WHERE no = #{no}
+	</update>
+	
+	<update id="updatePhoneNum" parameterType="User">
+		UPDATE users
+		SET phone_num = #{phoneNum}
+		WHERE no = #{no}
+	</update>
+	
 
 
 </mapper>
