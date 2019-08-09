@@ -23,9 +23,7 @@ import com.gear.hotpoom.vo.Message;
 @Controller
 public class ChatController {
 	
-	@Autowired
-	private ChatRoomsService chatRoomsService;
-	
+
 	@Autowired
 	private ChatUsersService chatUsersService;
 	
