@@ -7,7 +7,6 @@
 <header id="header">
 	<div id="headerSection">
 		<a href="/business"><img id="headerLogo" src="/img/logo.png"></a>
-		<c:if test="${loginUser!=null}">
 		<div id="gnbWrap">
 			<div id="gnb">
 				<a id="headerBookmark" href="/business">홈</a>
@@ -16,23 +15,22 @@
 				<a id="headerPoom" href="/business/poom">품</a>
 				<a id="headerResult" href="/business/result">실적</a>
 				<a id="headerMessage" href="/message">메세지</a>
-			</div>
+			</div><!-- //gnb -->
 			<div>
-				<div>숙소 등록하기</div>
+				<a id="poomRegister" href="/poom/register">숙소 등록하기</a>
 				<img id="headerProfileImage" src="/profile/user/${loginUser.profileImg }" />
 				<ul id="lnb">
 					<li><a href="/user/${loginUser.no }">마이페이지</a></li>
 					<li><a href="/account">개인정보 및 결제</a></li>
-					<li><a href="/receipt">대금수령 내역</a></li>
-					<li><a href="/">유저 전환</a></li>
+					<li><a href="/business/receipt">대금수령 내역</a></li>
+					<li><a href="/">일반회원 전환</a></li>
 					<li><button id="logout" class="btn" form="logoutForm" type="submit">로그아웃</button></li>
 				</ul>
 				<form id="logoutForm" action="/session" method="post">
-				<input type="hidden" name="_method" value="delete"/>
+					<input type="hidden" name="_method" value="delete"/>
 				</form>
-			</div>
-		</div>
-		</c:if>
-	</div>
+			</div><!-- //div -->
+		</div><!-- //gnbWrap -->
+	</div><!-- //headerSection -->
 </header>
 <main id="content">

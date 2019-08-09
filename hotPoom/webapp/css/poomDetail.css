@@ -529,3 +529,11 @@
 	text-align: center;
 	top: 185px;
 }
+#poomUpdate {
+	position: absolute;
+	font-size: 16px;
+	color: #3397eb;
+	top: 700px;
+	left: 20px;
+	text-decoration: underline;
+}

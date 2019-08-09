@@ -134,6 +134,9 @@
 	            <div id="DetailBookmark" class="poom_bookmark"></div>
             </c:if>
             <div id="poomAddress">${poom.mainAddress }</div>
+            <c:if test="${loginUser.no==poom.userNo}">
+            	<a href="/poom/update/${poom.no}" id="poomUpdate">품 수정</a>
+            </c:if>
             <div id="hostUserProfile">
                 <a href="/user/${poom.userNo }"><img id="hostUserProfileImage" src="/profile/user/${poom.hostImg }"/></a>
                 <div id="hostUserName">

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/notosanskr.css">
 <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Jua&display=swap" rel="stylesheet">
@@ -11,8 +10,7 @@
 <link rel="stylesheet" href="/css/tui-editor.css">
 <link rel="stylesheet" href="/css/tui-editor-contents.css">
 <link rel="stylesheet" href="/css/tui-date-picker.css">
-<link rel="stylesheet" href="/css/default.css">
-<link rel="stylesheet" href="/css/loginPopup.css">
+<link rel="stylesheet" href="/css/buisnessDefault.css">
 <script src="/js/jquery.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/moment-with-locales.js"></script>

@@ -49,7 +49,6 @@ public class AjaxController {
 	private BookmarksService bookmarksService;
 	@Autowired
 	private ReportsService reportsService;
-	@Autowired
 
 	
 	//신고한 적이 있는지 확인
