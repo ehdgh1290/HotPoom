@@ -19,12 +19,12 @@ import com.gear.hotpoom.vo.User;
 
 @Controller
 public class UserController {
-
 	@Autowired
 	private UsersService usersService;
 	@Autowired
 	private CertsService certsService;
 	
+	//로그인
 	@RequestMapping(value="/session",method=RequestMethod.POST)
 	public String login(User user,HttpSession session, @RequestHeader String referer, RedirectAttributes ra) {
 		User loginUser = usersService.loginCheck(user);
@@ -36,6 +36,7 @@ public class UserController {
 		return "redirect:"+referer;
 	}
 	
+	//로그아웃
 	@RequestMapping(value="/session",method=RequestMethod.DELETE)
 	public String logout(HttpSession session, @RequestHeader String referer) {
 		session.removeAttribute("loginUser");

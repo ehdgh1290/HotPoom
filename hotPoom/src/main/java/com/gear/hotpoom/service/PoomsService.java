@@ -1,8 +1,8 @@
 package com.gear.hotpoom.service;
 
-
 import java.util.List;
 import java.util.Map;
+import java.util.List;
 
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
@@ -13,6 +13,7 @@ public interface PoomsService {
 	
 	public int modify(Poom poom);
 
+	public Map<String, Object> getDetail(int no);
 	//hot poom
 	public List<Poom> getListHP();
 	//new poom

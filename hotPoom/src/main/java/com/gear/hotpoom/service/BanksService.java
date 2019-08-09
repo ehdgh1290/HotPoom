@@ -1,5 +1,10 @@
 package com.gear.hotpoom.service;
 
-public interface BanksService {
+import java.util.List;
 
+import com.gear.hotpoom.vo.Bank;
+
+public interface BanksService {
+	
+	public List<Bank> getCardList();
 }

@@ -16,4 +16,6 @@ public interface BookingsDAO {
 	//예약 취소
 	public int updateBooking(String no);
 	
+	public int insert(Booking booking);
+	
 }

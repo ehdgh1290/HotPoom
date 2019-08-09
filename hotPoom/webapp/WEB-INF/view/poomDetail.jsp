@@ -1,113 +1,195 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="css/poomPhotoDetail.css">
-    <link rel="stylesheet" href="css/paymentPopup.css">
-    <link rel="stylesheet" href="css/poomDetail.css">
+    <link rel="stylesheet" href="/css/poomPhotoDetail.css">
+    <link rel="stylesheet" href="/css/paymentPopup.css">
+    <link rel="stylesheet" href="/css/poomDetail.css">
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
-<c:import url="/WEB-INF/template/paymentPopup.jsp"/>
-<c:import url="/WEB-INF/template/poomPhotoDetailPopup.jsp"/>
+<div id="reportBg">
+    <form id="reportForm" action="/report" method="post">
+    <input type="hidden" name="userNo" value="${loginUser.no }"/>
+    <input id="reviewNo" type="hidden" name="reviewNo" value=""/>
+        <div id="reportPopup">
+            <div id="reportHeader">
+                <h1 id="reportTitle">신고하기</h1>
+                <div class="report_popup_close"><i class="far fa-times-circle"></i></div>
+                <div id="reportedPerson">작성자 : ${loginUser.name }</div>
+            </div>
+            <div id="reportContent">
+                <div>
+                    <label class="choice_reason" for="report1">음란 또는 청소년에게 부적합한 내용</label>
+                    <input id="report1" type="radio" name="type" value="O">
+                </div>
+                <div>
+                    <label class="choice_reason" for="report2">부적절한 홍보</label>
+                    <input id="report2" type="radio" name="type" value="I">
+                </div>
+                <div>
+                    <label class="choice_reason" for="report3">개인정보 노출</label>
+                    <input id="report3" type="radio" name="type" value="P">
+                </div>
+                <div>
+                    <label class="choice_reason" for="report4">저작권 및 명예훼손, 기타권리 침해</label>
+                    <input id="report4" type="radio" name="type" value="D">
+                </div>
+            </div><!--//reportContent-->
+            <div id="reportFooter">
+                <button id="reportSubmitBtn" class="btn">신고하기</button>
+            </div><!--//reportFooter-->
+        </div><!--//reportPopup -->
+    </form>
+</div> <!--// reportBg end-->
+<div id="reportMsgBg" class="bg">
+	<div id="reportMsgPopup">
+		<div id="reportMsgPopupClose" class="far fa-times-circle"></div>
+		<div class="msg">이미 신고한 유저입니다.</div>
+	</div><!-- //reportMsgPopup -->
+</div><!-- //reportMsgBg -->
+
+<div id="paymentBg" class="bg">
+    <div id="paymentPopup">
+        <button type="button" class="close_popup far fa-times-circle"></button>
+        <h3>결제</h3>
+            <form id="reviewRegisterForm" action="/booking" method="post">
+            <input name="poomNo" value="${poom.no }" type="hidden"/>
+            <input name="userNo" value="${loginUser.no }" type="hidden"/>
+            <input class="start_day" name="startDay" type="hidden"/>
+            <input class="end_day" name="endDay" type="hidden"/>
+            <input class="price" name="price" type="hidden"/>
+            <input class="pet_cnt" name="petCnt" type="hidden"/>
+            
+            <div id="date" class="title">기간</div>
+            <div id="dateContent">08.18 ~ 08.19, 2019</div>
+            <div id="pet" class="title">펫</div>
+            <div id="petContent">고양이 2마리</div>
+            <div id="pay" class="title">금액</div>
+            <div id="payContent">88,000원</div>
+            <div id="paymentMethod" class="title">결제수단</div>
+            <select id="paymentMethodSelect">
+            	<!-- //cardListTmp -->
+            </select>
+            <button type="button" id="addCredit" class="btn">결제수단 추가</button><!--//없을때만 select없애고 넣기-->
+            <div id="request" class="title">요청사항 작성</div>
+            <textarea id="requestTextarea" name="request" placeholder="요청사항을 입력해주세요."></textarea>
+        	<button type="submit" id="paymentBtn" class="btn">결제하기</button>
+        </form>
+    </div><!--//paymentPopup-->
+
+    <div id="creditCardAddPopup">
+        <button type="button" class="close_popup far fa-times-circle"></button>
+        <h4>결제수단 추가</h4>
+        <form id="creditCardAddForm" action="/credit" method="post">
+        <div id="creditCardSelectWrap">
+            <h5 class="title">카드</h5>
+            <input type="hidden" name="bankType" value="C"/>
+            <select id="cardSelect" name='bankNo'  class='card_list_select'>
+            	<c:forEach items="${cardList }" var="card">
+                <option value='${card.no }'>${card.name }</option>
+                </c:forEach>
+            </select>
+        </div><!--//creditCardSelectWrap-->
+        <div id="cardPersonInsertWrap">
+            <div id="cardPersonNameInsertInner">
+                <h5 class="title">이름</h5>
+                <input name="engLastName" id="engLastName" class="card_name_insert_input" placeholder="영어로"/>
+                <h5 class="title">성</h5>
+                <input name="engFirstName" id="engFirstName" class="card_name_insert_input" placeholder="영어로"/>
+            </div><!--//cardPersonNameInsertInner-->
+        </div><!--//cardPersonInsertWrap-->
+        <div id="cardInformaionInsertWrap">
+            <h5 class="title">카드 정보</h5>
+            <input maxlength="4" id="cardInformationInput1" placeholder="카드번호"/> -
+            <input maxlength="4" id="cardInformationInput2" placeholder="카드번호"/> -
+            <input maxlength="4" id="cardInformationInput3" placeholder="카드번호"/> -
+            <input maxlength="4" id="cardInformationInput4" placeholder="카드번호"/>
+            <div id="cardInformaionInsertInner">
+                <span class="card_information_detail limit">만료일</span>
+                <input name="month" class="card_information_detail_input credit_card_month" maxlength="2" placeholder="월"/>
+                <span class="card_information_detail slash">/</span>
+                <input name="year" class="card_information_detail_input credit_card_year" maxlength="2" placeholder="년도"/>
+                <span class="card_information_detail">cvc</span>
+                <input name="cvc" class="card_information_detail_input credit_card_cvc" placeholder="cvc" maxlength="3"/>
+            </div><!-- //cardInformaionInsertInner -->
+        </div><!-- //cardInformaionInsertWrap -->
+        <button type="submit" id="creditCardRegisterBtn" class="btn">등 록</button>
+        </form>
+	</div>
+</div><!-- //paymentBg -->
+
     <div id="poomDetailSection">
-        <div id="poomMainImage" style="background-image: url(img/poom/even-hotels-eugene-5405616297-4x3.jpg)">
-        </div><!--//poomMainImage end-->
+        <div id="poomMainImage" style="background-image: url(/img/poom/${poom.mainImg})"></div><!--//poomMainImage end-->
         <button id="viewPhotosBtn" type="button" class="btn">View Photos</button>
         <div id="poomDetailWrap">
-            <h2>펫플러스 애견호텔</h2>
-            <div id="poomAddress">경기도 부천시 원미구 계남로 60</div>
+            <h2>${poom.title}</h2>
+            <c:if test="${loginUser!=null }">
+	            <div id="DetailBookmark" class="poom_bookmark"></div>
+            </c:if>
+            <div id="poomAddress">${poom.mainAddress }</div>
+            <c:if test="${loginUser.no==poom.userNo}">
+            	<a href="/poom/update/${poom.no}" id="poomUpdate">품 수정</a>
+            </c:if>
             <div id="hostUserProfile">
-                <img id="hostUserProfileImage" src="profile/user/judy.jpg"/>
+                <a href="/user/${poom.userNo }"><img id="hostUserProfileImage" src="/profile/user/${poom.hostImg }"/></a>
                 <div id="hostUserName">
-                    <span>최수정크크</span>
+                    <a href="/user/${poom.userNo }">${poom.hostName }</a>
                 </div>
-                <div id="sendMessage" class="btn"><a href="message.html">호스트에게 연락하기</a></div>
+                <c:if test="${loginUser!=null }">
+                <div id="sendMessage" class="btn"><a target="_blank" href="/message/${poom.userNo }">호스트에게 연락하기</a></div>
+                </c:if>
             </div>
             <div id="poomInformationInner">
                 <h3>기본 정보</h3>
-                <div class="little_title"><i class="far fa-clock"></i> 체크인 10:00 ~ 체크아웃 13:00</div>
-                <div class="little_title"><i class="fas fa-check"></i> 호스트의 소유중인 펫</div>
-                <div id="hostUserPet">
-                <img class="hostPetProfileImage" src="profile/pet/marmot.PNG">
-                <img class="hostPetProfileImage" src="profile/pet/깐동생일.PNG">
-                </div>
-                <div class="little_title"><i class="fas fa-check"></i> 수요 가능 펫</div>
-                <p>강아지 10마리</p>
+                <div class="little_title"><i class="far fa-clock"></i> 체크인 ${poom.checkIn }:00 ~ 체크아웃 ${poom.checkOut }:00</div>
+                <c:if test="${!petList.isEmpty() }">
+	                <div class="little_title"><i class="fas fa-check"></i> 호스트가 소유중인 펫</div>
+	                <div id="hostUserPet">
+		                <c:forEach items="${petList }" var="pet">
+		                	<img class="hostPetProfileImage" src="/profile/pet/${pet.profileImg }">
+		                </c:forEach>
+	                </div>
+                </c:if>
+                <div class="little_title"><i class="fas fa-check"></i> 수용 가능 펫</div>
+                <p>${poom.speciesName } ${poom.petCnt }마리</p>
                 <div class="little_title"><i class="fas fa-check"></i> 편의시설</div>
-                <p>충분한 사료</p>
+                <p id="poomAmenity">${poom.amenity }</p>
             </div><!--//poomInformationInner end-->
             <div id="poomIntroduceInner">
                 <h3>품 소개</h3>
-                <div class="little_title"><i class="far fa-building"></i> 건물 유형 : Hotel</div>
-                <div class="little_title"><i class="fas fa-check"></i> 소개</div>
-                <div id="poomIntroduceDetail">
-                    늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ
-                    늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ
-                    늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ
-                    늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ늘 밝은 얼굴로 펫을 맞이합니다 ㅎㅎㅎ
-                </div>
-                <div class="little_title"><i class="fas fa-check"></i> 이용시 주의사항</div>
-                <div id="precautions">
-                    - 배변 패드
-                    <br>
-                    - 예방접종 : 심장 사상충
-                    <br>
-                    - 이곳은 에디터 부분이 입력되는 부분이기때문에 따닥따닥 붙어버려쪄염
-                </div>
+                <div class="little_title"><i class="far fa-building"></i> 건물 유형 : ${poom.type.equals("P")?"House":"Hotel" }</div>
+                <div class="little_title"><i class="fas fa-check"></i> 소개 및 주의사항</div>
+                <div id="poomIntroduceDetail">${poom.introduce }</div>
             </div><!--//poomIntroduceInner end-->
             <div id="reviewInner">
                 <h3>리뷰</h3>
-                <div id="grade"><i class="fas fa-star"></i> 4.8(2)</div>
+                <div id="grade"><i class="fas fa-star"></i> ${poom.avgScore }(${poom.reviewCnt })</div>
                 <div class="review_card">
                     <ul>
-                        <li>
-                            <div id="reviewNone">
-                                아직 등록된 리뷰가 없습니다 <i class="far fa-sad-cry"></i>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="review_card_content">저희 집 고양희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는
-                            평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡
-                            기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소
-                            랑 저희 집를 많이 주는지 애기가 똥똥해져셔 왔더라구요... 아니 뭐 귀엽다고여 ㅎㅎㅎㅎ
-                            </div>
-                            <div class="review_card_img"><img src="profile/user/defaultProfile.jpg"/></div>
-                            <div class="review_card_user_name">이주하</div>
-                            <div class="review_card_date">2018.09</div>
-                            <div class="review_card_warning">신고</div>
-                        </li>
-                        <li>
-                            <div class="review_card_content">저희 집 고양희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는
-                                평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡
-                                기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소
-                                랑 저희 집를 많이 주는지 애기가 똥똥해져셔 왔더라구요... 아니 뭐 귀엽다고여 ㅎㅎㅎㅎ
-                            </div>
-                            <div class="review_card_img"><img src="profile/user/defaultProfile.jpg"/></div>
-                            <div class="review_card_user_name">이주하</div>
-                            <div class="review_card_date">2018.09</div>
-                            <div class="review_card_warning">신고</div>
-                        </li>
+                    <!-- reviewListTmp -->
                     </ul>
+                    <div id="paginate"></div>
                 </div>
             </div><!--//reviewInner end-->
             <div id="poomMapWrap">
                 <h3>위치 정보</h3>
                 <div id="kakaoMap"></div>
                 <div class="little_title"><i class="fas fa-check"></i> 교통편</div>
-                <div id="transportation">
-                    이곳에 교통편을 입력시키면됩니당
-                </div>
+                <div id="transportation">${poom.transport }</div>
             </div><!--//map end-->
         </div><!--//poomDetailWrap end-->
+        
+        <c:if test="${loginUser!=null }">
         <div id="bookingWrap">
             <form id="bookingDetail">
-                <div id="price">₩ <span id="dayPrice">15,000</span> / 박</div>
+                <div id="price">₩ <span id="dayPrice"><fmt:formatNumber value="${poom.price }"/></span> / 박</div>
                 <div id="bookingDate">
                     날짜
                     <br/>
@@ -128,7 +210,7 @@
                     <input id="count" type="number" min="1" max="1000" value="1">
                 </div>
                 <div id="bookingPrice">
-                    <div>₩ <span>15,000</span> x
+                    <div>₩ <span><fmt:formatNumber value="${poom.price }"/></span> x
                         <span id="dayCount"></span>박 x
                         <span id="petCnt">1</span>마리
                         <span id="priceCount"></span>
@@ -140,14 +222,16 @@
                         <span id="totalAmount"></span>
                     </div>
                 </div>
+                <div class="msg">날짜를 입력해주세요</div>
                 <button id="bookingBtn" class="btn" type="submit">예약하기</button>
             </form>
         </div><!--//bookingWrap end-->
+        </c:if>
     </div><!--//poomDetailSection end-->
     <div id="poomBg">
         <div id="poomPhotoDetail">
             <div id="poomPhotoSection">
-                <img id="poomPhoto" src="img/poom/poom_15.jpg">
+                <img id="poomPhoto" src="">
                 <div id="poomPhotoBtnWrap">
                     <div id="prevBtn" class="poom_photo_btn"><i class="fas fa-chevron-left"></i></div>
                     <div id="nextBtn" class="poom_photo_btn"><i class="fas fa-chevron-right"></i></div>
@@ -157,38 +241,11 @@
                 <i class="far fa-times-circle cursor_pointer"></i>
                 <div id="poomPhotoListWrap">
                     <ul id="poomPhotoListInner">
-                        <li class="poom_photo on ">
-                            <img src="img/poom/poom_11.jpg" width="64px" height="64px" alt="너무나 잘 돌봐주는 집">
-                        </li>
+                    <c:forEach items="${photoList }" var="photo">
                         <li class="poom_photo">
-                            <img src="img/poom/poom_12.jpg" width="64px" height="64px" alt="도마뱀을 맡아드립니다~">
+                            <img src="/img/poom/${photo.img }" width="64px" height="64px" alt="${photo.caption }">
                         </li>
-                        <li class="poom_photo">
-                            <img src="img/poom/poom_13.jpg" width="64px" height="64px" alt="나무나무! 나무에요">
-                        </li>
-                        <li class="poom_photo">
-                            <img src="img/poom/poom_14.jpg" width="64px" height="64px" alt="하선이 바보">
-                        </li>
-                        <li class="poom_photo">
-                            <img src="img/poom/poom_15.jpg" width="64px" height="64px" alt="수정이 생일">
-                        </li>
-                        <li class="poom_photo on ">
-                            <img src="img/poom/poom_11.jpg" width="64px" height="64px" alt="앵주앵주">
-                        </li>
-                        <li class="poom_photo">
-                            <img src="img/poom/poom_12.jpg" width="64px" height="64px" alt="깐동깐동">
-                        </li>
-                        <li class="poom_photo">
-                            <img src="img/poom/poom_13.jpg" width="64px" height="64px" alt="곧 반예순">
-                        </li>
-                        <li class="poom_photo">
-                            <img src="img/poom/poom_14.jpg" width="64px" height="64px"
-                                 alt="이거 진짜 너무 힘들어요 이거 css진짜 너무 어려워요ㅜㅜㅜㅜ">
-                        </li>
-                        <li class="poom_photo">
-                            <img class="poom_photo_img" src="img/poom/poom_15.jpg" width="64px" height="64px"
-                                 alt="진짜 쉬운줄알고 잡았다가 뚝배기 터졌습니다... 제가 잘못했습니다.. .살려주세요......ㅜㅜㅜㅜㅜ">
-                        </li>
+                    </c:forEach>
                     </ul><!--//poomPhotoListBox-->
                     <div class="poom_photo_list_cover"></div>
                     <div class="poom_photo_list_cover"></div>
@@ -199,29 +256,237 @@
         </div><!--//poomPhotoDetail-->
     </div><!--//poomBg-->
 <c:import url="/WEB-INF/template/footer.jsp"/>
-<script src="/WEB-INF/js/paymentPopup.js"></script>
-<script src="/WEB-INF/js/poomPhotoDetailPopup.js"></script>
+<script type="text/template" id="reviewListTmp">
+<@if(reviewList.length==0){@>
+<li>
+    <div id="reviewNone">
+        아직 등록된 리뷰가 없습니다 <i class="far fa-sad-cry"></i>
+    </div>
+</li>
+<@};@>
+<@_.each(reviewList,function(review){@>
+<li>
+    <div class="review_card_content"><@=review.content@></div>
+    <div class="review_card_img"><img src="/profile/user/<@=review.profileImg@>"/></div>
+    <div class="review_card_user_name"><@=review.userName@></div>
+    <div class="review_card_date"><@=moment(review.regdate).format("YYYY.MM")@></div>
+	<c:if test="${loginUser.no==poom.userNo}">	
+    <div class="review_card_warning" data-no="<@=review.no@>">신고</div>
+	</c:if>
+</li>
+<@});@>
+</script>
+<script type="text/temlpate" id="cardListTmp">
+<@_.each(cards,function(card){@>
+	<option value="<@=card.no@>"><@=card.bankName@> - <@=card.num.substring(12,16)@></option>
+<@});@>
+</script>
 <script>
+_.templateSettings = {interpolate: /\<\@\=(.+?)\@\>/gim,evaluate: /\<\@([\s\S]+?)\@\>/gim,escape: /\<\@\-(.+?)\@\>/gim};
+let reviewListTmp = _.template($("#reviewListTmp").html());
+let cardListTmp = _.template($("#cardListTmp").html());
+
+	const $reviewCard = $(".review_card");
+	const $paginate = $("#paginate");
+	const $reportBg = $("#reportBg");
+	$DetailBookmark = $("#DetailBookmark");
+	let userNo = 0;
+	let pageNo = 1;
+	
+
+    <c:if test="${loginUser!=null}">
+	    getMyCardList();
+		userNo = ${loginUser.no};
+    </c:if>
+	
+    //신고중복 메세지 팝업 종료
+    $("#reportMsgPopupClose").on("click",function(){
+    	$("#reportMsgBg").hide();
+    });//#reportMsgPopupClose end
+    
+    //신고 누름
+    $("body").on("click", ".review_card_warning",function(){
+    	$("#reviewNo").val(this.dataset.no);
+    	let reviewNo = this.dataset.no;
+    	$.ajax({
+			url:"/ajax/report",
+			type:"get",
+			dataType:"json",
+			data:{
+				"reviewNo":reviewNo
+			},error:function(){
+				alert("점검중!!");
+			},
+			success:function(data){
+				//console.log(data);
+				if(data==0) {
+		        	$reportBg.show();
+		    	}else {
+		    		$("#reportMsgBg").show();
+		    	};//if~else end
+			}//success end
+		});//ajax end
+    });//.review_card_warning click end
+    
+    //신고 창 종료
+    $("#reportBg .far.fa-times-circle").on("click", function(){
+    	$reportBg.hide();
+    });//#reportBg .far.fa-times-circle click end
+    
+    //신고하기 끝
+    $("#reportForm").on("submit",function(){
+    	
+    });//#reportForm submit end
+    
+    //북마크 ajax
+    $DetailBookmark.on("click", getBookmark);//$DetailBookmark end
+    
+    
+    //북마크가 되어있는지 확인
+    function getBookmark() {
+    	$.ajax({
+    		url:"/ajax/bookmark",
+    		type:"post",
+    		dataType:"json",
+    		data:{
+    			userNo:userNo,
+    			poomNo:${poom.no}
+    		},
+    		error:function(){
+    			alert("점검중!");
+    		},
+    		success:function(data){
+    			//console.log(data);
+    			if(data) {
+	    			$DetailBookmark.addClass("on");
+    			}else {
+    				$DetailBookmark.removeClass("on");
+    			};//if~else end
+    		}//success end
+    	});//ajax end
+	};//getBookmark() end
+    
+    
+	//페이지 클릭
+    $paginate.on("click","a",function(e){
+    	e.preventDefault();
+    	
+    	pageNo = this.dataset.no;
+    	getReviewList();
+    })//$paginate a click end
+	
+	//리뷰리스트 불러옴
+	function getReviewList() {
+		$.ajax({
+			url:"/ajax/review",
+			type:"get",
+			dataType:"json",
+			data: {
+				"pageNo":pageNo,
+				"no":${poom.no}
+			},
+			error:function(){
+				alert("점검중!!");
+			},//error end
+			success:function(data){
+				//console.log(data);
+				$reviewCard.children().html(reviewListTmp({reviewList:data.reviewList}));
+				$paginate.html(data.paginate);
+			}//success end
+		});//ajax end
+	};//getReviewList end
+	getReviewList();
+	
+	
+ 	// ***************************************************** 카드 관련 메소드
+	
+	//카드 리스트 가져옴
+	function getMyCardList(){
+    	$.ajax({
+    		url:"/ajax/myCardList",
+    		type:"GET",
+    		datatype:"json",
+    		data:{
+    			userNo:userNo
+    		},
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			//console.log("내 카드 리스트");
+    			//console.log(json);
+    			//console.log(json.length);
+    				$("#paymentMethodSelect").show();
+    			if(json.length==0) {
+    				$("#addCredit").show();
+    				$("#paymentMethodSelect").hide();
+    			}else {
+    				$("#addCredit").hide();
+	    			$("#paymentMethodSelect").html(cardListTmp({"cards":json}));
+    			}//if~else end
+    		}//success end
+    	});//$.ajax() end
+    }// getMyCardList() end 
+    
+    
+    $("#creditCardAddForm").on("submit",function(e){
+    	console.log("submit");
+    	e.preventDefault();
+    	
+    	let bankNo = $("#cardSelect").val();
+    	let engName = $("#engLastName").val()+$("#engFirstName").val();
+    	let num1 = $("#cardInformationInput1").val();
+    	let num2 = $("#cardInformationInput2").val();
+    	let num3 = $("#cardInformationInput3").val();
+    	let num4 = $("#cardInformationInput4").val();
+    	let num = num1 + num2 + num3+ num4;
+    	let dueMonth = $(".credit_card_month").val();
+    	let dueYear = $(".credit_card_year").val();
+    	let cvc = $(".credit_card_cvc").val();
+    	
+    	$.ajax({
+    		url:"/ajax/card",
+    		type:"POST",
+    		datatype:"json",
+    		data:{
+    			bankNo : bankNo,
+    			engName : engName,
+    			num : num,
+    			dueMonth : dueMonth,
+    			dueYear : dueYear,
+    			cvc : cvc,
+    			userNo : userNo
+    		},
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    			getMyCardList();
+    		}//success end
+    	});//$.ajax() end
+    });//#creditCardAddForm submit end
+
+
     //*************카카오맵***********************************************************
     var mapContainer = document.getElementById('kakaoMap'), // 지도를 표시할 div
         mapOption = {
-            center: new kakao.maps.LatLng(37.4809615, 126.9521689), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(${poom.lat}, ${poom.lng}), // 지도의 중심좌표
             level: 4, // 지도의 확대 레벨,
 
             //지도 확대축소 막고싶으면
             scrollwheel :false,
-            draggable:false
+            draggable:true
         };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-    var imageSrc = "img/marker.png", // 마커이미지의 주소입니다
+    var imageSrc = "/img/marker.png", // 마커이미지의 주소입니다
         imageSize = new kakao.maps.Size(100, 100), // 마커이미지의 크기입니다
         imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-        markerPosition = new kakao.maps.LatLng(37.4809615, 126.9521689); // 마커가 표시될 위치입니다
+        markerPosition = new kakao.maps.LatLng(${poom.lat}, ${poom.lng}); // 마커가 표시될 위치입니다
 
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
@@ -242,14 +507,15 @@
     $window.on("scroll",function () {
         //스크롤탑
         let sTop = $window.scrollTop();
-        if(sTop>=730) {
+        if(sTop>=735) {
             $bookingDetail.css({
                 position: "fixed",
-                top:0
+                top:"20px"
             });
         }else {
             $bookingDetail.css({
-                position: "relative"
+                position: "relative",
+                top:"0"
             });
         }//if~else end
     });//on() end
@@ -284,11 +550,17 @@
     let $totalAmount = $("#totalAmount");
 
     //날짜
-    picker.on('change:end', test);
-    //마리 수
-    $count.on('change', test);
+    picker.on('change:end', getTotalAmount);
+    
+    //마리 수 변화 될 때
+    $count.on('change', function(){
+    	if($("#endpicker-input").val().length>0) {
+	    	getTotalAmount();
+    	}//if end
+    });//$count change end
 
-    function test() {
+  	//가격계산
+    function getTotalAmount() {
         let checkInVal = $("#startpicker-input").val();
         let checkOutVal = $("#endpicker-input").val();
         let checkIn = moment(checkInVal);
@@ -300,39 +572,21 @@
         $petCnt.text(petCnt);
 
 
-        let priceCount = 15000*date*petCnt;
+        let priceCount = ${poom.price}*date*petCnt;
         $priceCount.text(priceCount.toLocaleString());
 
-        let fees = (15000*date*petCnt)/10;
+        let fees = priceCount/10;
         $fees.text(fees.toLocaleString());
 
-        let totalPrice = priceCount+fees
+        let totalPrice = priceCount+fees;
+        amount = totalPrice;
         $totalAmount.text(totalPrice.toLocaleString());
 
-    }
-    //가격계산
+    };//getTotalAmount end
 
 
-
-    //****************************사이드바*****************************************
-
-
-
-    $("#headerProfileImage").click(function (e) {
-
-        $("#lnb").slideToggle(200);
-        e.stopPropagation();
-    });
-
-    $("#headerLogin").click(function () {
-        $("#gnbWrap").show();
-        $(this).hide();
-    });
-
-    $("body").click(function () {
-        // alert("zz");
-        $("#lnb").hide();
-    });
+	$reviewInner = $("#reviewInner");
+    
 
     /*----------------------------------팝업----------------------------------------*/
     //버튼클릭하면 팝업 열림
@@ -343,12 +597,14 @@
 
     // 불러온 사진 갯수
     let poomPhotoLength = $(".poom_photo").length;
-    console.log(poomPhotoLength);
+    console.log("사진갯수:"+poomPhotoLength);
     let photoIdx = 1;
-    let photoX = 0;
+    //let photoX = 0;
+     photoX = 0;
     let $poomPhotoListInner = $("#poomPhotoListInner");
     // 사진 갯수에 따른 photo_box의 left 한계값
-    let poomPhotoLeft = 0;
+    //let poomPhotoLeft = 0;
+     poomPhotoLeft = 0;
 
     //poom사진 height 변경
     function changePoomPhotoSize() {
@@ -441,13 +697,17 @@
         photoX = -40 -(photoIdx - 2) * 80;
 
         if(photoIdx == 1) {
-            photoIdx += 1;
+        	if(poomPhotoLength != 1) {
+	            photoIdx += 1;
+        	}//if end
             changePoomInfo();
         } else if(photoIdx == 2) {
-            photoIdx += 1;
-            photoX = -40 ;
-            $poomPhotoListInner.css("left", photoX);
-            console.log(photoX);
+        	if(poomPhotoLength != 2) {
+	            photoIdx += 1;
+	            photoX = -40 ;
+	            $poomPhotoListInner.css("left", photoX);
+	            console.log(photoX);
+        	}//if end
             changePoomInfo();
         } else if(photoIdx == poomPhotoLength - 2) {
             photoIdx += 1;
@@ -532,7 +792,76 @@
     $("#poomInfoSection .far").click("on", function () {
         $("#poomBg").hide();
     });//#poomInfoSection .fas click() end
+    
+    
+    let endDate;
+    let startDate;
+    let speciesName = "${poom.speciesName}";
+    let amount;
+    
+    //예약하기 눌렀을 때
+    $bookingDetail.on("submit", function(e){
+    	e.preventDefault();
+    	endDate = $("#endpicker-input").val();
+    	
+    	if(endDate == null || endDate=="") {
+    		$("#bookingDetail .msg").show();
+    	}else {
+    		$("#bookingDetail .msg").hide();
+    		
+    		startDate = $("#startpicker-input").val();
+    		count = $("#count").val();
+    		
+    		$("#dateContent").text(moment().format("MM.DD ~ ")+moment(endDate).format("MM.DD, YYYY"));
+    		$("#petContent").text(speciesName+" "+count+"마리");
+    		$("#payContent").text(amount.toLocaleString()+" 원");
+    		$("#requestTextarea").val("");
+    		
+    		//결제 폼 input type=hidden에 값 넣기
+    		$("#reviewRegisterForm .start_day").val(startDate);
+    		$("#reviewRegisterForm .end_day").val(endDate);
+    		$("#reviewRegisterForm .price").val(amount);
+    		$("#reviewRegisterForm .pet_cnt").val(count);
+    		
+    		$paymentBg.show();
+    	}//if~else end
+    });//$bookingDetail submit end
+    
+    /************************paymentPopup******************************/
+    $creditCardAddPopupCloseBtn = $("#creditCardAddPopup .close_popup");
+    $creditCardAddPopup = $("#creditCardAddPopup");
+    $paymentPopupCLoseBtn = $("#paymentPopup .close_popup");
+    $paymentPopup = $("#paymentPopup");
+    $paymentBg = $("#paymentBg");
+    $creditCardAddForm = $("#creditCardAddForm");
+    $addCredit = $("#addCredit");
 
+	//카드 추가 버튼
+    $addCredit.on("click",function () {
+        $creditCardAddPopup.show();
+    });//$addCredit end
+
+    //결제팝업 끄기 버튼
+    $paymentPopupCLoseBtn.on("click",function () {
+        $paymentBg.hide();
+    });//$paymentPopupCLoseBtn end
+
+    //결제카드추가 팝업 끄기 버튼
+    $creditCardAddPopupCloseBtn.on("click",function () {
+        $creditCardAddPopup.hide();
+    });//$creditCardAddPopupCloseBtn end
+
+    //결제카드추가 submit
+    $creditCardAddForm.on("submit",function (e) {
+        e.preventDefault();
+        $creditCardAddPopup.hide();
+    });//$creditCardAddForm end
+
+    
+    
+    
+
+    /************************paymentPopup******************************/
 </script>
 </body>
 </html>

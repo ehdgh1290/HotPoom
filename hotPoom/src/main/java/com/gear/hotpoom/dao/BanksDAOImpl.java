@@ -19,7 +19,7 @@ public class BanksDAOImpl implements BanksDAO{
 	}
 	
 	@Override
-	public List<Bank> cardList() {
+	public List<Bank> selectCardList() {
 		return session.selectList("banks.cardList");
 	}
 	

@@ -53,6 +53,13 @@ $loginPopupClose.on("click",function(){
 	$(this).parents("#bg").hide();
 });//$loginPopupClose click end
 
+</script>
+<c:if test="${loginFail }">
+<script>
+$loginPopupMsg.show();
+$loginPopup.parent().show();
+</script>
+</c:if>
 <c:if test="${loginFail }">
 $loginPopupMsg.show();
 $loginPopup.parent().show();

@@ -6,7 +6,6 @@ import com.gear.hotpoom.vo.Bank;
 
 public interface BanksDAO {
 	
-	public List<Bank> cardList();
 	public List<Bank> banksList();
-
+	public List<Bank> selectCardList();
 }

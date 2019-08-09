@@ -112,6 +112,7 @@ input:focus {
     right: 30px;
     border: 1px solid #424242;
     display: none;
+    z-index: 999;
 }
 #lnb:hover {
     cursor: pointer;
@@ -120,6 +121,7 @@ input:focus {
     padding: 10px;
     text-align: center;
     border-top: 1px solid #424242;
+    background-color: #fff;
 }
 #lnb li:first-child {
     border-top: none;
@@ -134,7 +136,8 @@ input:focus {
     height: 100%;
     background-color: rgba(0,0,0,0.7);
     display: none;
-    z-index: 999;
+    z-index: 1000;
+    top:0;
     top: 0;
     left: 0;
 }
@@ -360,6 +363,7 @@ a.btn {
     top: 5px;
     left: 40px;
 }
+
 #loginPopup .msg {
 	position: absolute;
 	top: 250px;

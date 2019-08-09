@@ -1,5 +1,10 @@
 package com.gear.hotpoom.dao;
 
-public interface PetsDAO {
+import java.util.List;
 
+import com.gear.hotpoom.vo.Pet;
+
+public interface PetsDAO {
+	
+	public List<Pet> selectPetListByUserNo(int userNo);
 }

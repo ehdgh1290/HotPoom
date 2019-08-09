@@ -1,7 +1,6 @@
 package com.gear.hotpoom.dao;
 
 import java.util.List;
-
 import com.gear.hotpoom.vo.PageVO;
 
 import com.gear.hotpoom.vo.Poom;
@@ -10,6 +9,7 @@ public interface PoomsDAO {
 	
 	public int insert(Poom poom);
 
+	public Poom selectPoomDetail(int no);
 	//hot poom
 	public List<Poom> selectListHP();
 	//new poom

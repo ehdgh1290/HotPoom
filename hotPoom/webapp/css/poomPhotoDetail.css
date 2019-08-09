@@ -71,13 +71,13 @@
     float: right;
 }
 
-.fa-times-circle {
+#poomPhotoDetail .fa-times-circle {
     position: absolute;
     right: 0;
     font-size: 40px;
     color: #424242;
 }
-.fa-times-circle:hover {
+#poomPhotoDetail .fa-times-circle:hover {
     color: #C50532;
 }
 

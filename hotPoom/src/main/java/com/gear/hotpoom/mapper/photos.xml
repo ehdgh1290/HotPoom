@@ -14,5 +14,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET img = #{img},caption=#{caption}
 		WHERE no = #{no}
 	</update>
+	
+	<select id="selectPoomPhotos" parameterType="int" resultType="Photo">
+		SELECT no, img, caption
+		FROM photos
+		WHERE content_no = #{poomNo}
+		AND (type = 'M' OR type = 'S')
+		ORDER BY type, no
+	</select>
 
 </mapper>

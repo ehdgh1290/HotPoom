@@ -38,4 +38,18 @@ public class CreditsDAOImpl implements CreditsDAO{
 		return session.update("credits.afterCardUpdate",no);
 	}
 	
+	public int insertBasicCard(Credit credit) {
+		return session.insert("credits.insertBasicCard", credit);
+	}
+	
+	@Override
+	public List<Credit> selectCardDefault(int userNo) {
+		return session.selectList("credits.selectCardDefault",userNo);
+	}
+	
+	@Override
+	public List<Credit> selectCardList(int userNo) {
+		return session.selectList("credits.selectCardList",userNo);
+	}
+	
 }
