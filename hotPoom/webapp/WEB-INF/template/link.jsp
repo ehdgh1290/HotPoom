@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="icon" href="/img/footerLogo.png">
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/notosanskr.css">
 <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Jua&display=swap" rel="stylesheet">

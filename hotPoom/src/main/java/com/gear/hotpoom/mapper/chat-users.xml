@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		 ORDER BY b.regdate) r, users u, (SELECT room_no roomNo,MAX(no) no
 		 	 								  FROM messages
 											  GROUP BY room_no) m, messages ms
-		WHERE u.no = r.no AND r.roomNo = m.roomNo AND m.no = ms.no
+		WHERE u.no = r.no AND r.roomNo = m.roomNo(+) AND m.no = ms.no(+)
 		ORDER BY m.no DESC
 	</select>
 	

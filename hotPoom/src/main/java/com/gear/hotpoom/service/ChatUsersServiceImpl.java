@@ -36,11 +36,14 @@ public class ChatUsersServiceImpl implements ChatUsersService {
 
 			String content = user.getTitle();
 			
-			int contentLength = user.getTitle().length();
+			if(content!=null) {
 			
-			if(contentLength >= 12) {
-				content = content.substring(0,12) + "...";
-				user.setTitle(content);
+				int contentLength = user.getTitle().length();
+				
+				if(contentLength >= 12) {
+					content = content.substring(0,12) + "...";
+					user.setTitle(content);
+				}
 			}
 			
 		}

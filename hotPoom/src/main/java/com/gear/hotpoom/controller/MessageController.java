@@ -41,7 +41,6 @@ public class MessageController {
 		// 클릭한 유저 번호 no
 		
 		
-		
 		CheckRoom checkRoom = new CheckRoom(no, userNo);
 		
 		int cnt = chatUsersService.checkRoom(checkRoom);
