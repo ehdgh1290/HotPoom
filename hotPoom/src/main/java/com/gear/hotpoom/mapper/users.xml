@@ -49,4 +49,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 
 
+<select id="selectCheckEmail" resultType="int" parameterType="string">
+	SELECT COUNT(*)
+	FROM users
+	WHERE email = #{email}
+</select>
+
+<insert id="insert" parameterType="User">
+	<selectKey order="BEFORE" keyProperty="no" resultType="int">
+		SELECT users_seq.nextval
+		FROM dual
+	</selectKey>
+	INSERT INTO users(no, email, password, name, phone_num, profile_img, gender, birth_date, introduce, regdate)
+	VALUES(#{no}, #{email}, #{password}, #{name}, #{phoneNum}, #{profileImg}, #{gender}, #{birthDate}, #{introduce}, systimestamp)
+</insert>	
+
 </mapper>

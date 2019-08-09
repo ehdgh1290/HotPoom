@@ -29,5 +29,4 @@ public class BankAccountsServiceImpl implements BankAccountsService{
 		return bankAccountsDAO.selectMyAccount(userNo);
 	}
 	
-	
 }

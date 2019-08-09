@@ -42,8 +42,13 @@ import com.gear.hotpoom.vo.Species;
 import com.gear.hotpoom.service.PoomsService;
 import com.gear.hotpoom.service.SpeciesService;
 
+import com.gear.hotpoom.service.ChatUsersService;
+import com.gear.hotpoom.service.MessagesService;
+import com.gear.hotpoom.vo.Message;
+
 @RestController
-@RequestMapping(value="/ajax")
+
+@RequestMapping("/ajax")
 public class AjaxController {
 	@Autowired
 	private ReviewsService reviewsService;
@@ -70,6 +75,10 @@ public class AjaxController {
 	@Autowired
 	private ReportsService reportsService;
 	@Autowired
+	private ChatUsersService chatUsersService;
+	@Autowired
+	private MessagesService messagesService;
+	
 	
 	
 	//신고한 적이 있는지 확인
@@ -84,18 +93,8 @@ public class AjaxController {
 		return bookmarksService.register(bookmark);
 	}
 	
-	//카드 등록하기
-	@RequestMapping(value="/card", method=RequestMethod.POST)
-	public int addCard(Credit credit) {
-		return creditsService.registerBasicCard(credit);
-	}
-	
-	//내 카드 가져오기
-	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
-	public List<Credit> getMyCardList(int userNo) {
-		
-		return creditsService.getMyCardDefault(userNo);
-	}
+
+
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)
@@ -219,9 +218,7 @@ public class AjaxController {
 		
 		return usersService.modifyPhoneNum(user);
 	}
-	
 
-	
 	@RequestMapping(value="/addAccount", method=RequestMethod.POST)
 	public int addAccount(BankAccount bankAccount) {
 		
@@ -233,5 +230,37 @@ public class AjaxController {
 		
 		return bankAccountsService.getMyAccount(userNo);
 	}
+	
+	
+	@RequestMapping(value="/email/{email}", method=RequestMethod.GET)
+	public String checkEmail(@PathVariable String email, String check) {
+		
+		boolean result = usersService.checkEmail(check);
+		
+				// System.out.println(check);
+				// System.out.println(email);
+				// System.out.println(result);
+		
+		return "{\"result\":"+result+"}";
+	}//checkEmail() end
+	
+
+	
+	
+	// 삭제처리
+	@RequestMapping(value="/invisible", method=RequestMethod.GET)
+	public int invisibleChat(int roomNo, int userNo) {
+		chatUsersService.invisibleChat(roomNo, userNo);
+		return 1;
+	}
+	
+	// 메시지불러오기
+	@RequestMapping(value = "/message")
+	public List<Message> getMessageList(int roomNo, int userNo) {
+		Message message = new Message(roomNo, userNo);
+		
+		return messagesService.getMessageList(message);
+	}
+
 	
 }
