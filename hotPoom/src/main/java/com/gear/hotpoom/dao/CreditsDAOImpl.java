@@ -47,9 +47,4 @@ public class CreditsDAOImpl implements CreditsDAO{
 		return session.selectList("credits.selectCardDefault",userNo);
 	}
 	
-	@Override
-	public List<Credit> selectCardList(int userNo) {
-		return session.selectList("credits.selectCardList",userNo);
-	}
-	
 }

@@ -66,19 +66,11 @@ public class AjaxController {
 	@Autowired
 	private BankAccountsService bankAccountsService;
 	@Autowired
-	private CreditsService creditsService;
-	@Autowired
 	private BookmarksService bookmarksService;
 	@Autowired
 	private ReportsService reportsService;
 	@Autowired
-	private ReviewsService reviewsService;
 	
-	
-	@RequestMapping(value="/review",method=RequestMethod.GET)
-	public Map<String, Object> getReviews(int no, int pageNo) {
-		return reviewsService.getReviewList(no, pageNo);
-	}
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)
@@ -196,18 +188,6 @@ public class AjaxController {
 	
 	
 	// 주하꺼임
-	
-	@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
-	public List<Credit> getMyCardList(@PathVariable int userNo) {
-		
-		return creditsService.getMyCardList(userNo);
-	}
-	
-	@RequestMapping(value="/addCard", method=RequestMethod.POST)
-	public int addCard(Credit credit) {
-		return creditsService.addCard(credit);
-	}
-	
 	@RequestMapping(value="/removeCard/{cardNo}", method=RequestMethod.DELETE)
 	public int removeCard(@PathVariable int cardNo) {
 		return creditsService.removeCard(cardNo);
