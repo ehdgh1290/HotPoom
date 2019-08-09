@@ -2,12 +2,13 @@ var $footer = $("#footer");
 
 function fixFooter() {
     var wHeight = $(window).height();
-    var bHeight = $("body").height()+80;
+    var bHeight = $("body").height()+60;
 
+    console.log(wHeight);
     console.log(bHeight);
 
     if($footer.hasClass("fixed")) {
-        bHeight += 150;
+        bHeight += 100;
     }
 
     if(wHeight>=bHeight) {
@@ -18,6 +19,5 @@ function fixFooter() {
 }
 
 $(window).resize(fixFooter);
-setTimeout(() => {
-	fixFooter();
-}, 1000);
+
+fixFooter();

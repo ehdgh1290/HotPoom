@@ -42,8 +42,13 @@ import com.gear.hotpoom.vo.Species;
 import com.gear.hotpoom.service.PoomsService;
 import com.gear.hotpoom.service.SpeciesService;
 
+import com.gear.hotpoom.service.ChatUsersService;
+import com.gear.hotpoom.service.MessagesService;
+import com.gear.hotpoom.vo.Message;
+
 @RestController
-@RequestMapping(value="/ajax")
+
+@RequestMapping("/ajax")
 public class AjaxController {
 	@Autowired
 	private ReviewsService reviewsService;
@@ -73,6 +78,10 @@ public class AjaxController {
 	private ReportsService reportsService;
 	@Autowired
 	private ReviewsService reviewsService;
+	@Autowired
+	private ChatUsersService chatUsersService;
+	@Autowired
+	private MessagesService messagesService;
 	
 	
 	@RequestMapping(value="/review",method=RequestMethod.GET)
@@ -239,9 +248,7 @@ public class AjaxController {
 		
 		return usersService.modifyPhoneNum(user);
 	}
-	
 
-	
 	@RequestMapping(value="/addAccount", method=RequestMethod.POST)
 	public int addAccount(BankAccount bankAccount) {
 		
@@ -267,5 +274,23 @@ public class AjaxController {
 		return "{\"result\":"+result+"}";
 	}//checkEmail() end
 	
+
+	
+	
+	// 삭제처리
+	@RequestMapping(value="/invisible", method=RequestMethod.GET)
+	public int invisibleChat(int roomNo, int userNo) {
+		chatUsersService.invisibleChat(roomNo, userNo);
+		return 1;
+	}
+	
+	// 메시지불러오기
+	@RequestMapping(value = "/message")
+	public List<Message> getMessageList(int roomNo, int userNo) {
+		Message message = new Message(roomNo, userNo);
+		
+		return messagesService.getMessageList(message);
+	}
+
 	
 }

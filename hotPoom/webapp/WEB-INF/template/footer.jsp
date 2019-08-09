@@ -18,6 +18,7 @@
         </ul>
     </div><!--//policy -->
 </footer><!--// footer -->
+<script src="/js/fix-footer.js"></script>
 <script>
 $headerProfileImage = $("#headerProfileImage");
 $lnb = $("#lnb");

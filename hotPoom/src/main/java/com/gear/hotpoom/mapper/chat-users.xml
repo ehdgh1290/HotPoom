@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat-users">
 
+
 <insert id="insertFirstChatUser" parameterType="int">
 	INSERT INTO chat_users(no, user_no, room_no, type, regdate)
 	VALUES(chat_users_seq.nextval, 7, #{roomNo}, 'V', systimestamp) 
@@ -14,5 +15,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	VALUES(chat_users_seq.nextval, #{no}, #{roomNo}, 'V', systimestamp) 
 </insert>		
 		
+
+	<select id="selectChatList" resultType="ChatUser" parameterType="int">
+		SELECT u.no no, u.name name, u.profile_img profileImg, r.roomNo roomNo, m.no msgNo, ms.content title, ms.regdate lastTime, r.type type
+		FROM(SELECT b.user_no no, b.room_no roomNo, a.type type
+	 		 FROM chat_users a, chat_users b
+	 		 WHERE a.user_no = #{no} AND a.room_no = b.room_no AND b.user_no != #{no}
+	 		 ORDER BY b.regdate) r, users u, (SELECT room_no roomNo,MAX(no) no
+		 	 								  FROM messages
+											  GROUP BY room_no) m, messages ms
+		WHERE u.no = r.no AND r.roomNo = m.roomNo(+) AND m.no = ms.no(+)
+		ORDER BY m.no DESC
+	</select>
+	
+	<update id="invisibleRoom" parameterType="ChatUser">
+		UPDATE chat_users
+		SET type = 'I'
+		WHERE user_no = #{userNo} AND room_no = #{roomNo}
+	</update>
+	
+	<select id="checkRoom" resultType="int" parameterType="CheckRoom">
+		SELECT COUNT(*)
+		FROM (SELECT *
+	  		  FROM chat_users
+	  		  WHERE user_no = #{no}) u1, (SELECT *
+							   		   FROM chat_users
+							   		   WHERE user_no = #{userNo}) u2
+		WHERE u1.room_no = u2.room_no
+	</select>
+
+	<insert id="insertUser" parameterType="CheckRoom">
+		INSERT INTO chat_users(no, user_no, room_no, type, regdate)
+		VALUES(chat_users_seq.nextval, #{userNo}, #{roomNo}, 'V', systimestamp )
+	</insert>
+
 
 </mapper>
