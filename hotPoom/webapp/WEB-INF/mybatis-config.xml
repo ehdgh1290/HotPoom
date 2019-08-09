@@ -27,6 +27,7 @@
 		<typeAlias alias="Review" type="com.gear.hotpoom.vo.Review"/>
 		<typeAlias alias="Species" type="com.gear.hotpoom.vo.Species"/>
 		<typeAlias alias="User" type="com.gear.hotpoom.vo.User"/>
+		<typeAlias alias="PageVO" type="com.gear.hotpoom.vo.PageVO"/>
 	</typeAliases>
 
 	<mappers>

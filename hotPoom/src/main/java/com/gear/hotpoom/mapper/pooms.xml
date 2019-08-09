@@ -3,7 +3,25 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
-
+	<select id="selectPoomList" parameterType="PageVO" resultType="Poom">
+		SELECT no, type, title, score, count, img
+		FROM(SELECT no, type, title, score, count, img, rownum r
+		FROM(SELECT p.no, p.type, p.title, ROUND(NVL(r.score,0),2) score, NVL(r.count,0) count, ph.img
+			FROM pooms p,(SELECT p.no no,AVG(score) score,count(*) count
+			FROM reviews r, bookings b, pooms p
+			WHERE r.booking_no = b.no
+			AND p.no = b.poom_no
+			GROUP BY p.no) r,
+			(SELECT no, img, caption, content_no
+			FROM photos
+			WHERE type = 'M') ph
+			WHERE r.no(+) = p.no
+			AND ph.content_no(+) = p.no
+			AND p.user_no = #{userNo}))
+		WHERE r BETWEEN #{start} AND #{end}
+	
+	
+	</select>  <!-- 유저페이지에서 품리스트 불러오기 .영훈 -->
 	
 
 </mapper>

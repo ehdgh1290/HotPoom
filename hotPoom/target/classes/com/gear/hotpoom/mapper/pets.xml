@@ -4,6 +4,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pets">
 
+	<select id="selectPetList" parameterType="int" resultType="Pet">
+		SELECT no,user_no,species_no,name,gender,profile_img profileImg,regdate
+		FROM pets
+		WHERE user_no = #{no}
+	</select> <!-- 유저페이지에서 펫 불러오기 .영훈 -->
 	
+	<insert id="insert" parameterType="Pet">
+	
+	INSERT INTO pets(no, user_no, species_no, name, gender, profile_img, regdate)
+	VALUES (pets_seq.nextval, #{userNo}, null, #{name}, #{gender}, #{profileImg}, systimestamp)
+	
+	</insert> <!-- 유저페이지에서 펫 추가 .영훈 -->
 
 </mapper>

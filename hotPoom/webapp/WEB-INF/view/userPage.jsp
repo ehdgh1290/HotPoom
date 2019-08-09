@@ -7,28 +7,30 @@
     <meta charset="UTF-8">
     <title>userPage</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="css/userPage.css">
-    <link rel="stylesheet" href="css/userPetAddPopup.css">
+    <link rel="stylesheet" href="/css/userPage.css">
+    <link rel="stylesheet" href="/css/userPetAddPopup.css">
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
 
-<div id="bg">
+<div id="addPetBg">
     <div id="petAddPopup">
         <h1>펫 추가하기</h1>
         <div class="popup_close"><i class="far fa-times-circle"></i></div>
-        <form id="petAddPopupWrap">
+        <form id="petAddPopupWrap" action="/pet" method="POST">
             <p>성별</p>
-            <label class="cursor_pointer" for="male">수컷<input id="male" type="radio" name="gender" value=""/></label>
-            <label class="cursor_pointer" for="female">암컷<input id="female" type="radio" name="gender" value=""/></label>
+            <label class="cursor_pointer" for="male">수컷<input id="male" type="radio" name="gender" value="M"/></label>
+            <label class="cursor_pointer" for="female">암컷<input id="female" type="radio" name="gender" value="F"/></label>
             <p>이름</p>
-            <input id="petNameInput" name="" value="" placeholder="펫의 이름을 입력해주세요."/>
+            <input id="petNameInput" name="name" value="" placeholder="펫의 이름을 입력해주세요."/>
             <p>사진</p>
             <div id="petImgBox"><img id="petImg" /></div>
 
             <label id="petAddPopupLabel">
                 <i class="fas fa-camera img_icon"></i>
                 <input id="petInput" class="pet_and_user_file" type="file" />
+                <input type="hidden" id="petProfile" name="profileImg">
+                <input type="hidden" id="userNo" name="userNo" value="${userNo}"> 
             </label>
 
             <button id="petAddBtn" class="btn">등록</button>
@@ -37,30 +39,31 @@
 </div> <!--// addPet bg end-->
 
 <div id="reportBg">
-    <form>
+    <form id="report" action="/report" method="POST">
         <div id="reportPopup">
-
+		<input type="hidden" id="reportsNo" name="userNo" value="">
+		<input type="hidden" id="reportsReviewNo" name="reviewNo" value="">
             <div id="reportHeader">
                 <h1 id="reportTitle">신고하기</h1>
                 <div class="report_popup_close"><i class="far fa-times-circle"></i></div>
-                <div id="reportedPerson">작성자 : 이쥬하</div>
+                <div id="reportedPerson"></div>
             </div>
             <div id="reportContent">
                 <div>
                     <label class="choice_reason" for="report1">음란 또는 청소년에게
-                        부적합한 내용</label> <input id="report1" type="radio" name="report" value="a">
+                        부적합한 내용</label> <input id="report1" type="radio" name="type" value="O">
                 </div>
                 <div>
                     <label class="choice_reason" for="report2">부적절한 홍보</label> <input
-                        id="report2" type="radio" name="report" value="a">
+                        id="report2" type="radio" name="type" value="I">
                 </div>
                 <div>
                     <label class="choice_reason" for="report3">개인정보 노출</label> <input
-                        id="report3" type="radio" name="report" value="a">
+                        id="report3" type="radio" name="type" value="P">
                 </div>
                 <div>
                     <label class="choice_reason" for="report4">저작권 및 명예훼손,
-                        기타권리 침해</label> <input id="report4" type="radio" name="report" value="a">
+                        기타권리 침해</label> <input id="report4" type="radio" name="type" value="D">
                 </div>
             </div>
             <!--//reportContent-->
@@ -73,9 +76,8 @@
         <!--//reportPopup -->
     </form>
 </div> <!--// addPet bg end-->
-    <div id="userProfileImgSection">
-
-        <div id="userProfileWrap"><img id="profilePhoto" /></div>
+    <div id="userProfileImgSection"><div id="profileCloseBtn"><i class="fas fa-times"></i></div>
+        <div id="userProfileWrap"><img id="profilePhoto" src="/profile/user/${userInfo.profileImg}"/></div>
         <label>
             <i class="fas fa-camera img_icon"></i>
             <input id="profileInput" class="pet_and_user_file" type="file" />
@@ -88,14 +90,15 @@
 
         <div id="userIntroduceWrap">
             <h2 id="userIntroduce" style="font-weight: bold">
-                안녕하세요. 저는 '이주하'입니다.
+                안녕하세요. 저는 '${userInfo.name}' 입니다.
             </h2>
             <button id="profileUpdateBtn" class="profile_update_btn">프로필 수정하기</button>
             <button id="profileUpdateCompleteBtn" class="profile_update_btn">수정 완료</button>
             <h3 id="titleIntroduce">소개</h3>
-            <div id="profileTextAreaBox" class="user_introduce_detail" >안녕하세용ㅎㅎ 저는 3마리의 강아지와 2마리의 고양이를 키우는 사람입니당 ㅎㅎ</div>
+            <div id="profileTextAreaBox" class="user_introduce_detail" > ${userInfo.introduce} </div>
 
             <div id="profileUpdateTextAreaBox" class="user_introduce_detail" style="display: none">
+            <input type="hidden" name="updateIntroduce" value="">
                 <textarea id="profileUpdateTextArea"></textarea>
             </div>
         </div> <!--// userIntroduceSection -->
@@ -120,98 +123,18 @@
         <div id="userMenuTabDetailWrap">
 
             <div></div>
-            <ul class="small_card_ul">
+            <ul id="poomListInner" class="small_card_ul">
 
-                <li>
-                    <div class="small_card">
-                        <a href="">
-                            <ul>
-                                <li class="small_card_li">
-                                    <img class="small_card_img" src="img/petel.jpg" alt="숙소 카드입니다."/></li>
-                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르…</div></li>
-                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> 4.8 (16)</div>
-                                </li>
-                            </ul>
-                        </a>
-                    </div> <!--  small_card end  -->
-                </li>
+               
 
-                <li>
-                    <div class="small_card">
-                        <a href="">
-                            <ul>
-                                <li class="small_card_li">
-                                    <img class="small_card_img" src="img/petel.jpg" alt="숙소 카드입니다."/></li>
-                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르…</div></li>
-                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> 4.8 (16)</div>
-                                </li>
-                            </ul>
-                        </a>
-                    </div> <!--  small_card end  -->
-                </li>
-
-                <li>
-                    <div class="small_card">
-                        <a href="">
-                            <ul>
-                                <li class="small_card_li">
-                                    <img class="small_card_img" src="img/petel.jpg" alt="숙소 카드입니다."/></li>
-                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르…</div></li>
-                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> 4.8 (16)</div>
-                                </li>
-                            </ul>
-                        </a>
-                    </div> <!--  small_card end  -->
-                </li>
-
-                <li>
-                    <div class="small_card">
-                        <a href="">
-                            <ul>
-                                <li class="small_card_li">
-                                    <img class="small_card_img" src="img/petel.jpg" alt="숙소 카드입니다."/></li>
-                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르…</div></li>
-                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> 4.8 (16)</div>
-                                </li>
-                            </ul>
-                        </a>
-                    </div> <!--  small_card end  -->
-                </li>
-
-                <li>
-                    <div class="small_card">
-                        <a href="">
-                            <ul>
-                                <li class="small_card_li">
-                                    <img class="small_card_img" src="img/petel.jpg" alt="숙소 카드입니다."/></li>
-                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르…</div></li>
-                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> 4.8 (16)</div>
-                                </li>
-                            </ul>
-                        </a>
-                    </div> <!--  small_card end  -->
-                </li>
-
-                <li>
-                    <div class="small_card">
-                        <a href="">
-                            <ul>
-                                <li class="small_card_li">
-                                    <img class="small_card_img" src="img/petel.jpg" alt="숙소 카드입니다."/></li>
-                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> 사랑이 넘치고 넘쳐 흐르…</div></li>
-                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> 4.8 (16)</div>
-                                </li>
-                            </ul>
-                        </a>
-                    </div> <!--  small_card end  -->
-                </li>
+    
 
             </ul> <!--// small_card_ul end -->
 
             <div id="petImgAddBtn">
                 <label>
                     <i class="fas fa-camera img_icon"></i>
-                    <input class="pet_and_user_file" type="file" />
+                    <input id="addPetPhoto" class="pet_and_user_file" type="file" />
                 </label>
             </div> <!--// petImgAddBtn end -->
 
@@ -226,56 +149,13 @@
 
             <div id="myPoomReviewList" class="review_card">
                 <ul>
-                    <li>
-                        <div class="review_card_hotel_name"></div>
-                        <div class="review_card_content">저희 집 고양희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는
-                            평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡
-                            기면항상 예민해져`  서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소
-                            랑 저희 집를 많이 주는지 애기가 똥똥해져셔 왔더라구요... 아니 뭐 귀엽다고여 ㅎㅎㅎㅎ
-                        </div>
-                        <div class="review_card_img"><img src="profile/user/defaultProfile.jpg"/></div>
-                        <div class="review_card_user_name">이주하</div>
-                        <div class="review_card_date">2018.09</div>
-                        <div class="review_card_warning">신고</div>
-                    </li>
-                    <li>
-                        <div class="review_card_hotel_name"></div>
-                        <div class="review_card_content">저희 집 고양희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는
-                            평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡
-                            기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소
-                            랑 저희 집를 많이 주는지 애기가 똥똥해져셔 왔더라구요... 아니 뭐 귀엽다고여 ㅎㅎㅎㅎ
-                        </div>
-                        <div class="review_card_img"><img src="profile/user/defaultProfile.jpg"/></div>
-                        <div class="review_card_user_name">이주하</div>
-                        <div class="review_card_date">2018.09</div>
-                        <div class="review_card_warning">신고</div>
-                    </li>
+
                 </ul>
             </div><!--// review_card end -->
 
             <div id="myReviewList" class="review_card">
                 <ul>
-                    <li>
-                        <div class="review_card_hotel_name">냥냥 펀치</div>
-                        <div class="review_card_content">저희 집 고양희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는
-                            평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡
-                            기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소
-                            랑 저희 집를 많이 주는지 애기가 똥똥해져셔 왔더라구요... 아니 뭐 귀엽다고여 ㅎㅎㅎㅎ
-                        </div>
-                        <div class="review_card_img"><img src="profile/user/defaultProfile.jpg"/></div>
-                        <div class="review_card_user_name">이주하</div>
-                        <div class="review_card_date">2018.09</div>
-                    </li>
-                    <li>
-                        <div class="review_card_hotel_name">수댕이 바보</div>
-                        <div class="review_card_content">저희 집 고양희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는
-                            평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡
-                            기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소랑 저희 집 고양이가 다른 곳에 맡기면항상 예민해져서 왔는ㄷ ㅔ여기는 평소
-                            랑 저희 집를 많이 주는지 애기가 똥똥해져셔 왔더라구요... 아니 뭐 귀엽다고여 ㅎㅎㅎㅎ
-                        </div>
-                        <div class="review_card_img"><img src="profile/user/defaultProfile.jpg"/></div>
-                        <div class="review_card_user_name">이주하</div>
-                        <div class="review_card_date">2018.09</div>
+
                 </ul>
             </div>
 
@@ -285,10 +165,84 @@
     </div> <!--// userInfoSection -->
 
 <c:import url="/WEB-INF/template/footer.jsp"/>
+
+
+
+
+
+<script type="text/template" id="myReviewTmp">
+<@
+_.each(reviews,function(review){
+@>             
+                    <li>
+                        <div class="review_card_hotel_name"><@=review.title@></div>
+                        <div class="review_card_content"><@=review.content@>
+                        </div>
+                        <div class="review_card_img"><img src="/profile/user/defaultProfile.jpg"></div>
+                        <div class="review_card_user_name"><@=review.name@></div>
+                        <div class="review_card_date"><@=review.formatDate@></div>
+                    </li>
+
+<@
+})
+@>
+</script>
+<!-- 내 리뷰 -->
+
+
+<script type="text/template" id="myPoomReviewTmp">
+<@
+_.each(reviews,function(review){
+@>             
+       <li>
+             <div class="review_card_hotel_name"></div>
+             <div class="review_card_content">
+			 <@=review.content@>	
+             </div>
+             <div class="review_card_img"><img src="/profile/user/defaultProfile.jpg"/></div>
+             <div class="review_card_user_name"><@=review.name@></div>
+             <div class="review_card_date"><@=review.formatDate@></div>
+             <div class="review_card_warning" data-userName="<@=review.name@>" data-userNo="${userNo}" data-reviewNo="<@=review.no@>">신고</div>
+             </li>
+
+<@
+})
+@>
+</script>
+<!-- 내품 리뷰 -->
+
+
+<script type="text/template" id="poomListTmp">
+<@
+_.each(pooms,function(poom){
+console.log(poom);
+@>
+ 				<li>
+                    <div class="small_card">
+                        <a href="">
+                            <ul>
+                                <li class="small_card_li">
+                                    <img class="small_card_img" src="/img/<@=poom.img@>" alt="숙소 카드입니다."/></li>
+                                <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> <@=poom.title@></div>
+                                <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</div>
+                                </li>
+                            </ul>
+                        </a>
+                    </div> 
+                </li>
+<@
+})
+@>
+</script>
+<!-- 내품 리스트 보여주기 end -->
+
+
 <script type="text/template" id="petProfileTmp">
     <@ _.each(pets, function(pet){ @>
     <li class="pet_profile" >
-        <div class="pet_profile_img"><img src="img/<@=pet.img@>"/></div>
+		
+
+        <div class="pet_profile_img"><img src="/profile/pet/<@=pet.profileImg@>"/></div>
         <div class="pet_name"><i class="fas
         <@ if(pet.gender=="F"){@>
             fa-venus
@@ -297,17 +251,26 @@
             fa-mars
             <@ } @>
             "></i> <@=pet.name@></div>
+		<div class="updateBtn"><i class="fas fa-ellipsis-h"></i></div>
+		<div class="updatePopup">
+		<div class="update_update">수정</div>
+		<div class="update_delete">삭제</div>	
+		</div>
     </li>
     <@ }) @>
 </script>
+<!-- 펫프로필 보여주기 -->
 
-<script type="text/template" id="petImgAddTmp">
+<script type="text/template" id="petImgAddTmp"> 
     <@ _.each(petImgs, function(petImg){ @>
     <li>
-        <div class="pet_img"><img src="img/<@=petImg.img@>"/></div>
+        <div class="pet_img"><img src="/upload/<@=petImg.img@>"/></div>
+		<div class="pet_img_bg"><i data-no="<@=petImg.no@>"class="fas fa-times pet_img_close"></i></div>
     </li>
     <@ }) @>
 </script>
+<!-- 동물이미지 사진 end -->
+
 <script>
     _.templateSettings = {
         interpolate : /\<\@\=(.+?)\@\>/gim,
@@ -315,12 +278,43 @@
         escape : /\<\@\-(.+?)\@\>/gim
     };
 
+    let petPageNo = 1; // pet 사진 목록 무한스크롤 페이지
+    let poomPageNo = 1; // poom 목록 무한스크롤 페이지
+    let poomReviewPageNo = 1; //poom 리뷰목록 무한스크롤 페이지
+    let myReviewPageNo =1; // 내리뷰목록 무한스크롤 페이지
+    let flag = true; // 무한 스크롤링의 로딩을 기다리기 위해 필요함
+    let oldProfile = null; //프로필 파일 사진의 중복을 막기 위한 비교
     const petProfileTmp = _.template($("#petProfileTmp").html());
     const $petProfileUl = $("#petProfileWrap ul");
     const petImgAddTmp = _.template($("#petImgAddTmp").html());
     const $petImgAddUl = $("#petImgAddUl ");
+    const poomListTmp = _.template($("#poomListTmp").html());
+    const $poomListInner = $("#poomListInner");
+    const myPoomReviewTmp = _.template($("#myPoomReviewTmp").html());
+    const $myPoomReviewListUl = $("#myPoomReviewList ul");
+    const myReviewTmp = _.template($("#myReviewTmp").html());
+    const $myReviewListUl = $("#myReviewList ul");
+    //image인지 확인하는 정규표현식
+    var profileReg = /^image/;
+	const $profileInput = $("#profileInput"); 
+	const $addPetPhoto = $("#addPetPhoto");
+	const $petInput = $("#petInput");
+    
+    function profileCheck(){
+    	let profile = "${userInfo.profileImg}"
+    	if(profile != "defaultProfile.jpg"){
+			$("#userProfileImgSection label").css("display","none");
+			$("#profilePhoto").css("display","block");
+			$("#userProfileImgSection").css("background","#fff");
+			$("#profileCloseBtn").show();
+    	}
+     }
+    
+    profileCheck();
+    
+ 
 
-
+    
     $("#headerProfileImage").click(function (e) {
 
         $("#lnb").slideToggle(200);
@@ -360,6 +354,7 @@
         $("#reviewDetailTab").hide();
         $("#petImgAddBtn").show();
         $("#petImgAddUl").show();
+        getPetPhotos();
     })
 
     // *************************************** reviewTab
@@ -369,8 +364,22 @@
         $("#petImgAddUl").hide();
         $("#petImgAddBtn").hide();
         $("#reviewDetailTab").show();
+        getmyReview();
 
     })
+    
+
+    
+   $("#myPoomReview").click(function () {
+	   getMyPoomReview();
+
+    })
+    
+      $("#myReview").click(function () {
+    	  getmyReview();
+
+    })
+
 
     // *************************************** reviewDetailTab 이동
 
@@ -379,11 +388,17 @@
         $("#myReview").removeClass('user_menu_tab_on');
         $(this).addClass('user_menu_tab_on');
     });
+    
+    
 
     // *************************************** review reportPopup
 
-    $(".review_card_warning").click(function () {
+    $("body").on("click",".review_card_warning",function () {
+    
 
+    	$("#reportsNo").val($(this).attr("data-userNo"));
+    	$("#reportsReviewNo").val($(this).attr("data-reviewNo"));
+		
         $("#reportBg").show();
     })
 
@@ -409,11 +424,11 @@
     // *************************************** petAddpopUp 띄우고 닫기
 
     $("#addPetBtnInList").click(function () {
-        $("#bg").show();
+        $("#addPetBg").show();
     });
 
     $(".popup_close").click(function () {
-        $("#bg").hide();
+        $("#addPetBg").hide();
     });
 
     // *************************************** 소개 수정하기
@@ -457,9 +472,9 @@
     $("#profileUpdateCompleteBtn").click(function () {
 
         $("#profileUpdateTextAreaBox").hide();
-        $("#profileTextAreaBox").show();
+       
         $("#profileUpdateCompleteBtn").hide();
-        $("#profileUpdateBtn").show();
+    
 
     })
 
@@ -557,7 +572,10 @@
     // petProfile ajax
     function getPetProfileList(){
         $.ajax({
-            url:"json/petProfileList.json",
+            url:"/ajax/user/petProfile/",
+            data :{userNo: ${userNo}},
+            dataType : "json",
+            type : "GET",
             error:function(){
                 alert("서버점검");
             },
@@ -573,22 +591,7 @@
 
     getPetProfileList();
 
-    // petImg ajax
-    function getPetImgList(){
-        $.ajax({
-            url:"json/petImgList.json",
-            error:function(){
-                alert("서버점검");
-            },
-            success:function (json) {
-                console.log(json);
-                $petImgAddUl.html(petImgAddTmp({"petImgs":json}));
-            }
-        })// ajax() end
-    }// getPetProfile() end
-
-    getPetImgList();
-
+    /*
     // 펫 이미지 추가 에이젝스 end
     $("#petImgAddBtn input").change(function () {
         var file = this.files[0];
@@ -604,7 +607,7 @@
                 alert("서버점검중");
             },
             success: function (json) {
-
+				
                 $(".pet_img img").attr("src",json.url);
 
                 getPetImgList();
@@ -614,35 +617,7 @@
 
     }); // 펫 이미지 추가 에이젝스 end
 
-    // 프로필 업로드 ajax
 
-    const $upload = $("#upload");
-
-    const fileTypeExp = /^image\//;
-
-    $("#profileInput").change(function () {
-        var file = this.files[0];
-        if(!fileTypeExp.test(file.type)) {
-            alert("이미지만 선택해주세요.");
-            return;
-        }
-        $.ajax({
-            url:"json/profileImg.json",
-            dataType:"json",
-            type:"GET",
-            error: function () {
-                alert("서버점검중");
-            },
-            success: function (json) {
-
-                $("#profilePhoto").attr("src",json.url);
-                $("#profilePhoto").css("display","block");
-                $("#userProfileImgSection label").css("display","none");
-                $("#userProfileWrap").css("display","block");
-            }
-        })
-
-    }); // 프로필 업로드 에이젝스 end
 
     // 펫 추가 팝업 에이젝스 end
     $("#petInput").change(function () {
@@ -668,8 +643,559 @@
         })
 
     }); // 펫추가 팝업 에이젝스 end
+*/
+	$("#profileUpdateCompleteBtn").click(function () {
+		
+		
+	
+		let updateIntroduce = $("#profileUpdateTextArea").val();
+		
+		console.log(updateIntroduce);
+		
+    	$.ajax({
+  		  url:"/ajax/user/${userNo}/introduce/"+updateIntroduce,
+	            data :{userNo:1 , content:updateIntroduce},
+  		  		dataType: "json",
+	            type: "PUT",
+
+	            error: function () {
+	                alert("서버점검중");
+	            },
+	            success: function (json) {
+	               console.log(json);
+					
+	              $("#profileTextAreaBox").html(updateIntroduce);
+	              $("#profileUpdateBtn").show();
+	              $("#profileTextAreaBox").show();
+	              
+	            }//success end
+  	});//ajax end
+  }); //getPoomList() end
+		
+		
+
+/*----------------------------------------------------------------------------- */	
+	
+	//품 리스트 불러오기
+	function getPoomList(){
+		console.log("품");
+		if (flag) {
+			flag = false;
+    		$.ajax({
+ 
+    	
+    		  url:"/ajax/user/poom/",
+	            data :{userNo: ${userNo},pageNo:poomPageNo++},
+    		  	dataType: "json",
+	            type: "GET",
+
+	            error: function () {
+	                alert("서버점검중");
+	            },
+	            success: function (json) {
+	               console.log(json);
+					
+	                $poomListInner.append(poomListTmp({"pooms":json}));
+	              
+	                
+		             // 완료 후 다시 falg를 true로
+						flag = true;
+		             
+		             
+	
+	                
+	            }//success end
+    	});//ajax end
+    		}//if()end
+    }; //getPoomList() end
+	
+getPoomList(); // 한번호출
 
 
+
+
+ 	//펫 사진들 불러오기
+function getPetPhotos(){
+	console.log("펫");
+		if (flag) {
+			flag = false;
+			$.ajax({
+				url:"/ajax/user/petPhoto",
+				data :{userNo: ${userNo},pageNo: petPageNo++},
+				dataType: "json",
+				 error: function () {
+		                alert("서버점검중");
+		            },
+		            success: function (json) {
+		              
+		               console.log("소환");
+		               console.log(json);
+						
+		                $petImgAddUl.append(petImgAddTmp({"petImgs":json.Photos}));
+		              
+		                
+		            
+		             // 완료 후 다시 falg를 true로
+						flag = true;
+		             
+		             
+		
+		                
+		            }//success end
+
+		});//ajax end
+		}//if end
+	}
+ 	
+
+	 
+	
+	
+	//품 리뷰 불러오기
+	function getMyPoomReview(){
+		console.log("품리뷰");
+		if (flag) {
+			flag = false;
+ 		
+		$.ajax({
+			url:"/ajax/user/poomReivew",
+			data :{userNo: ${userNo}, pageNo : poomReviewPageNo++ },
+			dataType: "json",
+			 error: function () {
+	                alert("서버점검중");
+	            },
+	            success: function (json) {
+	              // console.log(json);
+					
+	                $myPoomReviewListUl.append(myPoomReviewTmp({"reviews":json}));
+	                
+	                flag = true;
+	                
+	            }//success end
+
+		});//ajax end
+		}//if end
+	}
+	
+	
+	
+
+$("#myReview").click(getMyPoomReview);
+
+	function getmyReview(){
+		console.log("내리뷰");
+		if (flag) {
+			flag = false;
+			
+		
+		$.ajax({
+			url:"/ajax/user/myReivew",
+			data :{userNo: ${userNo}, pageNo:myReviewPageNo++},
+			dataType: "json",
+			 error: function () {
+	                alert("서버점검중");
+	            },
+	            success: function (json) {
+	               //console.log(json);
+					
+	                $myReviewListUl.append(myReviewTmp({"reviews":json}));
+	             
+	                flag = true;
+	                
+					//스크롤이 하단과 닿으면 호출하는 코드
+					let $window = $(window);
+					let $document = $(document);
+				    $window.scroll(function () {
+				        let sTop = $window.scrollTop();
+				        let $dHeight = $document.height();
+				        let $wHeight = $window.height();
+
+				        if($dHeight<=$wHeight + sTop + 30) {
+				        	getPetPhotos();
+				        }//if end
+				    });
+				    
+	            }//success end
+	                
+	                
+	   
+
+		});//ajax end
+		}
+	}
+	
+	
+
+	
+	//프로필 사진 업로드---------------------
+	
+	$("#profileInput").change(function() {
+		 checkProfile();
+	})
+
+	function checkProfile() {
+	
+	//jquery객체에서 순수자바스크립트요소객체 얻기
+	var profileInput = $profileInput.get(0);
+	
+	//input type=file요소(순수자바스크립트)는 무조건
+	//files배열을 가지고 있습니다.
+	
+	//한 개의 파일
+	var file = profileInput.files[0];
+		
+	//File 객체의 속성
+	//- type : MIME( image/jpeg, audio/mp3, video/mp4...)
+	//- name : 파일명
+	//- lastModified : 최종수정일
+	//- size : 파일 크기
+	
+	if(file==null||file.size<=0) {
+		
+		
+	 alert("제대로 된 파일을 선택해주세요.");
+		
+		return;
+	}//if end
+	
+	//이미지인지 확인!!
+	if(!profileReg.test(file.type)) {
+		
+		alert("이미지 파일을 선택해주세요.");
+		
+		return;
+	}
+	
+	if(oldProfile!=file.name) {
+		
+	oldProfile = file.name;
+	
+	//여기에 넘어왔다는 뜻은 유저가 선택한 파일이
+	//1바이트이상의 크기이고 이미지 파일이라는 뜻입니다.
+	
+	//ajax로 넘길 폼을 생성하고
+	var form = new FormData();
+	
+	//우리가 선택한 파일을 붙임
+	form.append("type","Profile");//일반적인 데이터
+	form.append("userNo",${userNo});//일반적인 데이터
+	
+	//1)파라미터명, 2) 파일 3) 파일명
+	form.append("uploadImg",file,file.name);
+	
+	//multipart/form-data로 ajax처리
+	$.ajax({
+		url:"/ajax/profile/upload",
+		dataType:"json",
+		type:"POST",//multipart/form-data
+		processData:false,//multipart/form-data
+		contentType:false,//multipart/form-data
+		data:form,
+		error:function() {
+			alert("사진 서버 점검중!");
+		},
+		success:function(json) {
+			
+			$("#profilePhoto").attr("src","/profile/user/"+json.src);
+			$("#userProfileImgSection label").css("display","none");
+			$("#profilePhoto").css("display","block");
+			$("#userProfileImgSection").css("background","#fff");
+			$("#profileCloseBtn").show();
+		}//success end
+	
+	});//ajax() end
+	
+	}//if end
+	
+} //checkProfile() end
+	
+//프로필 사진 업로드 end---------------------	
+	
+//프로필 사진 삭제
+
+$("#profileCloseBtn").click(function(){
+	
+	$.ajax({
+		url:"/ajax/profile/user/${userNo}",
+		dataType:"json",
+		type:"DELETE",
+		error:function(){
+			alert("사진 서버 점검중!");
+		},
+		success:function(json){
+			
+			$("#userProfileImgSection label").css("display","block");
+			$("#profilePhoto").css("display","none");
+			$("#userProfileImgSection").css("background","#EEE");			
+			$("#profileCloseBtn").hide();
+		}//success
+		
+	});//ajax() end
+		
+})
+
+
+//프로필 사진 삭제
+	
+//펫 사진 업로드---------------------	
+
+$("#addPetPhoto").change(function() {
+		addPetPhoto();
+	})
+
+	function addPetPhoto() {
+	
+	//jquery객체에서 순수자바스크립트요소객체 얻기
+	var addPetPhoto = $addPetPhoto.get(0);
+	
+	//input type=file요소(순수자바스크립트)는 무조건
+	//files배열을 가지고 있습니다.
+	
+	//한 개의 파일
+	var file = addPetPhoto.files[0];
+		
+	//File 객체의 속성
+	//- type : MIME( image/jpeg, audio/mp3, video/mp4...)
+	//- name : 파일명
+	//- lastModified : 최종수정일
+	//- size : 파일 크기
+	
+	if(file==null||file.size<=0) {
+		
+		
+	 alert("제대로 된 파일을 선택해주세요.");
+		
+		return;
+	}//if end
+	
+	//이미지인지 확인!!
+	if(!profileReg.test(file.type)) {
+		
+		alert("이미지 파일을 선택해주세요.");
+		
+		return;
+	}
+	
+	if(oldProfile!=file.name) {
+		
+	oldProfile = file.name;
+	
+	//여기에 넘어왔다는 뜻은 유저가 선택한 파일이
+	//1바이트이상의 크기이고 이미지 파일이라는 뜻입니다.
+	
+	//ajax로 넘길 폼을 생성하고
+	var form = new FormData();
+	
+	//우리가 선택한 파일을 붙임
+	form.append("type","Pet");//일반적인 데이터
+	form.append("userNo",${userNo});//일반적인 데이터
+	
+	//1)파라미터명, 2) 파일 3) 파일명
+	form.append("uploadImg",file,file.name);
+	
+	//multipart/form-data로 ajax처리
+	$.ajax({
+		url:"/ajax/profile/upload",
+		dataType:"json",
+		type:"POST",//multipart/form-data
+		processData:false,//multipart/form-data
+		contentType:false,//multipart/form-data
+		data:form,
+		error:function() {
+			alert("사진 서버 점검중!");
+		},
+		success:function(json) {
+		
+           	
+			
+			 $petImgAddUl.empty();
+			 
+			 let nowPage = petPageNo;
+			 petPageNo = 1;
+			 
+			 getPetPhotos();
+			 /* 질문
+			 for(let i = 1 ; i<=nowPage; i++){
+				 console.log("11");
+				 
+			 }
+			 */
+			
+		}//success end
+	
+	});//ajax() end
+	
+	}//if end
+	
+} //checkProfile() end
+
+//펫 사진 업로드 end---------------------	   
+
+//펫 사진 삭제 
+
+$("body").on("click",".pet_img_close",function(){
+	
+
+	
+	
+	let no = 0;
+	no =  $(this).attr("data-no");
+	$(this).parents("li").remove();
+	
+	
+	$.ajax({
+		url:"/ajax/petPhoto/"+no ,
+		dataType:"json",
+		type:"DELETE",
+		error:function(){
+			alert("사진 서버 점검중!");
+		},
+		success:function(json){
+			 petPageNo = 1;
+			 
+			 getPetPhotos();
+		}//success
+		
+	});//ajax() end
+		
+})
+
+
+
+//펫 사진 삭제
+
+//펫프로필
+	
+	$("#petInput").change(function() {
+		petInput();
+	})
+
+	function petInput() {
+	
+	//jquery객체에서 순수자바스크립트요소객체 얻기
+	var petInput = $petInput.get(0);
+	
+	//input type=file요소(순수자바스크립트)는 무조건
+	//files배열을 가지고 있습니다.
+	
+	//한 개의 파일
+	var file = petInput.files[0];
+		
+	//File 객체의 속성
+	//- type : MIME( image/jpeg, audio/mp3, video/mp4...)
+	//- name : 파일명
+	//- lastModified : 최종수정일
+	//- size : 파일 크기
+	
+	if(file==null||file.size<=0) {
+		
+		
+	 alert("제대로 된 파일을 선택해주세요.");
+		
+		return;
+	}//if end
+	
+	//이미지인지 확인!!
+	if(!profileReg.test(file.type)) {
+		
+		alert("이미지 파일을 선택해주세요.");
+		
+		return;
+	}
+	
+	if(oldProfile!=file.name) {
+		
+	oldProfile = file.name;
+	
+	//여기에 넘어왔다는 뜻은 유저가 선택한 파일이
+	//1바이트이상의 크기이고 이미지 파일이라는 뜻입니다.
+	
+	//ajax로 넘길 폼을 생성하고
+	var form = new FormData();
+	
+	//우리가 선택한 파일을 붙임
+	form.append("type","petProfile");//일반적인 데이터
+	form.append("userNo",${userNo});//일반적인 데이터
+	
+	//1)파라미터명, 2) 파일 3) 파일명
+	form.append("uploadImg",file,file.name);
+	
+	//multipart/form-data로 ajax처리
+	$.ajax({
+		url:"/ajax/profile/upload",
+		dataType:"json",
+		type:"POST",//multipart/form-data
+		processData:false,//multipart/form-data
+		contentType:false,//multipart/form-data
+		data:form,
+		error:function() {
+			alert("사진 서버 점검중!");
+		},
+		success:function(json) {
+		
+            $("#petImg").attr("src","/profile/pet/"+json.src);
+            $("#petImg").css("display","block");
+            $("#petAddPopupLabel").css("display","none");
+            $("#petImgBox").css("display","block");
+            $("#petProfile").val(json.src);
+			
+		}
+	});//ajax() end
+	
+	}//if end
+	
+} //checkProfile() end
+//펫프로필
+
+
+	//스크롤이 하단과 닿으면 호출하는 코드
+	let $window = $(window);
+	let $document = $(document);
+    $window.scroll(function () {
+        let sTop = $window.scrollTop();
+        let $dHeight = $document.height();
+        let $wHeight = $window.height();
+
+     
+        if($dHeight<=$wHeight + sTop + 30){
+        
+     if($("#poomTab").hasClass("user_menu_tab_on")){
+       console.log("poomTab");
+        	getPoomList();
+      
+	}else if($("#petTab").hasClass("user_menu_tab_on")){
+		  console.log("petTab");
+        	getPetPhotos();
+      
+	}else{
+		 console.log("reviewTab");
+		if($("#myReview").hasClass("user_menu_tab_on")){
+			 console.log("myReview");
+	        	getmyReview();
+	      
+		}else if($("#myPoomReview").hasClass("user_menu_tab_on")){
+			 console.log("myPoomReview");
+	        	getMyPoomReview();
+	       
+		}//if else end
+		
+	}//if else end	
+        }//if end
+
+    });//seroll end  
+
+    $("body").on("click",".updateBtn", function(){
+    	
+    	
+    	$(this).next().toggle();
+    	
+    });
+
+    
+    $("#review_card_warning").click(function(){
+    	$("#reportedPerson").html($(this).attr("data-userName"));
+    });
+    
 
 </script>
 </body>

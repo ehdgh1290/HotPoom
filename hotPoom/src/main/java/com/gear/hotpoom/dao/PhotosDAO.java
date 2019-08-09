@@ -1,5 +1,16 @@
 package com.gear.hotpoom.dao;
 
+import java.util.List;
+
+import com.gear.hotpoom.vo.PageVO;
+import com.gear.hotpoom.vo.Photo;
+
 public interface PhotosDAO {
 
+	public List<Photo> selectList(PageVO pageVO);//유저페이지 펫사진 불러오기 .영훈
+	
+	public int insetPhoto(Photo photo);//유저페이지 펫사진 추가 .영훈
+	
+	public int deletePhoto(int no);//유저페이지 펫사진 삭제 .영훈
+	
 }
