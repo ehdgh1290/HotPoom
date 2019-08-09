@@ -4,6 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat-users">
 
-	
+<insert id="insertFirstChatUser" parameterType="int">
+	INSERT INTO chat_users(no, user_no, room_no, type, regdate)
+	VALUES(chat_users_seq.nextval, 7, #{roomNo}, 'V', systimestamp) 
+</insert>
+		
+<insert id="insert" parameterType="User">
+	INSERT INTO chat_users(no, user_no, room_no, type, regdate)
+	VALUES(chat_users_seq.nextval, #{no}, #{roomNo}, 'V', systimestamp) 
+</insert>		
+		
 
 </mapper>

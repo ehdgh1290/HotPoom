@@ -21,5 +21,14 @@ public interface UsersDAO {
 	public int updateName(User user);
 
 	public int updatePhoneNum(User user);
+	
+	
+	
+	
+	
+	
+	public int selectCheckEmail(String email);
+
+	public int insert(User user);
 
 }

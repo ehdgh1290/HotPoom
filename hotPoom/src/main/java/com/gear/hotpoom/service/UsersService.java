@@ -24,4 +24,12 @@ public interface UsersService {
 	public int modifyName(User user);
 
 	public int modifyPhoneNum(User user);
+	
+	
+	
+	
+	
+	public boolean checkEmail(String email);
+
+	public int sign(User user);
 }

@@ -254,4 +254,18 @@ public class AjaxController {
 		return bankAccountsService.getMyAccount(userNo);
 	}
 	
+	
+	@RequestMapping(value="/email/{email}", method=RequestMethod.GET)
+	public String checkEmail(@PathVariable String email, String check) {
+		
+		boolean result = usersService.checkEmail(check);
+		
+				// System.out.println(check);
+				// System.out.println(email);
+				// System.out.println(result);
+		
+		return "{\"result\":"+result+"}";
+	}//checkEmail() end
+	
+	
 }

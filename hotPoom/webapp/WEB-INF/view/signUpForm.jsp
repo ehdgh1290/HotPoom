@@ -5,13 +5,80 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>signUp form</title>
+    <title>회원가입</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="css/signUpForm.css"/>
+    <link rel="stylesheet" href="/css/signUpForm.css"/>
+    <link rel="stylesheet" href="/css/default.css">
 </head>
+<style>
+#signUpForm{
+	position: relative;
+	min-height: 500px;
+	margin-top: 30px;
+}
+
+#signUpForm h3{
+	margin: 20px 0 20px 0;
+	font-weight: bold;
+}
+
+.sign_up_legend{
+	margin-bottom: 20px;
+}
+
+.hr{
+	border-width: 2px 0 0;
+}
+
+.sign_up_input{
+	width: 200px;
+	text-indent: 5px;
+}
+
+#emailCheckBtn{
+	position: absolute;
+	left: 220px;
+	top: 230px;
+}
+
+.btn.register{
+	padding: 5px;
+}
+
+#numBtn{
+	position: relative;
+	left: 15px;
+}
+
+.btn.register.success{
+	margin: 30px 0 30px 0; 
+}
+
+#content{
+	position: relative;
+	margin: auto;
+	min-height: 800px;
+}
+
+#signUpForm select{
+	height: 30px;
+	width: 70px;
+}
+
+#signUp{
+	position: relative;
+}
+.true{
+    color:#42A5F5;
+    margin:10px 0;
+    display: none;
+}
+
+</style>
 <body>
+<c:import url="/WEB-INF/template/header.jsp"/>
 <div id="signUpSection">
-    <form id="signUpForm" action="/">
+    <form id="signUpForm" action="/join" method="POST">
         <fieldset class="sign_up_fieldset">
             <legend class="sign_up_legend">회원가입</legend>
             <hr class="hr">
@@ -19,7 +86,6 @@
             <div id="nameRegisterWrap">
                 <h3>이름</h3>
                     <input id="nameRegisterInput" name="name" autocomplete="none" placeholder="이름을 입력해주세요" class="sign_up_input"/>
-                    <button type="button" id="nameCheckBtn" class="btn register name_check">중복 확인</button>
                     <div class="name_insert"></div>
             </div>
             <div id="IdPwdRegisterWrap">
@@ -30,6 +96,7 @@
                 </div>
                 <span class="msg wrong_email_form">올바른 아이디 형식을 지켜주세요 :(</span>
                 <span class="msg email_check_fail">해당 이메일은 이미 등록된 이메일입니다.</span>
+                <span class="msg true email_check_success">사용 가능한 이메일입니다.</span>                
                 <div id="passwordRegisterInner">
                     <div id="passwordRegister">
                         <input type="password"  id="passwordRegisterInput" name="password" autocomplete="none"
@@ -43,23 +110,23 @@
             <div id="genderRegisterWrap">
                 <h3>성별</h3>
                     <label for="female">
-                        <input type='radio' id="female" name='gender' value='female' checked/>여성
+                        <input type='radio' id="female" name='gender' value='F' checked/>여성
                     </label>
                     <label for="male">
-                        <input type='radio' id="male" name='gender' value='male' />남성
+                        <input type='radio' id="male" name='gender' value='M' />남성
                     </label>
             </div>
             <div id="birthRegisterWrap">
                 <h3>생년월일</h3>
                 <p>
-                    <select id="year"></select><span>년</span>
-                    <select id="month"></select><span>월</span>
-                    <select id="date"></select><span>일</span>
+                    <select id="year" name="year" value=""></select>&nbsp;년&nbsp;&nbsp; 
+                    <select id="month" name="month" value=""></select>&nbsp;월&nbsp;&nbsp;  
+                    <select id="date" name="date" value=""></select>&nbsp;일&nbsp;&nbsp;  
                 </p>
             </div>
             <div id="phoneNumRegisterWrap">
                 <h3>휴대전화</h3>
-                <input id="phoneNumInput" name="phoneNumInput" autocomplete="off" placeholder="입력 방식 ex.01012344575 " class="sign_up_input"/>
+                <input maxlength="11" id="phoneNumInput" name="phoneNum" autocomplete="off" placeholder="입력 방식 ex.01012344575 " class="sign_up_input"/>
                 <button type="button" id="numBtn" class="btn register authentication" value="numBtn">인증번호 받기</button>
                 <div>
                 <span class="msg phone_num_insert">올바른 핸드폰 번호를 입력해주세요.</span>
@@ -68,13 +135,17 @@
                 </div>
             </div>
             <!--가입확인 버튼 처음에 비활성화-->
-            <button type="button" id="signUp" class="btn register success" onclick="/">가입</button>
+            <button id="signUp" class="btn register success">가입하기</button>
         </fieldset>
     </form>
 </div><!--wrap-->
+<c:import url="/WEB-INF/template/footer.jsp"/>
+
+
 <script>
 	let $userName = $("#nameRegisterInput");
 	let $email = $("#emailRegisterInput");
+	
 	let $password = $("#passwordRegisterInput");
 	let $passwordCheck = $("#passwordCheckInput");
 	let $phoneNumCheck = $("#phoneNumConfirm");
@@ -171,121 +242,88 @@
 	
 	let $nameMsg = $(".name_insert");
 	let $emailMsg = $(".msg.email_check_fail");//span
+	let $emailSuccessMsg = $(".msg.true.email_check_success");//span
 	let $emailFormMsg = $(".msg.wrong_email_form");
 	let $passwordMsg = $(".msg.password_confirm");
 	let $passwordCheckMsg = $(".msg.password_check");
 	let $phoneNumMsg = $(".msg.phone_num_insert");
 	let $authenticationMsg = $(".msg.phone_num_confirm");
-	
-	//이름 정규표현식
-	$nameCheck.click(function () {
-	
-	    let name = $userName.val();
-	
-	    if(name!=''){
-	        if(nameExp.test(name)){
-	            nameFlag = true;
-	            $nameMsg.text("사용 가능한 이름입니다.").css("color","#3397EB");
-	        }else{
-	            $nameMsg.text("사용 가능한 이름의 크기가 아닙니다.").css("color","#C50532");
-	            $userName.val('');
-	            $userName.focus();
-	            return false;
-	        }//if~else end
-	    }//if end
-	
-	    if(nameFlag){
-	        console.log("36");
-	        //멤버json가져오기
-	        $.ajax({
-	            url:"json/userName.json",
-	            dataType:"json",
-	            type:"GET",
-	            success : function(json) {
-	                console.log("37");
-	                let nameValue="";
-	                //입력한 아이디가 멤버에 존재할 경우
-	                _.each(json,function (info) {
-	                    console.log("8");
-	                    if($userName.val() == info.name){
-	                        console.log("9");
-	                        nameValue=$userName.val();
-	                    }
-	                });//each end
-	                console.log("40");
-	                if(nameValue!=""){
-	                    console.log("41");
-	                    $nameMsg.text("이미 등록된 이름입니다.").css("color","#C50532");
-	                    console.log("42");
-	                    $userName.val('');
-	                    $userName.focus();
-	                    return false;
-	                }//if end
-	            },
-	            error : function() {
-	                alert("서버점검중");
-	            }
-	        });
-	    }
-	});//이름 유효성 end
-	
-	
-	$(function(){
+
 	    //id입력창에 글이 써지면 수행하는 함수
 	    $email.blur(function(){
-	        console.log("4");
 	        let email = $email.val();
 	        //id값이 공백이 아닐때
 	        if(email != ''){
 	            //정규표현식 검사
 	            if(emailExp.test(email)){
 	                emailFlag=true;
-	                console.log("5");
 	                //올바를 경우 id메세지 사라짐
 	                $emailFormMsg.text('');
 	            }
 	            else{
 	                //id가 정규표현식에 맞지 않을때
 	                //메세지 띄워주고 입력창에 글씨 사라지면서 포커스 맞춤
-	                console.log("1");
 	                $emailFormMsg.css("display","block");
-	                console.log("2");
 	                $email.val('');
 	                $email.focus();
-	                console.log("3");
 	                return false;
 	            }
 	        }
 	        return false;
 	    });
-	});//$email.blur end
+
 	
-	//아이디 중복검사 버튼 눌렀을때 실행되는 이벤트
+	    //id입력창에 글이 써지면 수행하는 함수
+	    $email.blur(function(){
+	        let email = $email.val();
+	        //id값이 공백이 아닐때
+	        if(email != ''){
+	            //정규표현식 검사
+	            if(emailExp.test(email)){
+	                emailFlag=true;
+	                //올바를 경우 id메세지 사라짐
+	                $emailFormMsg.text('');
+	            }
+	            else{
+	                //id가 정규표현식에 맞지 않을때
+	                //메세지 띄워주고 입력창에 글씨 사라지면서 포커스 맞춤
+	                $emailFormMsg.css("display","block");
+	                $email.val('');
+	                $email.focus();
+	                return false;
+	            }
+	        }
+	        return false;
+	    });
+
+	
+	// 이메일 중복검사 버튼 눌렀을때 실행되는 이벤트
 	$emailCheck.click(function () {
-	    //정규표현식에 맞을 경우에만 실행
+		
+		let email = $email.val();
+
+	    // 정규표현식에 맞을 경우에만 실행
 	    if(emailFlag){
-	        console.log("6");
-	        //멤버json가져오기
+			// console.log("어디니");
 	        $.ajax({
-	            url:"json/checkingUser.json",
+	        	url:"/ajax/email/"+email,
 	            dataType:"json",
+	            data:{"check":email},
 	            type:"GET",
 	            success : function(json) {
-	                console.log("7");
+	            	console.log(json);
 	                let emailValue="";
-	                //입력한 아이디가 멤버에 존재할 경우
-	                _.each(json,function (info) {
-	                    console.log("8");
-	                    if($email.val()==info.email){
-	                        console.log("9");
-	                        emailValue=$email.val();
-	                    }
-	                });//each end
-	                console.log("10");
+
+ 				   if(json.result == true) {
+ 					  $emailSuccessMsg.css("display","block");
+ 					  $emailMsg.css("display","none");
+				   }else {
+					   $emailMsg.css("display","block");
+					   $emailSuccessMsg.css("display","none");
+				   }//if~else end
+				   
 	                if(emailValue!=""){
-	                    console.log("11");
 	                    $emailMsg.css("display","block");
-	                    console.log("12");
 	                    $email.val('');
 	                    $email.focus();
 	                    return false;
@@ -300,12 +338,10 @@
 	
 	
 	//password
-	$(function(){
+	
 	    $password.blur(function(){
-	        console.log("14");
 	        let password = $password.val();
 	        if(password != ''){
-	            console.log("15");
 	            if(passwordExp.test(password)){
 	                //alert("올바름"+password);
 	                $passwordMsg.css("display","none");
@@ -319,16 +355,12 @@
 	            }
 	        }
 	    });
-	});
+	
 	
 	//비밀번호 확인
-	$(function(){
-	    console.log("16");
 	    $passwordCheck.blur(function(){
-	        console.log("17");
 	        if($password.val() != $passwordCheck.val()){
 	            if($passwordCheck.val()!=''){
-	                console.log("18");
 	                $passwordCheckMsg.css("display","block");
 	                $passwordCheck.val('');
 	                $passwordCheck.focus();
@@ -336,12 +368,10 @@
 	            }
 	        }
 	        else{
-	            console.log("19");
 	            if($passwordCheck.val()!='') {
 	                $passwordCheckMsg.css("display","none");
 	                //alert("성공");
 	            }else{
-	                console.log("20");
 	                $passwordMsg.css("display","block");
 	                $password.val('');
 	                $password.focus();
@@ -349,32 +379,29 @@
 	            }
 	        }
 	    });
-	});
+
 	
 	let regularPhoneNum = /^[0-9]*$/;
 	let phoneNum = null;
 	
+	// 전화번호 유효성 검사
 	function testPhoneNum() {
-	    console.log("26");
 	
 	    phoneNum = $("#phoneNumInput").val();
 	
 	    if (!regularPhoneNum.test(phoneNum)) {
-	        console.log("21");
 	        $("#phoneNumInput").val('');
 	        $("#phoneNumInput").focus();
 	        $phoneNumMsg.css("display", "block");
 	        return false;
 	
 	    } else {
-	        console.log("22");
 	        if (phoneNum.length > 11 || phoneNum.length < 10) {
-	            console.log("23");
 	            $phoneNumMsg.css("display", "block");
 	            return false;
 	        } else {
-	            console.log("24");
 	            $phoneNumMsg.css("display", "none");
+	            return true;
 	        }//안쪽 if~else end
 	    }//바깥 if~else end
 	
@@ -394,32 +421,40 @@
 	    let phoneNumCheck = $phoneNumCheck.val();
 	
 	    //임의의 인증번호 값 부여
-	    if( phoneNumCheck != "5412" ) {
+	    if( phoneNumCheck != "1234" ) {
 	        $authenticationMsg.css("display","block");
 	        return false;
 	    }else {
 	        $authenticationMsg.css("display","none");
+	        return true;
 	    }//if end
 	}//testNumCfm() end
 	
 	
-	$("#registerForm").on("submit",function () {
+	$("#signUpForm").on("submit",function () {
+		
+		//return true;
 	
-	    // if (!testName()) return false;
+		// alert("z");
+		
+		
+	    if ($("#nameRegisterInput").val()==""){ 
+	    	alert("이름은 필수 기재 사항입니다.");
+	    	return false;
+	    }
 	
 	    if(!testPhoneNum()){
-	        console.log("1222");
+	    	//alert("전화번호 유효성");
 	        return false;
 	    }
 	
 	    if(!testPhoneNumConfirm()) {
-	        console.log("1232");
-	        return false;
+	       // return false;
+	    	return false;
 	    }
 	
-	    alert("회원가입을 축하합니다!");
-	
-	    return false;
+	    return true;
+	    
 	});//submit() end
 	
 	// $("#nameRegisterInput").keyup(testName);
