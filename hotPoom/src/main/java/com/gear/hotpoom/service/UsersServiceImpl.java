@@ -26,6 +26,7 @@ import com.gear.hotpoom.dao.CertsDAO;
 import com.gear.hotpoom.dao.ChatRoomsDAO;
 import com.gear.hotpoom.dao.ChatUsersDAO;
 import com.gear.hotpoom.vo.Cert;
+import com.gear.hotpoom.vo.ChatRoom;
 import com.gear.hotpoom.vo.User;
 
 @Service
@@ -44,6 +45,10 @@ public class UsersServiceImpl implements UsersService{
 	private ChatRoomsDAO chatRoomsDAO;
 	@Autowired
 	private ChatUsersDAO chatUsersDAO;
+	
+
+	
+	
 	
 	
 	
@@ -193,5 +198,31 @@ public class UsersServiceImpl implements UsersService{
 	public int modifyPhoneNum(User user) {
 		// TODO Auto-generated method stub
 		return usersDAO.updatePhoneNum(user);
+	}
+	
+	@Override
+	public boolean checkEmail(String email) {
+		return 0 == usersDAO.selectCheckEmail(email);
+	}
+	
+	@Override
+	public int sign(User user) {
+	
+		usersDAO.insert(user);
+		ChatRoom chatRoom = new ChatRoom();
+		chatRoomsDAO.addChatRoom(chatRoom);
+		System.out.println("addChatRoom");
+		int roomNo = chatRoom.getNo();
+		
+		chatUsersDAO.insertAdminChatUser(roomNo);
+		System.out.println("insertAdminChatUser");
+		// setRoomNo
+		user.setRoomNo(roomNo);
+		chatUsersDAO.insert(user);
+		System.out.println("insert");
+		
+		System.out.println("sign");
+		
+		return 1;
 	}
 }

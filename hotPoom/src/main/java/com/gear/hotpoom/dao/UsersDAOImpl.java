@@ -62,5 +62,26 @@ public class UsersDAOImpl implements UsersDAO{
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public int selectCheckEmail(String email) {
+		// TODO Auto-generated method stub
+		return session.selectOne("users.selectCheckEmail",email);
+	}
+	
+	@Override
+	public int insert(User user) {
+		// TODO Auto-generated method stub
+		return session.insert("users.insert",user);
+	}
+	
 
 }
