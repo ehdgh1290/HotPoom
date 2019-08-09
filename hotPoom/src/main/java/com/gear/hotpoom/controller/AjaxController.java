@@ -71,7 +71,14 @@ public class AjaxController {
 	private BookmarksService bookmarksService;
 	@Autowired
 	private ReportsService reportsService;
-
+	@Autowired
+	private ReviewsService reviewsService;
+	
+	
+	@RequestMapping(value="/review",method=RequestMethod.GET)
+	public Map<String, Object> getReviews(int no, int pageNo) {
+		return reviewsService.getReviewList(no, pageNo);
+	}
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)
