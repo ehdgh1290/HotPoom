@@ -99,12 +99,4 @@ public class Credit {
 		this.engName = engName;
 	}
 
-	public Timestamp getRegdate() {
-		return regdate;
-	}
-
-	public void setRegdate(Timestamp regdate) {
-		this.regdate = regdate;
-	}
-	
 }

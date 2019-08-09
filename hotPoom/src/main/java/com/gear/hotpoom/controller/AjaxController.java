@@ -71,23 +71,16 @@ public class AjaxController {
 	@Autowired
 	private BankAccountsService bankAccountsService;
 	@Autowired
-	private CreditsService creditsService;
-	@Autowired
 	private BookmarksService bookmarksService;
 	@Autowired
 	private ReportsService reportsService;
-	@Autowired
-	private ReviewsService reviewsService;
 	@Autowired
 	private ChatUsersService chatUsersService;
 	@Autowired
 	private MessagesService messagesService;
 	
 	
-	@RequestMapping(value="/review",method=RequestMethod.GET)
-	public Map<String, Object> getReviews(int no, int pageNo) {
-		return reviewsService.getReviewList(no, pageNo);
-	}
+
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)
@@ -101,18 +94,8 @@ public class AjaxController {
 		return bookmarksService.register(bookmark);
 	}
 	
-	//카드 등록하기
-	@RequestMapping(value="/card", method=RequestMethod.POST)
-	public int addCard(Credit credit) {
-		return creditsService.registerBasicCard(credit);
-	}
-	
-	//내 카드 가져오기
-	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
-	public List<Credit> getMyCardList(int userNo) {
-		
-		return creditsService.getMyCardDefault(userNo);
-	}
+
+
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)

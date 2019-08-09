@@ -122,21 +122,6 @@ public class Poom {
 		this.reviewCnt = reviewCnt;
 	}
 
-	public double getLat() {
-		return lat;
-	}
-
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
-
-	public double getLng() {
-		return lng;
-	}
-
-	public void setLng(double lng) {
-		this.lng = lng;
-	}
 
 	public double getAvgScore() {
 		return avgScore;
@@ -234,14 +219,6 @@ public class Poom {
 		this.transport = transport;
 	}
 
-	public String getSpeciesName() {
-		return speciesName;
-	}
-
-	public void setSpeciesName(String speciesName) {
-		this.speciesName = speciesName;
-	}
-
 	public String getMainImg() {
 		return mainImg;
 	}
@@ -261,6 +238,16 @@ public class Poom {
 	public String getHostImg() {
 		return hostImg;
 	}
+
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 
 	public void setHostImg(String hostImg) {
 		this.hostImg = hostImg;

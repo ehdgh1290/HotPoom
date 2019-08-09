@@ -2,17 +2,17 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="chat-rooms">
 
-
-<insert id="insert" parameterType="ChatRoom">
-	<selectKey order="BEFORE" keyProperty="no" resultType="int">
-		SELECT chat_rooms_seq.nextval
-		FROM dual
-	</selectKey>
-	INSERT INTO chat_rooms(no, regdate)
-	VALUES(#{no}, systimestamp)
-</insert>
+	<insert id="insert" parameterType="ChatRoom">
+		<selectKey order="BEFORE" keyProperty="no" resultType="int">
+			SELECT chat_rooms_seq.nextval
+			FROM dual
+		</selectKey>
+		INSERT INTO chat_rooms(no, regdate)
+		VALUES(#{no}, systimestamp)
+	</insert>
 
 	<insert id="makeRoom" parameterType="CheckRoom">
 		<selectKey order="BEFORE" keyProperty="roomNo" resultType="int">
@@ -22,6 +22,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO chat_rooms(no, regdate)
 		VALUES(#{roomNo}, systimestamp)
 	</insert>
-
 
 </mapper>
