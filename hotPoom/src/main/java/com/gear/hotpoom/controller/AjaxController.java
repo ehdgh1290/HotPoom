@@ -274,6 +274,17 @@ public class AjaxController {
 		
 		return messagesService.getMessageList(message);
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/compare/{userNo}", method=RequestMethod.GET)
+	public Map<String, Object> bookmarkList(@PathVariable int userNo) {
+		
+	
+		return poomsService.getCompareCardDetail(userNo);
+	}
+	
 
 	
 }

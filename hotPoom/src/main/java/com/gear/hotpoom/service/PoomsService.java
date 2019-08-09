@@ -21,4 +21,8 @@ public interface PoomsService {
 
 	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo);
 	
+	
+	
+	
+	public Map<String, Object> getCompareCardDetail(int userNo);
 }

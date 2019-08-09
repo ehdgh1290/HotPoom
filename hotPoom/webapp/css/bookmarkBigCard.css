@@ -131,10 +131,11 @@
 
 .poom_bookmark {
     position: absolute;
-    width: 50px;
-    height: 55px;
+    width: 40px;
+    height: 45px;
     right: 20px;
-    background-image: url("../img/bookmark.png");
+    
+    background-image: url("../img/bookmark_on.png");
     background-size: 100%;
     background-repeat: no-repeat;
     cursor: pointer;

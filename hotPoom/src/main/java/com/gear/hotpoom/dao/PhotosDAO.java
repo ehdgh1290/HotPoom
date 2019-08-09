@@ -15,4 +15,7 @@ public interface PhotosDAO {
 	public List<Photo> selectPoomPhotos(int poomNo);
 
 	
+	
+	public List<Photo> getPoomCardPhoto(int poomNo);
+	
 }

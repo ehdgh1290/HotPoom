@@ -26,4 +26,12 @@ public class PhotosDAOImpl implements PhotosDAO{
 		return session.selectList("photos.selectPoomPhotos", poomNo);
 	}
 	
+	
+	
+	@Override
+	public List<Photo> getPoomCardPhoto(int poomNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("photos.selectPoomCardPhotoList",poomNo);
+	}
+	
 }
