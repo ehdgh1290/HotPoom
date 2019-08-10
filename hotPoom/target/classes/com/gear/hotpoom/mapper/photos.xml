@@ -24,7 +24,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE no = #{no}
 	</delete>  <!-- 유저페이지에서 사진삭제 .영훈 -->
 
-
 	<insert id="insert" parameterType="Photo">
 		INSERT INTO photos(no,type,content_no,img,caption,regdate)
 		VALUES (photos_seq.nextval,#{type},#{contentNo},#{img},#{caption},systimestamp)

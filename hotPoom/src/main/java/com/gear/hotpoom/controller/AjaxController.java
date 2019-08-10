@@ -82,8 +82,6 @@ public class AjaxController {
 	@Autowired
 	private ReportsService reportsService;
 	@Autowired
-	private ReviewsService reviewsService;
-	@Autowired
 	private PetsService petsService;
 	@Autowired
 	private ResizeImageUtil resizeImageUtil;
@@ -315,7 +313,7 @@ public class AjaxController {
 		user.setNo(userNo);
 		user.setIntroduce(introduce);
 		 
-		return userService.updateIntroduce(user);
+		return usersService.updateIntroduce(user);
 	}//유저페이지 유저소개 수정하기 .영훈
 	
 	
@@ -354,7 +352,7 @@ public class AjaxController {
 				user.setNo(userNo);
 				user.setProfileImg(file.getName());
 				
-				userService.updateProfile(user);
+				usersService.updateProfile(user);
 				
 				resizeImageUtil.resize(file.getAbsolutePath(),profilePath+File.separator+file.getName(), 200);
 				
@@ -394,7 +392,7 @@ public class AjaxController {
 	@RequestMapping(value="/profile/user/{userNo}", method=RequestMethod.DELETE)
 	public int deleteProfile(@PathVariable int userNo){
 		 
-		  return userService.deleteProfile(userNo);
+		  return usersService.deleteProfile(userNo);
 		 
 		 
 	}//유저페이지 프로필사진 지우기 .영훈

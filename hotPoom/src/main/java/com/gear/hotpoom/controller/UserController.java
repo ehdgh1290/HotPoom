@@ -141,7 +141,7 @@ public class UserController {
 	@RequestMapping(value="/userPage/{userNo}",method=RequestMethod.GET)
 	public String userPage(@PathVariable int userNo, Model model) {
 			
-		model.addAllAttributes(userService.getUserInfo(userNo));
+		model.addAllAttributes(usersService.getUserInfo(userNo));
 		
 		return "userPage";
 	} //유저페이지 기본 정보 불러오기 .영훈

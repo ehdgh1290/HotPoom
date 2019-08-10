@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ofType="Poom" select="selectPoomPhotos"></collection>
 	</resultMap>
 
-	<select id="selectMyPoomList" resultMap="selectPoom" parameterType="PageVO">
+	<select id="selectPoomList" resultMap="selectPoom" parameterType="PageVO">
 		SELECT no, type, title, speciesNo, speciesName, price, petCnt, mainAddress, lat, lng, score, count, r
 		<if test="userNo>10">
 			, hasBookmark

@@ -15,6 +15,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO reports(no, user_no, review_no, type, regdate)
 		VALUES(reports_seq.nextval, #{userNo}, #{reviewNo}, #{type}, systimestamp)
 	</insert>
-
+	
 
 </mapper>

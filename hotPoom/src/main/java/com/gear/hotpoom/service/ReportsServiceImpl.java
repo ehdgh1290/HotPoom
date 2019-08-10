@@ -8,6 +8,7 @@ import com.gear.hotpoom.vo.Report;
 
 @Service
 public class ReportsServiceImpl implements ReportsService{
+	
 	@Autowired
 	private ReportsDAO reportsDAO;
 	

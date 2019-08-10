@@ -106,8 +106,6 @@ public class PhotosServiceImpl implements PhotosService{
 	
 
 
-	@Autowired
-	private PhotosDAO photosDAO;
 
 	
 	

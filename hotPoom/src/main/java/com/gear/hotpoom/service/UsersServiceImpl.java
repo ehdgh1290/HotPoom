@@ -47,8 +47,10 @@ public class UsersServiceImpl implements UsersService{
 	private BankAccountsDAO bankAccountsDAO;
 	@Autowired
 	private ChatRoomsDAO chatRoomsDAO;
-
+	@Autowired
 	private PetsDAO petsDAO;	
+	@Autowired
+	private ChatUsersDAO chatUsersDAO;
 
 	
 	

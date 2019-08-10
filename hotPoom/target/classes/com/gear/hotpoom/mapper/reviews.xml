@@ -40,6 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM reviews
 		WHERE booking_no = #{no}
 	</select>
+	
 
 	<insert id="insert" parameterType="Review">
 		INSERT INTO reviews(no, user_no, booking_no, content, score, regdate)
@@ -59,5 +60,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY r.regdate desc))
 		WHERE r BETWEEN #{start} AND #{end}
 	</select>  <!-- 유저페이지에서 내리뷰 불러오기 .영훈 -->
+
 
 </mapper>
