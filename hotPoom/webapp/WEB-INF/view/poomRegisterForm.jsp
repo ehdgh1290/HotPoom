@@ -49,7 +49,7 @@
     
         <!---------------------------------- 첫번째 페이지 -------------------------------->
         <div class="page" id="firstPage">
-            <h1>품 등록</h1>
+            <h1>품 ${poom==null?"등록":"수정"}</h1>
             <h2>품 소개하기</h2>
             <p>
                 <h3>*이름</h3>
@@ -63,7 +63,7 @@
                         <div>
                             <input id="mainPhotoInput" name="img" type="file">
                             <input type="hidden" name="photoType" value="M">
-                            <img id="mainPhoto" src='${poom!=null?mainPhoto.img:"" }' alt="mainPhoto">
+                            <img id="mainPhoto" src='${poom!=null?mainPhoto.img:""}' alt="mainPhoto">
                             <i id="mainPhotoDelete" class="far fa-times-circle"></i>
                         </div>
                         <div id="mainPhotoWrap">
