@@ -23,9 +23,12 @@ public class IndexController {
 		return "index";
 	}//index() end
 
+	//buisness 페이지 홈
 	@RequestMapping(value="/buisness",method=RequestMethod.GET)
 	public String buisness() {
 		return "buisness";
 	}
-	
+
+
+
 }

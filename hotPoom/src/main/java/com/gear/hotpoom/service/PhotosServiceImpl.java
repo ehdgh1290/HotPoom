@@ -2,27 +2,20 @@ package com.gear.hotpoom.service;
 
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.gear.hotpoom.dao.PhotosDAO;
 import com.gear.hotpoom.util.ResizeImageUtil;
 import com.gear.hotpoom.vo.Photo;
-
-
 import com.gear.hotpoom.dao.PhotosDAO;
 import com.gear.hotpoom.util.PaginateUtil;
 import com.gear.hotpoom.vo.PageVO;
@@ -30,11 +23,20 @@ import com.gear.hotpoom.vo.Photo;
 
 @Service
 public class PhotosServiceImpl implements PhotosService{
-	
 	@Autowired
 	private PhotosDAO photosDAO;
 	@Autowired
 	private ResizeImageUtil resizeImageUtil;
+	
+	@Override
+	public List<Photo> getSubPhotoList(int poomNo) {
+		return photosDAO.selectSubPhotoList(poomNo);
+	}
+	
+	@Override
+	public Photo getMainPhoto(int poomNo) {
+		return photosDAO.selectMainPhoto(poomNo);
+	}
 	
 	@Override
 	public String upload(HttpServletRequest request, MultipartFile poomImg,
@@ -104,10 +106,6 @@ public class PhotosServiceImpl implements PhotosService{
 		return 1;
 	}
 	
-
-
-
-	
 	
 	@Override
 	public Map<String,Object> getPetPhotoList(int userNo, int pageNo) {
@@ -132,7 +130,9 @@ public class PhotosServiceImpl implements PhotosService{
 		return photosDAO.deletePhoto(no);
 	} //유저페이지 펫사진 삭제하기 .영훈
 	
-
-
+	@Override
+	public int register(Photo photo) {
+		return photosDAO.insert(photo);
+	}
 	
 }

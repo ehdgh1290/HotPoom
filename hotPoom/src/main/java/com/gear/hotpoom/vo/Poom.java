@@ -77,8 +77,23 @@ public class Poom {
 	}
 
 
-	public void setHasBookmark(String hasBookmark) {
-		this.hasBookmark = hasBookmark;
+	public double getLat() {
+		return lat;
+	}
+
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+
+	public double getLng() {
+		return lng;
+	}
+
+
+	public void setLng(double lng) {
+		this.lng = lng;
 	}
 
 
@@ -86,24 +101,14 @@ public class Poom {
 		return speciesName;
 	}
 
+
 	public void setSpeciesName(String speciesName) {
 		this.speciesName = speciesName;
 	}
 
-	public double getLat() {
-		return lat;
-	}
 
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
-
-	public double getLng() {
-		return lng;
-	}
-
-	public void setLng(double lng) {
-		this.lng = lng;
+	public void setHasBookmark(String hasBookmark) {
+		this.hasBookmark = hasBookmark;
 	}
 
 	public String getPetName() {

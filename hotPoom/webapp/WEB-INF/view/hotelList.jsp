@@ -116,7 +116,7 @@
         <a class="poom_address" href=""><@=poom.mainAddress@></a>
         <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
         <p class="poom_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</p>
-        <p class="poom_price">￦ <@=poom.price@> / 박</p>
+        <p class="poom_price">￦ <@=Number(poom.price).toLocaleString('en').split(".")[0]@> / 박</p>
 		<c:if test="${loginUser!=null }">
         	<div class="poom_bookmark" style="background-image: url('/img/<@=poom.hasBookmark@>')"></div>
 		</c:if>
@@ -201,7 +201,7 @@
     let startDate;
     let endDate;
     let petType;
-    let petNum=0;
+    let petNum=${petCnt};
     let lowestPrice = 0;
     let highestPrice = 0;
     let sort = 0;
@@ -251,7 +251,9 @@
     	}//if end
     });//$petTypeInput keyup end
     
-    let speciesNo = 0;
+    // 여기!!!
+    let speciesNo = ${speciesNo};
+    
     //자동완성클릭이벤트
     $("#speciesList").on("click", ".speciesItem", function(){
     	petType=$(this).text();
@@ -356,7 +358,7 @@
         console.log("시작");
         console.log("low: "+lowestPrice);
         console.log("high: "+highestPrice);
-        if(lowestPrice>0 || highestPrice>0) {
+        if(lowestPrice<0 || highestPrice<0) {
             console.log(1); 
             if(highestPrice>lowestPrice) {
             console.log(2);
@@ -453,9 +455,12 @@
 		
 	})
 	
-    
+    let mainAddress = '%${mainAddress}%';
     //hotelList 가져오기
     function getPoomList() {
+    	console.log("종"+speciesNo);
+    	console.log("마릿수"+petNum);
+    	console.log("주소"+mainAddress);
         $.ajax({
             url: '/ajax/poom/page/'+page,
           	data:{
@@ -463,7 +468,8 @@
 				petCnt:petNum,
 				lowPrice:lowestPrice,
 				highPrice:highestPrice,
-				sort:sort
+				sort:sort,
+				mainAddress:mainAddress
 			},
             /*data: {
                 "startDate":startDate,
@@ -509,7 +515,7 @@
                 
             	
             	// 마커 이미지의 이미지 주소입니다
-                var imageSrc = "img/marker.png";
+                var imageSrc = "/img/marker.png";
             	
                 $(json.poomList).each(function(idx){
                 	//alert(this.lat);
@@ -582,6 +588,141 @@
     })//이거뭐야??
 
 
+    let photoX = 0;
+    let $photoBox = $(".photo_box");
+    // 사진 갯수에 따른 photo_box의 left 한계값
+    let poomPhotoLeft = 0;
+
+    console.log(photoX);
+
+    // 이전사진 버튼
+    $("body").on("click", ".prev_photo", function () {
+        console.log(".prev_photo");
+
+        let $currPhotoBox = $(this).parent().prev().children();
+
+        console.log($currPhotoBox);
+
+        if (!$currPhotoBox.hasClass("move")) {
+            $currPhotoBox.addClass("move");
+            console.log("시작");
+
+
+            photoX = $currPhotoBox.css("left");
+            console.log("left: " + photoX);
+
+            photoX = photoX.substring(0, photoX.length - 2);
+            console.log("left: " + photoX);
+
+            poomPhotoLeft = (this.dataset.length - 1) * 246;
+            console.log("poom_photo_left: " + poomPhotoLeft);
+
+            if (photoX == 0) {
+                console.log("if");
+                photoX = -1 * poomPhotoLeft;
+                $currPhotoBox.css("left", photoX);
+            } else if (photoX <= -246) {
+                console.log("if else");
+                photoX = parseInt(photoX);
+                photoX += 246;
+                $currPhotoBox.css("left", photoX);
+                console.log(photoX);
+            } else {
+                console.log("else");
+            }//if()~else if()~else end
+
+        }//if() end
+    });//prev_photo click() end
+
+    // 다음사진 버튼
+    $("body").on("click", ".next_photo", function () {
+        console.log(".next_photo");
+        let $currPhotoBox = $(this).parent().prev().children();
+
+        console.log($currPhotoBox);
+
+        if (!$currPhotoBox.hasClass("move")) {
+            $currPhotoBox.addClass("move");
+            console.log("시작");
+
+
+            photoX = $currPhotoBox.css("left");
+            console.log("left: " + photoX);
+
+            photoX = photoX.substring(0, photoX.length - 2);
+            console.log("left: " + photoX);
+
+            poomPhotoLeft = (this.dataset.length - 1) * 246;
+            console.log("poom_photo_left: " + poomPhotoLeft);
+
+            if (photoX == -1 * poomPhotoLeft) {
+                console.log("if");
+                photoX = 0;
+                $currPhotoBox.css("left", photoX);
+            } else if (photoX >= -1 * poomPhotoLeft - 246) {
+                console.log("if else");
+                photoX -= 246;
+                $currPhotoBox.css("left", photoX);
+                console.log(photoX);
+            }//if()~else() ens
+
+        }//if() end
+    });//next_photo click() end
+
+    // move클래스 때주기
+    $("body").on("transitionend", ".photo_box",function (e) {
+        $(this).removeClass("move");
+    });
+
+
+    // 카드의 사진 갯수 가져옴
+    function setPhotoBoxWidth($this) {
+        let photoCnt = $this.length;
+
+        console.log(photoCnt);
+        // photo_box의 left 한계값
+        poomPhotoLeft = 246 * photoCnt - 246;
+        // photo_box의 width 설정
+        $(".photo_box").css("width", 246 * photoCnt);
+        console.log(poomPhotoLeft);
+        if (photoCnt <= 1) {
+            $(".btn_photo_card").hide();
+        }
+    }//card_cnt() end
+
+    //카드의 사진 갯수 가져옴 최초 1회 실행
+    //setPhotoBoxWidth();
+
+    let bookmark = false;
+
+    //북마크
+    $("body").on("click", ".poom_bookmark",function () {
+        let $this = $(this);
+        $.ajax({
+            url: "json/bookmark.json",
+            data: {userNo: 1, bookmark: bookmark},
+            type: "GET",
+            dataType: "json",
+            error: function () {
+                arlet("점검중");
+            },
+            success: function (json) {
+                console.log(json.bookmark);
+                if (!json.bookmark) {
+                    console.log("false222");
+                    $this.css("background-image", "url(img/bookmark_on.png)");
+
+                    bookmark = true;
+                } else {
+                    console.log("true222");
+
+                    $this.css("background-image", "url(img/bookmark.png)");
+                    bookmark = false;
+                }//if()~else() end
+            }//success() end
+        });//ajax() end
+
+    });//poom_bookmark click end
 
     /********************* 동호 *********************************/
 </script>

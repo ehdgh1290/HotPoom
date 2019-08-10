@@ -105,17 +105,17 @@ console.log(poom);
                     </div>
                     <div class="poom_content">
 <@ if(poom.type == 'p') {@>
-                        <a class="poom_name" href=""><i class="fas fa-home"></i> <@} else {@>
-						<a class="poom_name" href=""><i class="fas fa-hotel"></i> <@}@>
+                        <a class="poom_name" href="/poom/<@=poom.no@>"><i class="fas fa-home"></i> <@} else {@>
+						<a class="poom_name" href="/poom/<@=poom.no@>"><i class="fas fa-hotel"></i> <@}@>
 <@ if(poom.title.length > 16) {@>
 <@= poom.title = poom.title.substring(0,15)+"..."@><@} else{ @> 
 <@=poom.title@></a>
 <@} @>
-                        <a class="poom_address" href=""><@=poom.mainAddress@></a>
-                        <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
-                        <p class="poom_star"><i class="fas fa-star"></i> <@=poom.reviewScore@> (<@=poom.reviewCnt@>)</p>
+                        <a class="poom_address" href="/poom/<@=poom.no@>"><@=poom.mainAddress@></a>
+                        <a class="poom_animal" href="/poom/<@=poom.no@>"><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
+                        <p class="poom_star"><i class="fas fa-star"></i> <@=Math.floor(poom.reviewScore*10)/10@> (<@=poom.reviewCnt@>)</p>
                         <p class="poom_price">￦ <@=Number(poom.price).toLocaleString('en').split(".")[0]@> / 박</p>
-                        <div class="poom_bookmark"></div>
+                        <div class="poom_bookmark" data-no="<@=poom.no@>"></div>
                     </div>
                 </div>
 
@@ -257,7 +257,7 @@ console.log(poom);
             // 마커 이미지를 생성합니다
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
            // let idx = positions[i].title;
-            var content = '<div class ="label" data-idx='+idx+' style="margin-top: -20px"><span class="left"></span><span class="center">'+price+'</span><span class="right"></span></div>';
+            var content = '<div class ="label" data-idx='+idx+' style="margin-top: -20px"><span class="left"></span><span class="center">&#8361; '+price+'</span><span class="right"></span></div>';
             // 커스텀 오버레이를 생성합니다
             var customOverlay = new kakao.maps.CustomOverlay({
                 position: positions[idx].latlng,
@@ -315,7 +315,7 @@ console.log(poom);
         console.log(sTop);
         getCheckedEvent();
         $("#bookmarkCompareBtn").text("비교하기 0/3").css("background-color", "#b3b3b3").prop("disabled", true).removeClass("compare_btn");//버튼에 체크된 개수 표시
-        $(".hide").removeClass("hide").each(function () {
+        $("#content .hide").removeClass("hide").each(function () {
 
             const $this = $(this);
 

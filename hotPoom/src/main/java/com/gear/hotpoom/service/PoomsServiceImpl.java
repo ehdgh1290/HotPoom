@@ -2,14 +2,9 @@ package com.gear.hotpoom.service;
 
 import java.util.List;
 import java.util.Map;
-
 import java.util.concurrent.ConcurrentHashMap;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import com.gear.hotpoom.dao.BanksDAO;
 import com.gear.hotpoom.dao.BookmarksDAO;
 import com.gear.hotpoom.dao.PetsDAO;
@@ -20,6 +15,7 @@ import com.gear.hotpoom.dao.UsersDAO;
 import com.gear.hotpoom.vo.Pet;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
+import com.gear.hotpoom.vo.User;
 import com.gear.hotpoom.dao.PoomsDAO;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.util.PaginateUtil;
@@ -28,11 +24,10 @@ import com.gear.hotpoom.vo.PageVO;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.dao.PhotosDAO;
 
-
 @Service
 public class PoomsServiceImpl implements PoomsService{
 	@Autowired
-	private PoomsDAO poomsDAO;
+	private PaginateUtil paginateUtil;
 	@Autowired
 	private PhotosDAO photosDAO;
 	@Autowired
@@ -40,19 +35,17 @@ public class PoomsServiceImpl implements PoomsService{
 	@Autowired
 	private BanksDAO banksDAO;
 	@Autowired
-	private PaginateUtil paginateUtil;
-
-	@Autowired
 	private BookmarksDAO bookmarksDAO;
-
 	@Autowired
 	private UsersDAO usersDAO;
-	
+	@Autowired
+	private PoomsDAO poomsDAO;
 
+	
 	
 
 	@Override //동호, poomDetail 정보 가져오기
-	public Map<String, Object> getDetail(int no) {
+	public Map<String, Object> getDetail(int no, User loginUser) {
 		
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 		
@@ -64,29 +57,25 @@ public class PoomsServiceImpl implements PoomsService{
 		map.put("photoList", photos);
 		map.put("petList", pets);
 		map.put("cardList", banksDAO.selectCardList());
-		
+		if(loginUser!=null) {
+			Bookmark bookmark = new Bookmark();
+			bookmark.setPoomNo(poom.getNo());
+			bookmark.setUserNo(loginUser.getNo());
+			map.put("bookmark", 1==bookmarksDAO.selectPoomBookmark(bookmark));
+		}
 		return map;
+	}
+	
+	//품 하나 가져오기
+	@Override
+	public Object getPoomInfo(int no) {
+		return poomsDAO.selectPoomInfo(no);
 	}
 	
 	//품 등록
 	@Override
-	public int register(Poom poom, String photoType, String poomImg, String caption) {
-		
-		System.out.println("photoType : "+photoType);
-		System.out.println("poomImg : "+poomImg);
-		System.out.println("caption : "+caption);
-		
-		
-		Photo photo = new Photo();
-		photo.setNo(poom.getNo());
-		photo.setType(photoType);
-		photo.setImg(poomImg);
-		photo.setCaption(caption);
-		
-		poomsDAO.insert(poom);
-		photosDAO.insert(photo);
-		
-		return 1;
+	public int register(Poom poom) {
+		return poomsDAO.insert(poom);
 	}
 	
 	//품 수정
@@ -108,13 +97,11 @@ public class PoomsServiceImpl implements PoomsService{
 		return poomsDAO.selectListNP();
 	}//getListNP() end
 
-
 	
 	@Override
-	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo) {
-		// TODO Auto-generated method stub
+	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo, String mainAddress) {
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
-		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo);
+		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo, mainAddress);
 		map.put("poomList", poomsDAO.selectPoomList(pageVO));
 		int total = poomsDAO.selectPoomListTotal(pageVO);
 		map.put("paginate", paginateUtil.getPaginate(page, total, 5, 5, "/poom"));

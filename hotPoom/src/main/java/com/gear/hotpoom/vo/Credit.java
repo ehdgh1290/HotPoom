@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Credit {
 	private int no, userNo, bankNo;
 	private String num, cvc, dueMonth, dueYear, basic, engName, bankName, name;
-	
+	private Timestamp regdate;
 	
 	public Credit() {
 		// TODO Auto-generated constructor stub

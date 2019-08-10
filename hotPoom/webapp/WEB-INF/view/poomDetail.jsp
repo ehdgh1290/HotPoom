@@ -131,7 +131,7 @@
         <div id="poomDetailWrap">
             <h2>${poom.title}</h2>
             <c:if test="${loginUser!=null }">
-	            <div id="DetailBookmark" class="poom_bookmark"></div>
+	            <div id="DetailBookmark" class='poom_bookmark ${bookmark?"on":""}'></div>
             </c:if>
             <div id="poomAddress">${poom.mainAddress }</div>
             <c:if test="${loginUser.no==poom.userNo}">
@@ -342,7 +342,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
     $DetailBookmark.on("click", getBookmark);//$DetailBookmark end
     
     
-    //북마크가 되어있는지 확인
+    //북마크 하기
     function getBookmark() {
     	$.ajax({
     		url:"/ajax/bookmark",
@@ -597,7 +597,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
 
     // 불러온 사진 갯수
     let poomPhotoLength = $(".poom_photo").length;
-    console.log("사진갯수:"+poomPhotoLength);
+    //console.log("사진갯수:"+poomPhotoLength);
     let photoIdx = 1;
     //let photoX = 0;
      photoX = 0;
@@ -623,7 +623,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
 
         poomHeight = poomHeight.substring(0, poomHeight.length);
 
-        console.log("height: " + poomHeight);
+        //console.log("height: " + poomHeight);
 
         // poom btn, section height값 조정
         /*$(".poomPhotoBtn").css("height", poomHeight);*/
@@ -635,7 +635,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
             $("#poomPhotoSection").css("height", 600);
         }//if() end
 
-        console.log(-(parseInt(poomHeight) + 100)/2);
+        //console.log(-(parseInt(poomHeight) + 100)/2);
 
         /*$("#poomPhotoDetail").css("margin-top", -parseInt(poomHeight)/2);*/
 
@@ -674,17 +674,17 @@ let cardListTmp = _.template($("#cardListTmp").html());
             photoIdx -= 1;
             photoX = 0 ;
             $poomPhotoListInner.css("left", photoX);
-            console.log(photoX);
+            //console.log(photoX);
         } else if(photoIdx == poomPhotoLength - 1) {
             photoIdx -= 1;
             $poomPhotoListInner.css("left", photoX);
-            console.log(photoX);
+            //console.log(photoX);
         } else if (photoIdx == poomPhotoLength) {
             photoIdx -= 1;
         } else if(photoIdx <= poomPhotoLength - 2) {
             photoIdx -= 1;
             $poomPhotoListInner.css("left", photoX);
-            console.log(photoX);
+            //console.log(photoX);
 
         }//if()~else() ens
 

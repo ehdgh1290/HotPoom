@@ -8,7 +8,6 @@ import com.gear.hotpoom.vo.BankAccount;
 
 @Service
 public class BankAccountsServiceImpl implements BankAccountsService{
-
 	@Autowired
 	private BankAccountsDAO bankAccountsDAO;
 	
@@ -29,8 +28,6 @@ public class BankAccountsServiceImpl implements BankAccountsService{
 		// TODO Auto-generated method stub
 		return bankAccountsDAO.selectMyAccount(userNo);
 	}
-	
-	
 
 	
 }

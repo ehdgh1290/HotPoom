@@ -24,11 +24,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE no = #{no}
 	</delete>  <!-- 유저페이지에서 사진삭제 .영훈 -->
 
+	<select id="selectSubPhotoList" parameterType="int" resultType="Photo">
+		SELECT no, type, content_no contentNo, img, caption, regdate
+		FROM photos
+		WHERE content_no = #{poomNo}
+		AND type = 'S'
+	</select>
+
+	<select id="selectMainPhoto" parameterType="int" resultType="Photo">
+		SELECT no, type, content_no contentNo, img, caption, regdate
+		FROM photos
+		WHERE content_no = #{poomNo}
+		AND type = 'M'
+	</select>
+
+	<delete id="deletePoomPhoto" parameterType="int">
+		DELETE photos
+		WHERE content_no = #{no}
+		AND (type = 'M' OR type = 'S')
+	</delete>
+
 	<insert id="insert" parameterType="Photo">
 		INSERT INTO photos(no,type,content_no,img,caption,regdate)
 		VALUES (photos_seq.nextval,#{type},#{contentNo},#{img},#{caption},systimestamp)
 	</insert>
 	
+
 	<update id="update" parameterType="Photo">
 		UPDATE photos
 		SET img = #{img},caption=#{caption}
@@ -50,6 +71,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	AND type IN ('M','S')
 	</select>
 	
-
 
 </mapper>

@@ -11,4 +11,5 @@ public interface BookmarksDAO {
 	
 	
 	public List<Bookmark> getPoomNo(int userNo);
+	public int selectPoomBookmark(Bookmark bookmark);
 }
