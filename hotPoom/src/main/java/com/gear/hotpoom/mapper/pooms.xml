@@ -4,7 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
 
-
 	<select id="selectPoomDetail" parameterType="int" resultType="Poom">
 		SELECT p.no no, p.type type, p.title title, p.user_no userNo,u.profile_img hostImg, u.name hostName, p.species_no speciesNo, s.name speciesName, p.price price, p.check_in checkIn, p.check_out checkOut, p.pet_cnt petCnt, p.introduce introduce, p.amenity amenity, p.main_address mainAddress, p.sub_address subAddress, p.post_num postNum, p.transport transport, p.lat lat, p.lng lng, pt.img mainImg, tmp.avgScore, tmp.reviewCnt
 		FROM pooms p, species s, photos pt, users u, (SELECT NVL(TRUNC(avg(r.score),1),0) avgScore, count(*) reviewCnt
@@ -19,6 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND pt.type(+) = 'M'
 		AND p.no = #{no}
 	</select>
+
+
+	<select id="selectPoomInfo" parameterType="int" resultType="Poom">
+		SELECT no, type, title, user_no userNo, p.species_no speciesNo, price, 
+				check_in checkIn, check_out checkOut, pet_cnt petCnt, introduce, amenity,
+				main_address mainAddress, sub_address subAddress,
+				post_num postNum, phone_num phoneNum, transport, lat, lng, regdate, s.species_name speciesName
+		FROM pooms p, species s
+		WHERE no = #{no}
+		WHERE p.species_no = s.no
+	</select>
+
 
 <!-- 하선 -->
 	<resultMap type="Poom" id="selectPoom">
@@ -99,7 +110,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-<!-- 수정 -->
+	<!-- 수정 -->
 	<insert id="insert" parameterType="Poom">
 		<selectKey order="BEFORE"
 		keyProperty="no" 
@@ -127,8 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE no = #{no}
 	</update>
 
-<!-- 수정 -->
-
+	<!-- 수정 -->
 	<select id="selectMyPoomList" parameterType="PageVO" resultType="Poom">
 		SELECT no, type, title, score, count, img
 		FROM(SELECT no, type, title, score, count, img, rownum r
@@ -188,48 +198,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- //////////////////////////////////////////////자혀니///////////////////////////////////////////////////////  -->
 
-<!-- New poom -->
-<select id="selectListNP" resultType="POOM">
-	SELECT no, img, type, title, petName, petCnt, regdate
-	FROM(SELECT po.no, ph.img img, po.type type, po.title title, s.name petName, po.pet_cnt petCnt, po.regdate regdate
-		FROM pooms po, photos ph, species s
-		WHERE po.no = ph.content_no AND po.species_no = s.no AND ph.type = 'M'
-		ORDER BY regdate DESC)
-	WHERE rownum BETWEEN 1 AND 8
+	<!-- New poom -->
+	<select id="selectListNP" resultType="POOM">
+		SELECT no, img, type, title, petName, petCnt, regdate
+		FROM(SELECT po.no, ph.img img, po.type type, po.title title, s.name petName, po.pet_cnt petCnt, po.regdate regdate
+			FROM pooms po, photos ph, species s
+			WHERE po.no = ph.content_no AND po.species_no = s.no AND ph.type = 'M'
+			ORDER BY regdate DESC)
+		WHERE rownum BETWEEN 1 AND 8
 
-</select>
-
-
-<!-- Hot poom -->
-<select id="selectListHP" resultType="POOM">
-	SELECT no, img, type, title, score
-	FROM(SELECT po.no no, ph.img img, po.type type, po.title title, NVL(score.score,0) score
-	FROM pooms po, photos ph,   
-	(SELECT TRUNC(AVG(r.score),1) score, b.poom_no poomNo
-		FROM reviews r, bookings b
-		WHERE r.booking_no = b.no
-		GROUP BY b.poom_no) score	
-	WHERE po.no = ph.content_no AND ph.type = 'M' 
-	AND score.poomNo(+) = po.no 
-	ORDER BY score DESC)
-	WHERE rownum BETWEEN 1 AND 8
-</select>
+	</select>
 
 
-<select id="selectBigCardDetail" resultType="Poom" parameterType="int">
-	SELECT *
-	FROM (SELECT po.no, po.type, title, price, pet_cnt petCnt, main_address mainAddress, lat, lng, s.name, rev.reviewScore, rev.reviewCnt  
-	FROM pooms po, species s,
-	(SELECT poo.no, NVL(AVG(r.score),0) reviewScore, COUNT(r.no) reviewCnt
-						FROM reviews r, pooms poo, bookings b
-						WHERE r.booking_no(+) = b.no
-						AND poo.no = b.poom_no(+)
-	                    GROUP BY poo.no) rev
-	WHERE s.no = po.species_no
-	AND po.no = rev.no) p, bookmarks b
-	WHERE p.no = b.poom_no(+)
-	AND b.user_no = #{userNo}
-</select>
+	<!-- Hot poom -->
+	<select id="selectListHP" resultType="POOM">
+		SELECT no, img, type, title, score
+		FROM(SELECT po.no no, ph.img img, po.type type, po.title title, NVL(score.score,0) score
+		FROM pooms po, photos ph,   
+		(SELECT TRUNC(AVG(r.score),1) score, b.poom_no poomNo
+			FROM reviews r, bookings b
+			WHERE r.booking_no = b.no
+			GROUP BY b.poom_no) score	
+		WHERE po.no = ph.content_no AND ph.type = 'M' 
+		AND score.poomNo(+) = po.no 
+		ORDER BY score DESC)
+		WHERE rownum BETWEEN 1 AND 8
+	</select>
+
+
+	<select id="selectBigCardDetail" resultType="Poom" parameterType="int">
+		SELECT *
+		FROM (SELECT po.no, po.type, title, price, pet_cnt petCnt, main_address mainAddress, lat, lng, s.name, rev.reviewScore, rev.reviewCnt  
+		FROM pooms po, species s,
+		(SELECT poo.no, NVL(AVG(r.score),0) reviewScore, COUNT(r.no) reviewCnt
+							FROM reviews r, pooms poo, bookings b
+							WHERE r.booking_no(+) = b.no
+							AND poo.no = b.poom_no(+)
+							GROUP BY poo.no) rev
+		WHERE s.no = po.species_no
+		AND po.no = rev.no) p, bookmarks b
+		WHERE p.no = b.poom_no(+)
+		AND b.user_no = #{userNo}
+	</select>
 
 
 </mapper>

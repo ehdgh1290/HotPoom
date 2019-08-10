@@ -28,5 +28,7 @@ public class IndexController {
 	public String buisness() {
 		return "buisness";
 	}
-	
+
+
+
 }

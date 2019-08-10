@@ -2,14 +2,9 @@ package com.gear.hotpoom.service;
 
 import java.util.List;
 import java.util.Map;
-
 import java.util.concurrent.ConcurrentHashMap;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
 import com.gear.hotpoom.dao.BanksDAO;
 import com.gear.hotpoom.dao.BookmarksDAO;
 import com.gear.hotpoom.dao.PetsDAO;
@@ -29,11 +24,10 @@ import com.gear.hotpoom.vo.PageVO;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.dao.PhotosDAO;
 
-
 @Service
 public class PoomsServiceImpl implements PoomsService{
 	@Autowired
-	private PoomsDAO poomsDAO;
+	private PaginateUtil paginateUtil;
 	@Autowired
 	private PhotosDAO photosDAO;
 	@Autowired
@@ -46,6 +40,9 @@ public class PoomsServiceImpl implements PoomsService{
 	private BookmarksDAO bookmarksDAO;
 	@Autowired
 	private UsersDAO usersDAO;
+	@Autowired
+	private PoomsDAO poomsDAO;
+
 	
 
 	
@@ -72,25 +69,16 @@ public class PoomsServiceImpl implements PoomsService{
 		return map;
 	}
 	
+	//품 하나 가져오기
+	@Override
+	public Object getPoomInfo(int no) {
+		return poomsDAO.selectPoomInfo(no);
+	}
+	
 	//품 등록
 	@Override
-	public int register(Poom poom, String photoType, String poomImg, String caption) {
-		
-		System.out.println("photoType : "+photoType);
-		System.out.println("poomImg : "+poomImg);
-		System.out.println("caption : "+caption);
-		
-		
-		Photo photo = new Photo();
-		photo.setNo(poom.getNo());
-		photo.setType(photoType);
-		photo.setImg(poomImg);
-		photo.setCaption(caption);
-		
-		poomsDAO.insert(poom);
-		photosDAO.insert(photo);
-		
-		return 1;
+	public int register(Poom poom) {
+		return poomsDAO.insert(poom);
 	}
 	
 	//품 수정
@@ -112,11 +100,9 @@ public class PoomsServiceImpl implements PoomsService{
 		return poomsDAO.selectListNP();
 	}//getListNP() end
 
-
 	
 	@Override
-	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo, String mainAddress) {
-		// TODO Auto-generated method stub
+	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort) {
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo, mainAddress);
 		map.put("poomList", poomsDAO.selectPoomList(pageVO));

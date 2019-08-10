@@ -18,8 +18,8 @@ public interface PoomsDAO {
 	public List<Poom> selectPoomList(PageVO pageVO);
 	
 	public int selectPoomListTotal(PageVO pageVO);
-	
 	public int update(Poom poom);
+	public Object selectPoomInfo(int no);
 
 	public List<Poom> selectList(PageVO pageVO); // 유저페이지 품리스트 불러오기 .영훈
 
