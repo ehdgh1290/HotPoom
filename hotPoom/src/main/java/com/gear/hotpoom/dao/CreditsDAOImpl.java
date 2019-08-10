@@ -13,10 +13,7 @@ public class CreditsDAOImpl implements CreditsDAO{
 	@Autowired
 	private SqlSession session;
 	
-	@Override
-	public List<Credit> selectCardList(int userNo) {
-		return session.selectList("credits.selectCardList",userNo);
-	}
+
 	
 	@Override
 	public int insertCard(Credit credit) {

@@ -62,5 +62,16 @@ public class PoomsDAOImpl implements PoomsDAO{
 	public int update(Poom poom) {
 		return session.update("pooms.update",poom);
 	}
+	
+	
+	
+	
+	
+	@Override
+	public List<Poom> getPoomCardDetail(int no) {
+		// TODO Auto-generated method stub
+		return session.selectList("pooms.selectBigCardDetail",no);
+	}
+	
 
 }

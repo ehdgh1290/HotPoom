@@ -23,4 +23,7 @@ public interface PhotosDAO {
 	public int deletePhoto(int no);//유저페이지 펫사진 삭제 .영훈
 
 	
+	
+	public List<Photo> getPoomCardPhoto(int poomNo);
+	
 }

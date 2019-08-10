@@ -40,10 +40,17 @@ public class PhotosDAOImpl implements PhotosDAO{
 		return session.insert("photos.insertPhoto",photo);
 	} //유저페이지 펫사진 추가 .영훈
 
-	
 	@Override
 	public int deletePhoto(int no) {
 		System.out.println(no);
 		return session.delete("photos.deletePhoto",no);
 	} //유저페이지 펫사진 삭제 .영훈
+
+	@Override
+	public List<Photo> getPoomCardPhoto(int poomNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("photos.selectPoomCardPhotoList",poomNo);
+	}
+	
+
 }

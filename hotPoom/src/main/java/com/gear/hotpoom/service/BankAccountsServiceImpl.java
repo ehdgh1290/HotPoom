@@ -29,8 +29,8 @@ public class BankAccountsServiceImpl implements BankAccountsService{
 		// TODO Auto-generated method stub
 		return bankAccountsDAO.selectMyAccount(userNo);
 	}
-	@Autowired
-	private BankAccountsDAO bankAccountsDAO;
 	
+	
+
 	
 }

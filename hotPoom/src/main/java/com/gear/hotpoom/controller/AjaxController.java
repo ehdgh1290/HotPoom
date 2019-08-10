@@ -50,7 +50,9 @@ import com.gear.hotpoom.util.ResizeImageUtil;
 import com.gear.hotpoom.vo.Pet;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Review;
-
+import com.gear.hotpoom.service.ChatUsersService;
+import com.gear.hotpoom.service.MessagesService;
+import com.gear.hotpoom.vo.Message;
 
 @RestController
 @RequestMapping("/ajax")
@@ -76,8 +78,6 @@ public class AjaxController {
 	@Autowired
 	private BankAccountsService bankAccountsService;
 	@Autowired
-	private CreditsService creditsService;
-	@Autowired
 	private BookmarksService bookmarksService;
 	@Autowired
 	private ReportsService reportsService;
@@ -89,11 +89,14 @@ public class AjaxController {
 	private ResizeImageUtil resizeImageUtil;
 	@Autowired
 	private FileRenameUtil fileRenameUtil;	
+	@Autowired
+	private ChatUsersService chatUsersService;
+	@Autowired
+	private MessagesService messagesService;
 	
-	@RequestMapping(value="/review",method=RequestMethod.GET)
-	public Map<String, Object> getReviews(int no, int pageNo) {
-		return reviewsService.getReviewList(no, pageNo);
-	}
+
+	
+
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)
@@ -107,18 +110,8 @@ public class AjaxController {
 		return bookmarksService.register(bookmark);
 	}
 	
-	//카드 등록하기
-	@RequestMapping(value="/card", method=RequestMethod.POST)
-	public int addCard(Credit credit) {
-		return creditsService.registerBasicCard(credit);
-	}
-	
-	//내 카드 가져오기
-	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
-	public List<Credit> getMyCardList(int userNo) {
-		
-		return creditsService.getMyCardDefault(userNo);
-	}
+
+
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)
@@ -248,7 +241,6 @@ public class AjaxController {
 	}
 
 
-	
 	@RequestMapping(value="/addAccount", method=RequestMethod.POST)
 	public int addAccount(BankAccount bankAccount) {
 		
@@ -415,5 +407,34 @@ public class AjaxController {
 	}//유저페이지 펫사진 .영훈 
 
 	
+
+	
+	
+	// 삭제처리
+	@RequestMapping(value="/invisible", method=RequestMethod.GET)
+	public int invisibleChat(int roomNo, int userNo) {
+		chatUsersService.invisibleChat(roomNo, userNo);
+		return 1;
+	}
+	
+	// 메시지불러오기
+	@RequestMapping(value = "/message")
+	public List<Message> getMessageList(int roomNo, int userNo) {
+		Message message = new Message(roomNo, userNo);
+		
+		return messagesService.getMessageList(message);
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/compare/{userNo}", method=RequestMethod.GET)
+	public Map<String, Object> bookmarkList(@PathVariable int userNo) {
+		
+	
+		return poomsService.getCompareCardDetail(userNo);
+	}
+	
+
 	
 }

@@ -1,5 +1,7 @@
 package com.gear.hotpoom.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,12 @@ public class BookmarksDAOImpl implements BookmarksDAO{
 	@Override
 	public int insert(Bookmark bookmark) {
 		return session.insert("bookmarks.insert", bookmark);
+	}
+	
+	@Override
+	public List<Bookmark> getPoomNo(int userNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("bookmarks.poomNoListByBookmark",userNo);
 	}
 	
 }

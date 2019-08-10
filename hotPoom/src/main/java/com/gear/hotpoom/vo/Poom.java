@@ -6,9 +6,11 @@ import java.util.List;
 public class Poom {
 	private int no, userNo, speciesNo, price, petCnt, reviewCnt, count;
 	private double lat, lng, avgScore, score;
-	private String type, title,img, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg, petName, hasBookmark;
+	private String type, title,img, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg, petName, hasBookmark, reviewScore;
 	private List<Photo> poomPhotos;
 	private Timestamp regdate;
+	private List<Photo> photoList;
+
 	
 	private double score; //영훈 유저페이지 추가
 	private String img;	 //영훈 유저페이지 추가
@@ -40,11 +42,51 @@ public class Poom {
 		this.img = img;
 	}
 
+
+	// *********************************************** 0805 주하
+
+		
+
 	public Poom() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
+	
+	
+	
+	public String getReviewScore() {
+		return reviewScore;
+	}
+
+
+
+
+
+	public void setReviewScore(String reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
+
+
+
+
+	public List<Photo> getPhotoList() {
+		return photoList;
+	}
+
+
+
+
+
+	public void setPhotoList(List<Photo> photoList) {
+		this.photoList = photoList;
+	}
+
+
+
+
+
 	public String getHasBookmark() {
 		if(hasBookmark!=null) {
 			switch(hasBookmark) {
@@ -152,21 +194,6 @@ public class Poom {
 		this.reviewCnt = reviewCnt;
 	}
 
-	public double getLat() {
-		return lat;
-	}
-
-	public void setLat(double lat) {
-		this.lat = lat;
-	}
-
-	public double getLng() {
-		return lng;
-	}
-
-	public void setLng(double lng) {
-		this.lng = lng;
-	}
 
 	public double getAvgScore() {
 		return avgScore;
@@ -264,14 +291,6 @@ public class Poom {
 		this.transport = transport;
 	}
 
-	public String getSpeciesName() {
-		return speciesName;
-	}
-
-	public void setSpeciesName(String speciesName) {
-		this.speciesName = speciesName;
-	}
-
 	public String getMainImg() {
 		return mainImg;
 	}
@@ -291,6 +310,16 @@ public class Poom {
 	public String getHostImg() {
 		return hostImg;
 	}
+
+	public int getCount() {
+		return count;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 
 	public void setHostImg(String hostImg) {
 		this.hostImg = hostImg;

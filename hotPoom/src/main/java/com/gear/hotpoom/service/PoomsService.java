@@ -25,4 +25,8 @@ public interface PoomsService {
 	
 
 	
+	
+	
+	
+	public Map<String, Object> getCompareCardDetail(int userNo);
 }

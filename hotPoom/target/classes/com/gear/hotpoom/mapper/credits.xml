@@ -4,13 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="credits">
 
-	<select id="selectCardList" parameterType="int" resultType="Credit">
-		SELECT c.no, user_no userNo, bank_no bankNo, num, cvc, due_month dueMonth, due_year dueYear, basic, eng_name engName, c.regdate, b.name
-		FROM credits c, banks b
-		WHERE user_no = #{userNo}
-		AND c.bank_no = b.no
-	</select>	
-	
 	<insert id="insertCard" parameterType="Credit">
 		INSERT INTO credits(no, user_no, bank_no, num, cvc, due_month, due_year, basic, eng_name, regdate)
 		VALUES(credits_seq.nextval, #{userNo}, #{bankNo}, #{num}, #{cvc}, #{dueMonth}, #{dueYear}, 'N', #{engName}, SYSTIMESTAMP)	
