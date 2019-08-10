@@ -18,6 +18,6 @@ public interface PoomsService {
 	//new poom
 	public List<Poom> getListNP();
 
-	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo);
+	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo, String mainAddress);
 	
 }

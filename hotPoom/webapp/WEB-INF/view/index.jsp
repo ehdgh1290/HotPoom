@@ -105,7 +105,7 @@
 </script>
 <script type="text/template" id="indexSpeciesAutoTmp">
     <@_.each(speciesList, function(species){@>
-        <li class="index_species_auto" data-name="<@=species.name @>"><@=species.name @></li>
+        <li class="index_species_auto" data-no="<@=species.no@>" data-name="<@=species.name @>"><@=species.name @></li>
     <@});@>
 </script>
 <script type="text/template" id="indexSmallCardTmp">
@@ -220,7 +220,7 @@
 	        },
 	        success:function (json) {
 	            console.log(json);
-	
+				
 	            $(".index_hero_image_species_auto").show();
 	            
 	            $speciesAuto.html(indexSpeciesAutoTmp({"speciesList":json}));
@@ -235,14 +235,12 @@
 	    
 	});//#indexHeroImageLocationBox keyup end
 	
-	
+	let speciesNo = 0;
 	$speciesAuto.on("click", ".index_species_auto", function() {
 	
 	    $speciesInput.val(this.dataset.name);
-	
+		speciesNo=this.dataset.no;
 	    speciesName = $speciesInput.val();
-	
-	    console.log(speciesName);
 	
 	    $(".index_hero_image_species_auto").hide();
 	
@@ -271,29 +269,14 @@
 	/*****************달력*******************/
 	
 	
-	$("#headerProfileImage").click(function (e) {
-	    $("#lnb").slideToggle(200);
-	    e.stopPropagation();
-	});
-	
-	$("#headerLogin").click(function () {
-	    $("#gnbWrap").show();
-	    $(this).hide();
-	});
-	
-	$("body").click(function () {
-	    // alert("zz");
-	    $("#lnb").hide();
-	});
-	
 	
 	//버튼 클릭시 검색
-	$("#indexHeroImageSearchBtn").on("click", function () {
-	
-		let location = $("#indexHeroImageLocationInput").val();
+	$("#indexHeroImageSearchBtn").on("click", function (e) {
+		e.preventDefault();
+		let locations = $("#indexHeroImageLocationInput").val();
 		let species = $("#indexHeroImageSpeciesInput").val();
 		let petCnt = $("#indexPetCntInput").val();
-		
+		console.log("test");
 		if(location ==  "") {
 			
 			$("#indexHeroImageLocationInput").focus();
@@ -311,7 +294,7 @@
 			$("indexPetCntInput").focus();
 			return false;
 		}
-		
+		location.href="/poom/species/"+speciesNo+"/address/"+locationName+"/petCnt/"+petCnt;
 	});//indexHeroImageSearchBtn click() end
 	
 	//small card

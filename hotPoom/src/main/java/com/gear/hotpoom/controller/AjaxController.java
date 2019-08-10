@@ -79,13 +79,13 @@ public class AjaxController {
 	
 	
 	@RequestMapping(value="poom/page/{page}", method=RequestMethod.GET)
-	public Map<String, Object> getPoomList(@PathVariable int page, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, HttpSession session){
+	public Map<String, Object> getPoomList(@PathVariable int page, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, HttpSession session, String mainAddress){
 		User loginUser = (User)session.getAttribute("loginUser");
 		int userNo = 0;
 		if (loginUser!=null) {
 			userNo=loginUser.getNo();
 		}
-		return poomsService.getPoomList(page, 5, speciesNo, petCnt, lowPrice, highPrice, sort, userNo);
+		return poomsService.getPoomList(page, 5, speciesNo, petCnt, lowPrice, highPrice, sort, userNo, mainAddress);
 	}
 	
 	@RequestMapping(value="poom/species/{name}", method=RequestMethod.GET)
