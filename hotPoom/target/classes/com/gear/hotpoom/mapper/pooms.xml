@@ -4,7 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
 
-
 	<select id="selectPoomDetail" parameterType="int" resultType="Poom">
 		SELECT p.no no, p.type type, p.title title, p.user_no userNo,u.profile_img hostImg, u.name hostName, p.species_no speciesNo, s.name speciesName, p.price price, p.check_in checkIn, p.check_out checkOut, p.pet_cnt petCnt, p.introduce introduce, p.amenity amenity, p.main_address mainAddress, p.sub_address subAddress, p.post_num postNum, p.transport transport, p.lat lat, p.lng lng, pt.img mainImg, tmp.avgScore, tmp.reviewCnt
 		FROM pooms p, species s, photos pt, users u, (SELECT NVL(TRUNC(avg(r.score),1),0) avgScore, count(*) reviewCnt
@@ -22,18 +21,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<select id="selectPoomInfo" parameterType="int" resultType="Poom">
-		SELECT no, type, title, user_no userNo, p.species_no speciesNo, price, 
+		SELECT p.no, type, title, user_no userNo, species_no speciesNo, price, 
 				check_in checkIn, check_out checkOut, pet_cnt petCnt, introduce, amenity,
 				main_address mainAddress, sub_address subAddress,
-				post_num postNum, phone_num phoneNum, transport, lat, lng, regdate, s.species_name speciesName
+				post_num postNum, phone_num phoneNum, transport, lat, lng, p.regdate, s.name speciesName
 		FROM pooms p, species s
-		WHERE no = #{no}
-		WHERE p.species_no = s.no
+		WHERE p.no = #{no}
+		AND p.species_no = s.no
 	</select>
 
 
-
-	<!-- 하선 -->
+<!-- 하선 -->
 	<resultMap type="Poom" id="selectPoom">
 		<result property="no" column="no" javaType="int"/>
 		<result property="speciesNo" column="speciesNo" javaType="int"/>
@@ -141,7 +139,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- 수정 -->
-
 	<select id="selectMyPoomList" parameterType="PageVO" resultType="Poom">
 		SELECT no, type, title, score, count, img
 		FROM(SELECT no, type, title, score, count, img, rownum r

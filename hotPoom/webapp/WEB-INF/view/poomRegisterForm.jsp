@@ -22,8 +22,10 @@
     </style>
 </head>
 <body>
+<c:if test="${loginUser==null || loginUser.no != poom.userNo }">
+	<c:redirect url="/"/>
+</c:if>
 <c:import url="/WEB-INF/template/header.jsp"/>
-
     <div id="progressBar">
         <span id="firstCircle" class="circle">1</span>
         <span id="firstBar" class="bar"></span>
@@ -37,14 +39,12 @@
     	<input type="hidden" name="poomNo" value="${poom.no }"/>
     </c:if>
     <!-- 유저번호랑 전화번호 -->
-    	<input type="hidden" name="userNo" value="26">
-    	<input type="hidden" name="phoneNum" value="01012341234">
-    	<!--<input type="hidden" name="userNo" value="${loginUser.no}">
+    	<input type="hidden" name="userNo" value="${loginUser.no}">
     	<input type="hidden" name="phoneNum" value="${loginUser.phoneNum}">
     	
     <!-- 위도, 경도 -->	
-    	<input type="hidden" id="lat" name="lat" value="">
-    	<input type="hidden" id="lng" name="lng" value="">
+    	<input type="hidden" id="lat" name="lat" value="${poom.lat}">
+    	<input type="hidden" id="lng" name="lng" value="${poom.lng }">
     
     
         <!---------------------------------- 첫번째 페이지 -------------------------------->
@@ -63,12 +63,12 @@
                         <div>
                             <input id="mainPhotoInput" name="img" type="file">
                             <input type="hidden" name="photoType" value="M">
-                            <img id="mainPhoto" src='${poom!=null?"/upload/profile/mainPhoto.img":"" }' alt="mainPhoto">
+                            <img id="mainPhoto" src='${poom!=null?mainPhoto.img:"" }' alt="mainPhoto">
                             <i id="mainPhotoDelete" class="far fa-times-circle"></i>
                         </div>
                         <div id="mainPhotoWrap">
                             <label id="mainPhotoLabel" for="mainPhotoInput"><i class="fas fa-plus-circle"></i></label>
-                            <input type="hidden" id="mainPhotoValue" name="mainImg" value='${poom!=null?"mainPhoto.img":"" }'>
+                            <input type="hidden" id="mainPhotoValue" name="mainImg" value='${poom!=null?mainPhoto.img:"" }'>
                         </div>
                         <div id="mainPhotoMsg" class="msg">대표사진을 입력해 주세요</div>
                     </div><!--//mainPhotoSecction end-->
@@ -80,11 +80,11 @@
                         <input id="subPhotoInput" name="subPhoto" type="file">
                         <c:if test="${poom!=null }">
                         <c:forEach items="${subPhotoList }" var="photo">
-                        	<input type="hidden" name="poomImg" value="${subPhoto.img}">
+                        	<input type="hidden" name="poomImg" value="${photo.img}">
 							<input type="hidden" name="photoType" value="S">
 						    <div class='sub_photo_inner'>
-						        <img src="/img/poom/${subPhoto.img}" class='sub_photo'>
-						        <textarea name="caption" class='sub_photo_info'>${subPhoto.caption}</textarea>
+						        <img src="/img/poom/${photo.img}" class='sub_photo'>
+						        <textarea name="caption" class='sub_photo_info'>${photo.caption}</textarea>
 						    </div>
                         </c:forEach>
                         </c:if>
@@ -137,7 +137,7 @@
                 </div>
                 <div id="aniamlNumber">
                     <input id="minusAnimalBtn" type=button value="-" onClick="javascript:this.form.animalNumber.value--;">
-                    <input id="animalNumber" name="petCnt" type="text" readonly value='${poom!=null?"poom.petCnt":"1"}'> 마리
+                    <input id="animalNumber" name="petCnt" type="text" readonly value='${poom!=null?poom.petCnt:"1"}'> 마리
                     <input id="plusAnimalBtn" type=button value="+" onClick="javascript:this.form.animalNumber.value++;">
                 </div>
             </div><!--//selectAnimalSection end-->

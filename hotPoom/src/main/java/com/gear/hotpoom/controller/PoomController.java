@@ -34,12 +34,22 @@ public class PoomController {
 		return "poomRegisterForm";
 	}
 	
+	//품 수정 완료
+	@RequestMapping(value="/poom/update",method=RequestMethod.POST)
+	public String poomUdate(Poom poom, String[] poomImg, String[] caption, String mainImg, String mainCaption) {
+		
+		
+		
+		
+		return "redirect:/poom/"+poom.getNo();
+	}
 	
+	//품 수정 페이지로 이동
 	@RequestMapping(value="/poom/update/{poomNo}",method=RequestMethod.GET)
-	public String poomUdate(@PathVariable int no,Model model) {
-		model.addAttribute("poom",poomsService.getPoomInfo(no));
-		model.addAttribute("mainPhoto",photosService.getMainPhoto(no));
-		model.addAttribute("subPhotoList",photosService.getSubPhotoList(no));
+	public String poomUdate(@PathVariable int poomNo,Model model) {
+		model.addAttribute("poom",poomsService.getPoomInfo(poomNo));
+		model.addAttribute("mainPhoto",photosService.getMainPhoto(poomNo));
+		model.addAttribute("subPhotoList",photosService.getSubPhotoList(poomNo));
 		
 		return "poomRegisterForm";
 	}
@@ -58,8 +68,6 @@ public class PoomController {
 		photo.setContentNo(poom.getNo());
 		
 		photosService.register(photo);
-		
-		service.register(poom, photoType, poomImg, caption);
 		
 		photo.setType("S");
 		int i = 0;

@@ -116,7 +116,7 @@
         <a class="poom_address" href=""><@=poom.mainAddress@></a>
         <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
         <p class="poom_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</p>
-        <p class="poom_price">￦ <@=poom.price@> / 박</p>
+        <p class="poom_price">￦ <@=Number(poom.price).toLocaleString('en').split(".")[0]@> / 박</p>
 		<c:if test="${loginUser!=null }">
         	<div class="poom_bookmark" style="background-image: url('/img/<@=poom.hasBookmark@>')"></div>
 		</c:if>

@@ -35,8 +35,6 @@ public class PoomsServiceImpl implements PoomsService{
 	@Autowired
 	private BanksDAO banksDAO;
 	@Autowired
-	private PaginateUtil paginateUtil;
-	@Autowired
 	private BookmarksDAO bookmarksDAO;
 	@Autowired
 	private UsersDAO usersDAO;
@@ -44,7 +42,6 @@ public class PoomsServiceImpl implements PoomsService{
 	private PoomsDAO poomsDAO;
 
 	
-
 	
 
 	@Override //동호, poomDetail 정보 가져오기
@@ -102,7 +99,7 @@ public class PoomsServiceImpl implements PoomsService{
 
 	
 	@Override
-	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort) {
+	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo, String mainAddress) {
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo, mainAddress);
 		map.put("poomList", poomsDAO.selectPoomList(pageVO));

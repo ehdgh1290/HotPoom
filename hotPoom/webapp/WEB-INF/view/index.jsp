@@ -283,7 +283,7 @@
 		let species = $("#indexHeroImageSpeciesInput").val();
 		let petCnt = $("#indexPetCntInput").val();
 		console.log("test");
-		if(location ==  "") {
+		if(locations ==  "") {
 			
 			$("#indexHeroImageLocationInput").focus();
 			return false;

@@ -49,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (photos_seq.nextval,#{type},#{contentNo},#{img},#{caption},systimestamp)
 	</insert>
 	
+
 	<update id="update" parameterType="Photo">
 		UPDATE photos
 		SET img = #{img},caption=#{caption}

@@ -21,13 +21,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<select id="selectPoomInfo" parameterType="int" resultType="Poom">
-		SELECT no, type, title, user_no userNo, p.species_no speciesNo, price, 
+		SELECT p.no, type, title, user_no userNo, species_no speciesNo, price, 
 				check_in checkIn, check_out checkOut, pet_cnt petCnt, introduce, amenity,
 				main_address mainAddress, sub_address subAddress,
-				post_num postNum, phone_num phoneNum, transport, lat, lng, regdate, s.species_name speciesName
+				post_num postNum, phone_num phoneNum, transport, lat, lng, p.regdate, s.name speciesName
 		FROM pooms p, species s
-		WHERE no = #{no}
-		WHERE p.species_no = s.no
+		WHERE p.no = #{no}
+		AND p.species_no = s.no
 	</select>
 
 
