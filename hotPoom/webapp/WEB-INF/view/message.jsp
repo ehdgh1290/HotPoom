@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="css/message.css">
 </head>
 <body>
+<c:if test="${loginUser==null }">
+	<c:redirect url="/"/>
+</c:if>
+
 	<c:import url="/WEB-INF/template/header.jsp" />
 	<div id="messageSection">
 		<p id="pageTitle">메시지</p>

@@ -79,9 +79,9 @@
             <span id="indexContentsNewPoomTitle" class="index_contents_poom_title">NEW POOM</span>
             <div id="indexContentsNewPoomInner" class="index_contents_poom_inner">
                 <c:forEach items="${newPoomList }" var="newPoom">
-                <div class="small_card">
+                <div class="small_card" data-no="${newPoom.no}">
                     <ul>
-                        <li class="small_card_li">
+                        <li class="small_card_li"></li>
                         <li><img class="small_card_img" src="/img/poom/${newPoom.img }" alt="${newPoom.title }"/></li>
                         <li><div class="small_card_hotel small_card_padding"> 
                         	<c:choose>
@@ -110,9 +110,9 @@
 </script>
 <script type="text/template" id="indexSmallCardTmp">
 <@_.each(poomList, function(poom){@>	
-<div class="small_card">
+<div class="small_card" data-no="<@=poom.no@>">
 	<ul id="hotPoomList">
-   		<div class="small_card_li"> 
+   		<div class="small_card_li">
 			<li><img class="small_card_img" src="/img/poom/<@=poom.img @>" alt="<@=poom.title @>"/></li>
     		<li><div class="small_card_hotel small_card_padding"> 
 				<@ if(poom.type == 'P') {@><i class="fas fa-home"></i> <@} else {@><i class="fas fa-hotel"></i><@}@>
@@ -136,6 +136,12 @@
 	
 	let $speciesAuto = $("#indexSpeciesAutoComplete");
 	let $speciesInput = $("#indexHeroImageSpeciesInput");
+	
+	
+	$("body").on("click",".small_card", function() {
+		location.href = "/poom/"+this.dataset.no;
+	});
+	
 	
 	/*****************위치 자동완성********************/
 	
@@ -270,21 +276,6 @@
 	});
 	/*****************달력*******************/
 	
-	
-	$("#headerProfileImage").click(function (e) {
-	    $("#lnb").slideToggle(200);
-	    e.stopPropagation();
-	});
-	
-	$("#headerLogin").click(function () {
-	    $("#gnbWrap").show();
-	    $(this).hide();
-	});
-	
-	$("body").click(function () {
-	    // alert("zz");
-	    $("#lnb").hide();
-	});
 	
 	
 	//버튼 클릭시 검색
