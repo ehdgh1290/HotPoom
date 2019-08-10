@@ -22,7 +22,7 @@
     </style>
 </head>
 <body>
-<c:if test="${loginUser==null || loginUser.no != poom.userNo }">
+<c:if test="${loginUser==null || (poom!=null && loginUser.no != poom.userNo)}">
 	<c:redirect url="/"/>
 </c:if>
 <c:import url="/WEB-INF/template/header.jsp"/>
