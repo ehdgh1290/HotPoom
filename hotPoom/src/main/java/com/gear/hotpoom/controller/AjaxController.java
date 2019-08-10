@@ -305,6 +305,18 @@ public class AjaxController {
 	}//유저페이지 유저소개 수정하기 .영훈
 	
 	
+	@RequestMapping(value="/mypet/{no}",method=RequestMethod.DELETE)
+	public int deletePet(@PathVariable int no) {
+		return petsService.deleteMyPet(no);
+	}//유저페이지 마이펫 삭제 .영훈
+	
+	@RequestMapping(value="/mypet/{myPetNo}",method=RequestMethod.GET)
+	public Pet getMyPet(@PathVariable int myPetNo) {
+		System.out.println("페:"+myPetNo);
+		return petsService.selectMyPet(myPetNo);
+	}//유저페이지 마이펫 수정시 값불러오기 .영훈
+	
+	
 	@RequestMapping(value="/profile/upload", method=RequestMethod.POST,produces = "application/json; charset=utf-8")
 	public String uploadImage(HttpServletRequest request,String type,
 			MultipartFile uploadImg,int userNo) {
@@ -420,5 +432,7 @@ public class AjaxController {
 	}
 	
 
+	
+	
 	
 }

@@ -146,15 +146,7 @@ public class UserController {
 		return "userPage";
 	} //유저페이지 기본 정보 불러오기 .영훈
 	
-	@RequestMapping(value="/pet",method=RequestMethod.POST)
-	public String addPet(Pet pet,@RequestHeader String referer) {
-			
-		petsService.insertPet(pet);
-		
-		int userNo = pet.getUserNo(); 
-		
-		return "redirect:/userPage/"+userNo;
-	} //유저페이지 펫추가하기 .영훈
+
 	
 
 

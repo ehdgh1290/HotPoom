@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectPetList" parameterType="int" resultType="Pet">
-		SELECT no,user_no,species_no,name,gender,profile_img profileImg,regdate
+		SELECT no,user_no userNo,species_no speciesNo,name,gender,profile_img profileImg,regdate
 		FROM pets
 		WHERE user_no = #{no}
 	</select> <!-- 유저페이지에서 펫 불러오기 .영훈 -->
@@ -26,4 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert> <!-- 유저페이지에서 펫 추가 .영훈 -->
 
 
+	<delete id="deleteMyPet" parameterType="int">
+		DELETE FROM pets
+		WHERE no = #{no}
+	</delete>
+	
+	<select id="selectMyPet" parameterType="int" resultType="Pet">
+		SELECT no,user_no userNo,species_no speciesNo,name,gender,profile_img profileImg,regdate
+		FROM pets
+		WHERE no = #{no}
+	</select>
+	
+	<update id="updateMyPet" parameterType="Pet">
+		UPDATE pets
+		SET profile_img = #{profileImg} , name = #{name} , gender=#{gender}
+		WHERE no = #{no}
+	</update>
+	
 </mapper>

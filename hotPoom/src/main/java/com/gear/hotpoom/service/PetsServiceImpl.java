@@ -24,4 +24,19 @@ public class PetsServiceImpl implements PetsService{
 		return petsDAO.insert(pet);
 	}//유저페이지 펫추가 하기 .영훈
 	
+	@Override
+	public int deleteMyPet(int no) {
+		return petsDAO.deleteMyPet(no);
+	}
+	
+	@Override
+	public Pet selectMyPet(int myPetNo) {
+		return  petsDAO.selectMyPet(myPetNo);
+	}
+	
+	@Override
+	public int updatePet(Pet pet) {
+		return petsDAO.updatePet(pet);
+	}
+	
 }

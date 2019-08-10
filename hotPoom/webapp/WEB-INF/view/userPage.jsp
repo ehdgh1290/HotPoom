@@ -19,7 +19,7 @@
         <div class="popup_close"><i class="far fa-times-circle"></i></div>
         <form id="petAddPopupWrap" action="/pet" method="POST">
             <p>성별</p>
-            <label class="cursor_pointer" for="male">수컷<input id="male" type="radio" name="gender" value="M"/></label>
+            <label class="cursor_pointer" for="male">수컷<input id="male" type="radio" name="gender" value="M" /></label>
             <label class="cursor_pointer" for="female">암컷<input id="female" type="radio" name="gender" value="F"/></label>
             <p>이름</p>
             <input id="petNameInput" name="name" value="" placeholder="펫의 이름을 입력해주세요."/>
@@ -31,6 +31,7 @@
                 <input id="petInput" class="pet_and_user_file" type="file" />
                 <input type="hidden" id="petProfile" name="profileImg">
                 <input type="hidden" id="userNo" name="userNo" value="${userNo}"> 
+                
             </label>
 
             <button id="petAddBtn" class="btn">등록</button>
@@ -253,8 +254,8 @@ console.log(poom);
             "></i> <@=pet.name@></div>
 		<div class="updateBtn"><i class="fas fa-ellipsis-h"></i></div>
 		<div class="updatePopup">
-		<div class="update_update">수정</div>
-		<div class="update_delete">삭제</div>	
+		<div class="update_update" data-no="<@=pet.no@>">수정</div>
+		<div class="update_delete" data-no="<@=pet.no@>">삭제</div>	
 		</div>
     </li>
     <@ }) @>
@@ -424,7 +425,15 @@ console.log(poom);
     // *************************************** petAddpopUp 띄우고 닫기
 
     $("#addPetBtnInList").click(function () {
+    	
+    	
         $("#addPetBg").show();
+        $("#male").prop("checked",false);
+        $("#female").prop("checked",false);
+   		$("#petNameInput").val("");
+        $("#petImg").atte("src","");
+     
+        
     });
 
     $(".popup_close").click(function () {
@@ -732,15 +741,10 @@ function getPetPhotos(){
 		               console.log(json);
 						
 		                $petImgAddUl.append(petImgAddTmp({"petImgs":json.Photos}));
-		              
-		                
-		            
+	       
 		             // 완료 후 다시 falg를 true로
 						flag = true;
-		             
-		             
-		
-		                
+	                
 		            }//success end
 
 		});//ajax end
@@ -1195,6 +1199,72 @@ $("body").on("click",".pet_img_close",function(){
     $("#review_card_warning").click(function(){
     	$("#reportedPerson").html($(this).attr("data-userName"));
     });
+    
+    
+    
+    $("body").on("click",".update_delete",function(){
+    	
+    	let no = 0;
+    	no =  $(this).attr("data-no");
+    	$(this).parents("li").remove();
+    	
+    	$.ajax({
+    		url:"/ajax/mypet/"+no,
+    		dataType:"json",
+    		type:"DELETE",
+    		error:function() {
+    			alert("서버 점검중!");
+    		},
+    		success:function(json) {
+      
+    		}//sucess end
+    		
+  
+    	})//ajax end
+ 	
+    	
+    }) //delete function() end
+    
+    
+    $("body").on("click",".update_update",function(){
+    	
+    	let myPetNo = 0;
+    	myPetNo =  $(this).attr("data-no");
+    	
+    	$.ajax({
+    		url:"/ajax/mypet/"+myPetNo,
+    		dataType:"json",
+    		type:"GET",
+    		error:function() {
+    			alert("서버 점검중!");
+    		},
+    		success:function(json) {
+    			$("#addPetBg").show();
+    			
+    			if(json.gender == "M"){
+    				$("#male").prop("checked",true);
+    				
+    				
+    			}else{
+    				$("#female").prop("checked",rue);
+    			}
+    			
+    	   		$("#petNameInput").val(json.name);
+    			
+    	        $("#addPetBg").show();
+    	  		
+    	        $("#petAddPopupLabel").append("<input type='hidden' name='no' value="+myPetNo+">");
+    	        $("#petAddPopupLabel").append('<input type="hidden" name="_method" value="PUT"/>');
+    	        
+    	        $("#petProfile").val(json.profileImg);
+    	        $("#petAddPopup h1").html("펫 수정하기");
+    	        $("#petAddBtn").html("수정");
+    		}//sucess end
+    				
+    	}) //ajax end
+   	
+    }) //delete function() end
+    
     
 
 </script>
