@@ -77,11 +77,20 @@
         <!--//reportPopup -->
     </form>
 </div> <!--// addPet bg end-->
-    <div id="userProfileImgSection"><div id="profileCloseBtn"><i class="fas fa-times"></i></div>
+    <div id="userProfileImgSection">
+       <c:if test="${loginUser.no==userInfo.no}">
+ 			  <div id="profileCloseBtn"><i class="fas fa-times"></i></div>
+			</c:if>
+   
         <div id="userProfileWrap"><img id="profilePhoto" src="/profile/user/${userInfo.profileImg}"/></div>
         <label>
             <i class="fas fa-camera img_icon"></i>
-            <input id="profileInput" class="pet_and_user_file" type="file" />
+            
+            <c:if test="${loginUser.no==userInfo.no}">
+ 			 <input id="profileInput" class="pet_and_user_file" type="file" />
+			</c:if>
+            
+           
         </label>
 
         <!--<a href="">사진 업데이트</a>-->
@@ -93,10 +102,15 @@
             <h2 id="userIntroduce" style="font-weight: bold">
                 안녕하세요. 저는 '${userInfo.name}' 입니다.
             </h2>
-            <button id="profileUpdateBtn" class="profile_update_btn">프로필 수정하기</button>
+            <c:if test="${loginUser.no==userInfo.no}">
+ 			<button id="profileUpdateBtn" class="profile_update_btn">프로필 수정하기</button>
+			</c:if>
+           
             <button id="profileUpdateCompleteBtn" class="profile_update_btn">수정 완료</button>
             <h3 id="titleIntroduce">소개</h3>
             <div id="profileTextAreaBox" class="user_introduce_detail" > ${userInfo.introduce} </div>
+
+		
 
             <div id="profileUpdateTextAreaBox" class="user_introduce_detail" style="display: none">
             <input type="hidden" name="updateIntroduce" value="">
@@ -106,7 +120,11 @@
 
         <div id="petProfileWrap">
             <h3 id="myPet">함께 사는 펫</h3>
-            <button id="addPetBtnInList"><i class="fas fa-plus"></i> 추가하기</button>
+           
+			<c:if test="${loginUser.no==userInfo.no}">
+ 			 <button id="addPetBtnInList"><i class="fas fa-plus"></i> 추가하기</button>
+			</c:if>
+
 
             <ul>
 
@@ -203,7 +221,11 @@ _.each(reviews,function(review){
              <div class="review_card_img"><img src="/profile/user/defaultProfile.jpg"/></div>
              <div class="review_card_user_name"><@=review.name@></div>
              <div class="review_card_date"><@=review.formatDate@></div>
-             <div class="review_card_warning" data-userName="<@=review.name@>" data-userNo="${userNo}" data-reviewNo="<@=review.no@>">신고</div>
+			<c:if test="${loginUser.no==userInfo.no}">
+ 			<div class="review_card_warning" data-userName="<@=review.name@>" data-userNo="${userNo}" data-reviewNo="<@=review.no@>">신고</div>
+			</c:if>
+
+             
              </li>
 
 <@
@@ -252,11 +274,14 @@ console.log(poom);
             fa-mars
             <@ } @>
             "></i> <@=pet.name@></div>
-		<div class="updateBtn"><i class="fas fa-ellipsis-h"></i></div>
+			<c:if test="${loginUser.no==userInfo.no}">
+ 			<div class="updateBtn"><i class="fas fa-ellipsis-h"></i></div>
 		<div class="updatePopup">
 		<div class="update_update" data-no="<@=pet.no@>">수정</div>
 		<div class="update_delete" data-no="<@=pet.no@>">삭제</div>	
 		</div>
+			</c:if>
+		
     </li>
     <@ }) @>
 </script>
