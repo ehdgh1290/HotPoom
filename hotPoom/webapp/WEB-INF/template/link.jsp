@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="/css/tui-date-picker.css">
 <link rel="stylesheet" href="/css/default.css">
 <link rel="stylesheet" href="/css/loginPopup.css">
-<script src="/js/sockjs.min.js.map"></script>
 <script src="/js/jquery.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/moment-with-locales.js"></script>

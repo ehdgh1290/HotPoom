@@ -10,4 +10,12 @@ public interface PetsService {
 	
 	public int insertPet(Pet pet); //유저페이지 펫 추가 불러오기 .영훈
 	
+	public int deleteMyPet(int no);
+	
+	public Pet selectMyPet(int myPetNo);
+	
+	public int updatePet(Pet pet);
+	
+	
+	
 }

@@ -14,11 +14,10 @@ public class PetsDAOImpl implements PetsDAO{
 	private SqlSession session;
 	
 	@Override
-
 	public List<Pet> selectPetListByUserNo(int userNo) {
 		return session.selectList("selectPetListByUserNo", userNo);
 	}
-
+	@Override
 	public List<Pet> selectProfileList(int userNo) {
 		return session.selectList("pets.selectPetList",userNo);
 	}// 유저페이지에서 펫프로필 불러오기 .영훈
@@ -28,5 +27,19 @@ public class PetsDAOImpl implements PetsDAO{
 		return session.insert("pets.insert",pet);
 	}//유저페이지 펫추가 .영훈
 
+	@Override
+	public int deleteMyPet(int no) {
+		return session.delete("pets.deleteMyPet",no);
+	}
+	
+	@Override
+	public Pet selectMyPet(int myPetNo) {
+		return session.selectOne("pets.selectMyPet",myPetNo);
+	}
+	@Override
+	public int updatePet(Pet pet) {
+		return session.update("pets.updateMyPet",pet);
+	}
+	
 	
 }
