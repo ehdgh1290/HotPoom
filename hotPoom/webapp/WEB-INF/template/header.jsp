@@ -9,7 +9,7 @@
 		<c:if test="${loginUser!=null}">
 		<div id="gnbWrap">
 			<div id="gnb">
-				<a id="headerBookmark" href="/bookmark/${loginUser.no}">북마크</a>
+				<a id="headerBookmark" href="/bookmark">북마크</a>
 				<a id="headerMessage" href="/message">메시지</a> 
 				<a id="headerBooking" href="/booking">예약내역</a>
 			</div>
@@ -17,7 +17,7 @@
 				<img id="headerProfileImage" src="/profile/user/${loginUser.profileImg }" />
 				<ul id="lnb">
 					<li><a href="/user/${loginUser.no}">마이페이지</a></li>
-					<li><a href="/account/${loginUser.no}">개인정보 및 결제</a></li>
+					<li><a href="/account">개인정보 및 결제</a></li>
 					<li><a href="/business">비지니스 전환</a></li>
 					<li><button id="logout" class="btn" form="logoutForm" type="submit">로그아웃</button></li>
 				</ul>

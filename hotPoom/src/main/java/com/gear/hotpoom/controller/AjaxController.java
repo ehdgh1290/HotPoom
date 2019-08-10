@@ -1,41 +1,34 @@
 package com.gear.hotpoom.controller;
 
-
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import com.gear.hotpoom.service.PhotosService;
 import com.gear.hotpoom.service.SpeciesService;
-import com.gear.hotpoom.service.SpeciesService;
 import com.gear.hotpoom.service.PetsService;
-import com.gear.hotpoom.service.BookingsService;
 import com.gear.hotpoom.service.CreditsService;
 import com.gear.hotpoom.service.LocationsService;
 import com.gear.hotpoom.service.ReviewsService;
 import com.gear.hotpoom.service.BookingsService;
 import com.gear.hotpoom.service.BookmarksService;
-import com.gear.hotpoom.service.CreditsService;
 import com.gear.hotpoom.service.UsersService;
 import com.gear.hotpoom.service.AddressesService;
 import com.gear.hotpoom.service.BankAccountsService;
 import com.gear.hotpoom.service.PoomsService;
 import com.gear.hotpoom.service.ReportsService;
 import com.gear.hotpoom.service.SpeciesService;
+import com.gear.hotpoom.service.ChatUsersService;
+import com.gear.hotpoom.service.MessagesService;
 import com.gear.hotpoom.vo.Address;
 import com.gear.hotpoom.vo.BankAccount;
 import com.gear.hotpoom.vo.Credit;
@@ -45,14 +38,12 @@ import com.gear.hotpoom.vo.Credit;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.vo.Species;
 import com.gear.hotpoom.vo.User;
-import com.gear.hotpoom.util.FileRenameUtil;
-import com.gear.hotpoom.util.ResizeImageUtil;
 import com.gear.hotpoom.vo.Pet;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Review;
-import com.gear.hotpoom.service.ChatUsersService;
-import com.gear.hotpoom.service.MessagesService;
 import com.gear.hotpoom.vo.Message;
+import com.gear.hotpoom.util.FileRenameUtil;
+import com.gear.hotpoom.util.ResizeImageUtil;
 
 @RestController
 @RequestMapping("/ajax")
@@ -94,7 +85,6 @@ public class AjaxController {
 	
 
 	
-
 	
 	//신고한 적이 있는지 확인
 	@RequestMapping(value="/report",method=RequestMethod.GET)
@@ -102,14 +92,24 @@ public class AjaxController {
 		return reportsService.isReport(reviewNo);
 	}
 	
-	//북마크
+	//북마크 하기 or 해제하기
 	@RequestMapping(value="/bookmark",method=RequestMethod.POST)
 	public boolean bookmark(Bookmark bookmark) {
 		return bookmarksService.register(bookmark);
 	}
 	
-
-
+	//카드 등록하기
+	@RequestMapping(value="/card", method=RequestMethod.POST)
+	public int addCard(Credit credit) {
+		return creditsService.registerBasicCard(credit);
+	}
+	
+	//내 카드 가져오기
+	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
+	public List<Credit> getMyCardList(int userNo) {
+		
+		return creditsService.getMyCardDefault(userNo);
+	}
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)
@@ -194,18 +194,6 @@ public class AjaxController {
 	}
 	
 	// 주하꺼임
-	
-	@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
-	public List<Credit> getMyCardList(@PathVariable int userNo) {
-		
-		return creditsService.getMyCardList(userNo);
-	}
-	
-	@RequestMapping(value="/addCard", method=RequestMethod.POST)
-	public int addCard(Credit credit) {
-		return creditsService.addCard(credit);
-	}
-	
 	@RequestMapping(value="/removeCard/{cardNo}", method=RequestMethod.DELETE)
 	public int removeCard(@PathVariable int cardNo) {
 		return creditsService.removeCard(cardNo);
@@ -422,8 +410,6 @@ public class AjaxController {
 		
 		return messagesService.getMessageList(message);
 	}
-	
-	
 	
 	
 	@RequestMapping(value="/compare/{userNo}", method=RequestMethod.GET)

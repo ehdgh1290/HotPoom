@@ -34,7 +34,6 @@ public class CreditsServiceImpl implements CreditsService{
 		creditsDAO.afterCardUpdate(cardNo);
 		return 11;
 	}
-		
 	public int registerBasicCard(Credit credit) {
 		return creditsDAO.insertBasicCard(credit);
 	}

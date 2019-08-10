@@ -15,6 +15,11 @@ public class BookmarksDAOImpl implements BookmarksDAO{
 	
 	
 	@Override
+	public int selectPoomBookmark(Bookmark bookmark) {
+		return session.selectOne("bookmarks.selectPoomBookmark", bookmark);
+	}
+	
+	@Override
 	public int delete(Bookmark bookmark) {
 		return session.delete("bookmarks.delete",bookmark);
 	}
@@ -26,7 +31,6 @@ public class BookmarksDAOImpl implements BookmarksDAO{
 	
 	@Override
 	public List<Bookmark> getPoomNo(int userNo) {
-		// TODO Auto-generated method stub
 		return session.selectList("bookmarks.poomNoListByBookmark",userNo);
 	}
 	

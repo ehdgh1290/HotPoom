@@ -9,5 +9,4 @@ public interface BookmarksService {
 
 	boolean register(Bookmark bookmark);
 
-
 }

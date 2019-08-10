@@ -186,8 +186,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- New poom -->
 <select id="selectListNP" resultType="POOM">
-	SELECT img, type, title, petName, petCnt, regdate
-	FROM(SELECT ph.img img, po.type type, po.title title, s.name petName, po.pet_cnt petCnt, po.regdate regdate
+	SELECT no, img, type, title, petName, petCnt, regdate
+	FROM(SELECT po.no, ph.img img, po.type type, po.title title, s.name petName, po.pet_cnt petCnt, po.regdate regdate
 		FROM pooms po, photos ph, species s
 		WHERE po.no = ph.content_no AND po.species_no = s.no AND ph.type = 'M'
 		ORDER BY regdate DESC)

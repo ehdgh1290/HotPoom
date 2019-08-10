@@ -4,6 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bookmarks">
 
+	<select id="selectPoomBookmark" parameterType="Poom" resultType="int">
+		SELECT count(*)
+		FROM bookmarks
+		WHERE user_no = #{userNo}
+		AND poom_no = #{poomNo}
+	</select>
+
 	<insert id="insert" parameterType="Bookmark">
 		INSERT INTO bookmarks(no, user_no, poom_no, regdate)
 		VALUES(bookmarks_seq.nextval, #{userNo}, #{poomNo}, systimestamp)
