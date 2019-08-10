@@ -300,7 +300,7 @@
 			$("indexPetCntInput").focus();
 			return false;
 		}
-		location.href="/poom/species/"+speciesNo+"/address/"+locationName+"/petCnt/"+petCnt;
+		location.href="/poom/species/"+speciesNo+"/address/"+locationName+"/pet/"+petCnt;
 	});//indexHeroImageSearchBtn click() end
 	
 	//small card
