@@ -83,7 +83,6 @@
 			</c:if>
    
         <div id="userProfileWrap"><img id="profilePhoto" src="/profile/user/${userInfo.profileImg}"/></div>
-        
         <label>
             <i class="fas fa-camera img_icon"></i>
             
