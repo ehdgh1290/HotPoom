@@ -16,7 +16,7 @@ public interface PoomsDAO {
 	public List<Poom> selectListNP();
 	public List<Poom> selectPoomList(PageVO pageVO);
 	public int selectPoomListTotal(PageVO pageVO);
-	
 	public int update(Poom poom);
+	public Object selectPoomInfo(int no);
 
 }

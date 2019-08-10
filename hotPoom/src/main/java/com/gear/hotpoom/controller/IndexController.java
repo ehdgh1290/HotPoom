@@ -33,4 +33,11 @@ public class IndexController {
 	 * 
 	 * }//getNewPoom() end
 	 */	
+	
+	@RequestMapping(value="testtest")
+	public String asdf() {
+		return "asdf";
+	}
+			 
+			 
 }

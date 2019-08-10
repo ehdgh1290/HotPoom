@@ -9,7 +9,7 @@ import com.gear.hotpoom.vo.Poom;
 
 public interface PoomsService {
 	
-	public int register(Poom poom, String photoType, String poomImg, String caption);
+	public int register(Poom poom);
 	
 	public int modify(Poom poom);
 
@@ -19,5 +19,8 @@ public interface PoomsService {
 	public List<Poom> getListNP();
 
 	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort);
+
+	public Object getPoomInfo(int no);
+	
 	
 }

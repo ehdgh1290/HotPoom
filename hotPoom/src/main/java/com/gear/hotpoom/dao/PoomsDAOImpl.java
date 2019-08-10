@@ -12,9 +12,14 @@ import com.gear.hotpoom.vo.Poom;
 
 @Repository
 public class PoomsDAOImpl implements PoomsDAO{
-	
 	@Autowired
 	private SqlSession session;
+	
+	
+	@Override
+	public Object selectPoomInfo(int no) {
+		return session.selectOne("pooms.selectPoomInfo", no);
+	}
 	
 	@Override
 	public List<Poom> selectPoomList(PageVO pageVO) {

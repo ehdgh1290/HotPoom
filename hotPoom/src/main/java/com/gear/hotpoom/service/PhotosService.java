@@ -1,5 +1,7 @@
 package com.gear.hotpoom.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,12 @@ public interface PhotosService {
 						MultipartFile poomImg, String type,HttpSession session);
 	
 	public int modify(Photo photo);
+
+	public int register(Photo photo);
+
+	public Photo getMainPhoto(int no);
+
+	public List<Photo> getSubPhotoList(int no);
 
 	
 }

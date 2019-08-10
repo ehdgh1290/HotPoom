@@ -4,6 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
 
+	<select id="selectPoomInfo" parameterType="int" resultType="Poom">
+		SELECT no, type, title, user_no userNo, p.species_no speciesNo, price, 
+				check_in checkIn, check_out checkOut, pet_cnt petCnt, introduce, amenity,
+				main_address mainAddress, sub_address subAddress,
+				post_num postNum, phone_num phoneNum, transport, lat, lng, regdate, s.species_name speciesName
+		FROM pooms p, species s
+		WHERE no = #{no}
+		WHERE p.species_no = s.no
+	</select>
+
+
+
 <!-- 하선 -->
 	<resultMap type="Poom" id="selectPoom">
 		<result property="no" column="no" javaType="int"/>

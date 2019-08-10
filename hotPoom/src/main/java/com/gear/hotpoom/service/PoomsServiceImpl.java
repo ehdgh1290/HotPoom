@@ -16,32 +16,22 @@ import com.gear.hotpoom.dao.PhotosDAO;
 
 @Service
 public class PoomsServiceImpl implements PoomsService{
-	
+	@Autowired
+	private PaginateUtil paginateUtil;
 	@Autowired
 	private PoomsDAO poomsDAO;
-	@Autowired
-	private PhotosDAO photosDAO;
 	
+	
+	//품 하나 가져오기
+	@Override
+	public Object getPoomInfo(int no) {
+		return poomsDAO.selectPoomInfo(no);
+	}
 	
 	//품 등록
 	@Override
-	public int register(Poom poom, String photoType, String poomImg, String caption) {
-		
-		System.out.println("photoType : "+photoType);
-		System.out.println("poomImg : "+poomImg);
-		System.out.println("caption : "+caption);
-		
-		
-		Photo photo = new Photo();
-		photo.setNo(poom.getNo());
-		photo.setType(photoType);
-		photo.setImg(poomImg);
-		photo.setCaption(caption);
-		
-		poomsDAO.insert(poom);
-		photosDAO.insert(photo);
-		
-		return 1;
+	public int register(Poom poom) {
+		return poomsDAO.insert(poom);
 	}
 	
 	//품 수정
@@ -61,15 +51,10 @@ public class PoomsServiceImpl implements PoomsService{
 	public List<Poom> getListNP() {
 		return poomsDAO.selectListNP();
 	}//getListNP() end
-	
-	
-	
-	@Autowired
-	private PaginateUtil paginateUtil;
+
 	
 	@Override
 	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort) {
-		// TODO Auto-generated method stub
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort);
 		map.put("poomList", poomsDAO.selectPoomList(pageVO));

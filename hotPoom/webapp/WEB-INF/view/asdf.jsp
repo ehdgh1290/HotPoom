@@ -1,25 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b7d83ee5600b79643a36a7d3c1eae42&libraries=services"></script>
     <c:import url="/WEB-INF/template/link.jsp"/>
     <link rel="stylesheet" href="/css/hotelForm.css">
-    <style>
-    	#map{
-    		position: absolute;
-    		width: 390px;
-    		height: 300px;
-    		overflow: hidden;
-    		left: 670px;
-    		top: 0;
-    	}
-    </style>
+    <!-- 에디터 css -->
+    <link rel="stylesheet" href="/css/tui-editor.css">
+    <link rel="stylesheet" href="/css/tui-editor-contents.css">
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/github.css">
+    
+    <!-- 에디터 css end -->
 </head>
 <body>
 <c:import url="/WEB-INF/template/header.jsp"/>
@@ -31,20 +26,15 @@
         <span id="secondBar" class="bar"></span>
         <span id="thirdCircle" class="circle">3</span>
     </div>
-    <form id="hotelInsert" action='/poom${poom!=null?"/update":"" }' method="post">
-    <c:if test="${poom!=null}">
-    	<input type="hidden" name="_method" value="put"/>
-    	<input type="hidden" name="poomNo" value="${poom.no }"/>
-    </c:if>
+    <form id="hotelInsert" action="/poom" method="post">
+    
     <!-- 유저번호랑 전화번호 -->
-    	<input type="hidden" name="userNo" value="26">
-    	<input type="hidden" name="phoneNum" value="01012341234">
-    	<!--<input type="hidden" name="userNo" value="${loginUser.no}">
+    	<input type="hidden" name="userNo" value="${loginUser.no}">
     	<input type="hidden" name="phoneNum" value="${loginUser.phoneNum}">
     	
     <!-- 위도, 경도 -->	
-    	<input type="hidden" id="lat" name="lat" value="">
-    	<input type="hidden" id="lng" name="lng" value="">
+    	<input type="hidden" name="lat" value="37.4809094">
+    	<input type="hidden" name="lng" value="126.949907">
     
     
         <!---------------------------------- 첫번째 페이지 -------------------------------->
@@ -53,7 +43,7 @@
             <h2>품 소개하기</h2>
             <p>
                 <h3>*이름</h3>
-                <input id="poomName" name="title" placeholder="품 이름을 입력해주세요" value="${poom.title }"/>
+                <input id="poomName" name="title" placeholder="품 이름을 입력해주세요"/>
                 <div id="poomNameMsg" class="msg">품의 이름을 입력해 주세요</div>
             </p>
             <p>
@@ -63,31 +53,21 @@
                         <div>
                             <input id="mainPhotoInput" name="img" type="file">
                             <input type="hidden" name="photoType" value="M">
-                            <img id="mainPhoto" src='${poom!=null?"/upload/profile/mainPhoto.img":"" }' alt="mainPhoto">
+                            <img id="mainPhoto" src="" alt="mainPhoto">
                             <i id="mainPhotoDelete" class="far fa-times-circle"></i>
                         </div>
                         <div id="mainPhotoWrap">
                             <label id="mainPhotoLabel" for="mainPhotoInput"><i class="fas fa-plus-circle"></i></label>
-                            <input type="hidden" id="mainPhotoValue" name="mainImg" value='${poom!=null?"mainPhoto.img":"" }'>
+                            <input type="hidden" id="mainPhotoValue" name="poomImg">
                         </div>
                         <div id="mainPhotoMsg" class="msg">대표사진을 입력해 주세요</div>
                     </div><!--//mainPhotoSecction end-->
-                    <textarea id="mainPhotoInfo" name="mainCaption">${mainPhoto.caption}</textarea>
+                    <textarea id="mainPhotoInfo" name="caption"></textarea>
                     <div id="subPhotoTitle">
                         <h3>서브사진</h3>
                     </div>
                     <div id="subPhotoWrap">
                         <input id="subPhotoInput" name="subPhoto" type="file">
-                        <c:if test="${poom!=null }">
-                        <c:forEach items="${subPhotoList }" var="photo">
-                        	<input type="hidden" name="poomImg" value="${subPhoto.img}">
-							<input type="hidden" name="photoType" value="S">
-						    <div class='sub_photo_inner'>
-						        <img src="/img/poom/${subPhoto.img}" class='sub_photo'>
-						        <textarea name="caption" class='sub_photo_info'>${subPhoto.caption}</textarea>
-						    </div>
-                        </c:forEach>
-                        </c:if>
                         <span class="sub_photo_view">
                             <label id="subPhotoLabel" for="subPhotoInput"><i class="fas fa-plus-circle"></i></label>
                         </span>
@@ -98,7 +78,7 @@
             <div id="poomEditWrap">
             <input type="hidden" id="poomContents">
             <div id="poomEdit" class="edit_inner"></div>
-            <input id="poomContent" type="hidden" name="introduce" value="${poom.introduce }"><!-- 품소개 주의사항 에디터 사용 -->
+            <input id="poomContent" type="hidden" name="introduce" value=""><!-- 품소개 주의사항 에디터 사용 -->
             </div>
             <button id="firstNextBtn" type="button" class="next_btn btn" >다음</button>
         </div><!--//firstPage end-->
@@ -108,10 +88,9 @@
         <div class="page" id="seconPage">
             <h1>기본요금</h1>
             <h2>1마리/1박</h2>
-            
             <div id="priceWrap"> &#8361;
-                <input id="price" type="text" value='<fmt:formatNumber value="${poom.price }"/>'>원
-                <input id="priceHidden" name="price" type="hidden" value="${poom.price }">
+                <input id="price" type="text" value="">원
+                <input id="priceHidden" name="price" type="hidden" value="">
             </div>
             <div id="priceMsg" class="msg">금액을 입력해 주세요</div>
             <div id="checkInOutSection">
@@ -128,16 +107,16 @@
             <h1>펫</h1>
             <div id="selectAnimalSection">
                 *종류
-                <input id="animalInput" type="text" name="speciesNo" value="${poom.speciesNo}" autocomplete="off" ${poom!=null?"style='display:none;'":""}>
+                <input id="animalInput" type="text" name="speciesNo" value="" autocomplete="off">
                 <div id="animalMsg" class="msg">종류를 선택해 주세요</div>
-                <div id="animalName" ${poom!=null?"style='display:block;'":""}>${poom.speciesName }</div>
+                <div id="animalName"></div>
                 <div id="animalList">
                     <ul id="animals">
                     </ul>
                 </div>
                 <div id="aniamlNumber">
                     <input id="minusAnimalBtn" type=button value="-" onClick="javascript:this.form.animalNumber.value--;">
-                    <input id="animalNumber" name="petCnt" type="text" readonly value='${poom!=null?"poom.petCnt":"1"}'> 마리
+                    <input id="animalNumber" name="petCnt" type="text" readonly value="1"> 마리
                     <input id="plusAnimalBtn" type=button value="+" onClick="javascript:this.form.animalNumber.value++;">
                 </div>
             </div><!--//selectAnimalSection end-->
@@ -147,7 +126,7 @@
             
                 <input type="hidden" id="facilityContents">
                 <div id="facilityEdit" class="edit_inner"></div>
-                <input type="hidden" value="${poom.amenity}" id="facilityContent" name="amenity">
+                <input type="hidden" value="" id="facilityContent" name="amenity">
                 
             </div>
             <button id="firstPrevBtn" type="button" class="prev_btn btn" >이전</button>
@@ -160,30 +139,30 @@
             <!-- 우편번호 등록하기 -->
             <h1>정확한 품위치</h1>
             <h2>*위치</h2>
-            <input type="text" id="postcode" placeholder="우편번호" name="postNum" readonly value="${poom.postNum}">
+            <input type="text" id="postcode" placeholder="우편번호" name="postNum" readonly>
             <input type="button" id="searchBtn" value="우편번호 찾기">
             <p>
-                <input type="text" readonly id="mainAddress" placeholder="주소" size="50" name="mainAddress" value="${poom.mainAddress }">
+                <input type="text" readonly id="mainAddress" placeholder="주소" size="50" name="mainAddress">
                 <div id="addressMsg" class="msg">주소를 입력해 주세요</div>
             </p>
             <p>
-                <input type="text" id="subAddress" placeholder="상세주소" size="50" name="subAddress" value="${poom.subAddress }">
+                <input type="text" id="subAddress" placeholder="상세주소" size="50" name="subAddress">
             </p>
             <!-- 우편번호 등록하기 end  -->
-            <div id="map" style="width:390px;height:300px;"></div>
+            <div id="map" style="width:500px;height:400px;"></div>
             
 
             <h2>품 유형</h2>
             <select id="poomType" name="type">
-                <option value="C" ${poom.type.equals("C")?"selected":""}>호텔</option>
-                <option value="P" ${poom.type.equals("P")?"selected":""}>집</option>
+                <option value="C">호텔</option>
+                <option value="P">집</option>
             </select>
 
             <h2>교통편</h2>
             <div id="trafficEditWrap">
                 <input type="hidden" id="trafficContents">
                 <div id="trafficEdit" class="edit_inner"></div>
-                <input type="hidden" value="${poom.transport}" id="trafficContent" name="transport">
+                <input type="hidden" value="" id="trafficContent" name="transport">
             </div>
                 <a id="secondPrevBtn" href="#header" class="prev_btn btn" >이전</a>
                 <button type="submit" id="registrationBtn">등록하기</button>
@@ -521,7 +500,7 @@
     
    
     
-   function getLatLng(){
+   function test(){
 	   
 	    const rMainAddress = $address1.val();
     	
@@ -544,11 +523,6 @@
 	         if (status === kakao.maps.services.Status.OK) {
 	
 	            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	            
-	            console.log(result[0].y);
-	            $("#lat").val(result[0].y);
-	            console.log(result[0].x);
-	            $("#lng").val(result[0].x);
 	
 	            // 결과값으로 받은 위치를 마커로 표시합니다
 	            var marker = new kakao.maps.Marker({
@@ -616,7 +590,7 @@
                 //console.log(fullAddr);
                 $address1.val(fullAddr);
                
-                getLatLng();
+                test();
 
 
 
@@ -670,8 +644,6 @@
 		//formData.append(name, value);
 		//formData.append(name, value,filename);
 		//     (파라미터명, 값, 파일이름)
-		
-		
 		data.append("poomImg",file,file.name);
 		console.log("file.name:"+file.name);
 		
@@ -691,7 +663,7 @@
             	//console.log("변경한다");
 				//console.log(data);
 				//console.log(data.fileName);
-				$("#mainPhotoValue").val(data.fileName);
+				
                 $mainPhoto.attr("src","/img/poom/"+data.fileName);
                 $mainPhoto.css("display","inline-block");
                 $mainPhotoWrap.css("display","none");
@@ -760,9 +732,7 @@
 
     //서브 이미지 삭제
     $subPhotoWrap.on("click",".sub_photo",function () {
-    	$(this).parent().prev().remove();
-    	$(this).parent().prev().remove();
-        $(this).parent().remove();
+        $(this).parent(".sub_photo_inner").remove();
     });
 
     //********************************* 사진 불러오기 end ************************************

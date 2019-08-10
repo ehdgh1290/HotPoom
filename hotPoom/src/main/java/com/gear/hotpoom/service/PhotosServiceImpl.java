@@ -1,6 +1,7 @@
 package com.gear.hotpoom.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -19,11 +20,20 @@ import com.gear.hotpoom.vo.Photo;
 
 @Service
 public class PhotosServiceImpl implements PhotosService{
-	
 	@Autowired
 	private PhotosDAO photosDAO;
 	@Autowired
 	private ResizeImageUtil resizeImageUtil;
+	
+	@Override
+	public List<Photo> getSubPhotoList(int poomNo) {
+		return photosDAO.selectSubPhotoList(poomNo);
+	}
+	
+	@Override
+	public Photo getMainPhoto(int poomNo) {
+		return photosDAO.selectMainPhoto(poomNo);
+	}
 	
 	@Override
 	public String upload(HttpServletRequest request, MultipartFile poomImg,
@@ -94,5 +104,9 @@ public class PhotosServiceImpl implements PhotosService{
 	}
 	
 
+	@Override
+	public int register(Photo photo) {
+		return photosDAO.insert(photo);
+	}
 	
 }
