@@ -84,9 +84,10 @@ public class PoomController {
 	}
 	
 	
-	@RequestMapping(value="/poom", method=RequestMethod.GET)
-	public String getPoomList() {
+	@RequestMapping(value="/poom/species/{speciesNo}/address/{mainAddress}/pet/{petCnt}", method=RequestMethod.GET)
+	public String getPoomList(@PathVariable int speciesNo, @PathVariable String mainAddress, @PathVariable int petCnt) {
 		return "hotelList";
 	}
+	
 
 }
