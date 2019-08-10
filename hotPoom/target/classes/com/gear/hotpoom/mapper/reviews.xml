@@ -13,14 +13,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND poom_no = #{no}
 	</select>
 
-	<select id="selectReviewListByPoom" parameterType="int" resultType="Review">
-		SELECT r.no, r.user_no userNo, r.booking_no bookingNo, r.content, r.score, r.regdate, u.profile_img profileImg, u.name userName
+	<select id="selectReviewListByPoom" parameterType="PageVO" resultType="Review">
+		SELECT no, userNo, bookingNo, content, score, regdate, profileImg, userName
+		FROM(SELECT no, userNo, bookingNo, content, score, regdate, profileImg, userName, rownum r
+		FROM(SELECT r.no, r.user_no userNo, r.booking_no bookingNo, r.content, r.score, r.regdate, u.profile_img profileImg, u.name userName
 		FROM reviews r, bookings b, pooms p, users u
 		WHERE p.no = b.poom_no
 		AND r.booking_no = b.no
 		AND r.user_no = u.no
 		AND poom_no = #{no}
-		ORDER BY r.regdate DESC
+		ORDER BY r.regdate DESC))
+		WHERE r BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="selectIsReview" parameterType="String" resultType="int">

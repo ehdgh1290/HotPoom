@@ -28,7 +28,6 @@
 <script src="/js/tui-editor-Editor.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=5f1b7201aaabe63fcaa85e9b67e19a09"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!--우편번호 등록을 위한 다음 api -->
-<script src="/js/bigCard.js"></script>
 <script src="/js/sockjs.min.js"></script>
 <script src="/js/sockjs.min.js.map"></script>
 <script src="/js/stomp.min.js"></script>
