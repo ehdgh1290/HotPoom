@@ -1,12 +1,14 @@
 package com.gear.hotpoom.controller;
 
 
+
 import javax.servlet.http.HttpSession;
 
 import java.sql.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,8 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.gear.hotpoom.service.CertsService;
+import com.gear.hotpoom.service.PetsService;
 import com.gear.hotpoom.service.UsersService;
 import com.gear.hotpoom.vo.User;
+import com.gear.hotpoom.vo.Pet;
+
+
+
 
 @Controller
 public class UserController {
@@ -25,6 +32,8 @@ public class UserController {
 	private UsersService usersService;
 	@Autowired
 	private CertsService certsService;
+	@Autowired
+	private PetsService petsService;
 	
 	//로그인
 	@RequestMapping(value="/session",method=RequestMethod.POST)
@@ -100,4 +109,36 @@ public class UserController {
 		return "redirect:/index";
 	}//sign() end
 
+
+
+	@RequestMapping(value="/userPage/{userNo}",method=RequestMethod.GET)
+	public String userPage(@PathVariable int userNo, Model model) {
+			
+		model.addAllAttributes(userService.getUserInfo(userNo));
+		
+		return "userPage";
+	} //유저페이지 기본 정보 불러오기 .영훈
+	
+	@RequestMapping(value="/pet",method=RequestMethod.POST)
+	public String addPet(Pet pet,@RequestHeader String referer) {
+			
+		petsService.insertPet(pet);
+		
+		int userNo = pet.getUserNo(); 
+		
+		return "redirect:/userPage/"+userNo;
+	} //유저페이지 펫추가하기 .영훈
+	
+
+
 }
+
+
+	
+	
+	
+
+
+
+
+

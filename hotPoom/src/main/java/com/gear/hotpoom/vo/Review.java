@@ -1,6 +1,7 @@
 package com.gear.hotpoom.vo;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Review {
 	private int no, userNo, score;
@@ -8,6 +9,30 @@ public class Review {
 	private Timestamp regdate;
 	private double avgStar;
 	
+	private String title, name; //마이페이지 영훈 추가
+	
+	
+	public String getFormatDate() {
+		String formattedDate = new SimpleDateFormat("yyyy.MM").format(regdate);
+		return formattedDate;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Review() {
 		// TODO Auto-generated constructor stub
 	}

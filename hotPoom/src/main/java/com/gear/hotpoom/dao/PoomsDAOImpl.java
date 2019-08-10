@@ -9,6 +9,9 @@ import com.gear.hotpoom.vo.PageVO;
 
 import com.gear.hotpoom.vo.Poom;
 
+import com.gear.hotpoom.vo.PageVO;
+import com.gear.hotpoom.vo.Poom;
+
 @Repository
 public class PoomsDAOImpl implements PoomsDAO{
 	
@@ -31,6 +34,12 @@ public class PoomsDAOImpl implements PoomsDAO{
 		// TODO Auto-generated method stub
 		return session.selectOne("pooms.selectPoomListTotal", pageVO);
 	}
+
+	@Override
+	public List<Poom> selectList(PageVO pageVO) {
+		return session.selectList("pooms.selectMyPoomList",pageVO);
+	}// 유저페이지 품리스트 불러오기 .영훈
+
 	
 	//hot poom
 	@Override

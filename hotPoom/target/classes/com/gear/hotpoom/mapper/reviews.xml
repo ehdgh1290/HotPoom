@@ -3,6 +3,18 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviews">
+	<select id="selectPoomList" parameterType="int" resultType="Review">
+		SELECT no,  title, name, bookingNo,  content, score, regdate, userNo
+		FROM(SELECT no,  title, name, bookingNo,  content, score, regdate, userNo, rownum r
+		FROM(SELECT r.no no, p.title title,u.name name,r.booking_no bookingNo, r.content content,r.score score,r.regdate regdate, b.user_no userNo
+		FROM reviews r, bookings b, pooms p, users u
+		WHERE p.user_no = #{userNo}
+		AND r.booking_no = b.no
+		AND p.no = b.poom_no
+		AND u.no = r.user_no
+		ORDER BY r.regdate desc))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select>  <!-- 유저페이지에서 품리뷰 불러오기 .영훈 -->
 
 	<select id="selectTotalByPoom" parameterType="int" resultType="int">
 		SELECT count(*)
@@ -28,10 +40,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM reviews
 		WHERE booking_no = #{no}
 	</select>
-	
+
 	<insert id="insert" parameterType="Review">
 		INSERT INTO reviews(no, user_no, booking_no, content, score, regdate)
 		VALUES(reviews_seq.nextval, #{userNo}, #{bookingNo}, #{content}, #{score}, systimestamp)
 	</insert>
+
+	
+	<select id="selectMyList" parameterType="int" resultType="Review">
+		SELECT no, title, name, bookingNo, content, score, regdate
+		FROM(SELECT no, title, name, bookingNo, content, score, regdate, rownum r
+		FROM(SELECT r.no no, p.title title,u.name name,r.booking_no bookingNo, r.content content,r.score score,r.regdate regdate
+		FROM reviews r, bookings b, pooms p, users u
+		WHERE r.user_no = #{userNo}
+		AND r.booking_no = b.no
+		AND p.no = b.poom_no
+		AND u.no = r.user_no
+		ORDER BY r.regdate desc))
+		WHERE r BETWEEN #{start} AND #{end}
+	</select>  <!-- 유저페이지에서 내리뷰 불러오기 .영훈 -->
 
 </mapper>

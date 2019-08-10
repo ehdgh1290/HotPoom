@@ -10,6 +10,36 @@ public class Poom {
 	private List<Photo> poomPhotos;
 	private Timestamp regdate;
 	
+	private double score; //영훈 유저페이지 추가
+	private String img;	 //영훈 유저페이지 추가
+	private int count; //영훈 유저페이지 추가
+	
+	
+	
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
 	public Poom() {
 		// TODO Auto-generated constructor stub
 	}

@@ -11,9 +11,11 @@ import com.gear.hotpoom.vo.Review;
 
 @Repository
 public class ReviewsDAOImpl implements ReviewsDAO{
+	
 	@Autowired
 	private SqlSession session;
 	
+
 	@Override //품에서 리뷰 갯수 불러옴
 	public int selectTotalByPoom(int poomNo) {
 		return session.selectOne("reviews.selectTotalByPoom", poomNo);
@@ -34,5 +36,16 @@ public class ReviewsDAOImpl implements ReviewsDAO{
 	public int insert(Review review) {
 		return session.insert("reviews.insert", review);
 	}
+
+	@Override
+	public List<Review> myPoomReviewtList(PageVO pageVO) {
+		return session.selectList("reviews.selectPoomList",pageVO);
+	} //유저페이지 품리뷰 불러오기 .영훈
 	
+	@Override
+	public List<Review> myReviewList(PageVO pageVO) {
+		return session.selectList("reviews.selectMyList",pageVO);
+	} //유저페이지 내리뷰 불러오기 .영훈
+	
+
 }

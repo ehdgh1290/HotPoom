@@ -1,3 +1,4 @@
+
 package com.gear.hotpoom.vo;
 
 public class PageVO {
@@ -104,3 +105,4 @@ public class PageVO {
 	}
 
 }
+

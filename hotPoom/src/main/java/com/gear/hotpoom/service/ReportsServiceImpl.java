@@ -11,6 +11,7 @@ public class ReportsServiceImpl implements ReportsService{
 	@Autowired
 	private ReportsDAO reportsDAO;
 	
+
 	
 	@Override
 	public int isReport(int reviewNo) {
@@ -21,5 +22,6 @@ public class ReportsServiceImpl implements ReportsService{
 	public int register(Report report) {
 		return reportsDAO.insert(report);
 	}
+
 	
 }

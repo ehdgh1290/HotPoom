@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pooms">
 
+
 	<select id="selectPoomDetail" parameterType="int" resultType="Poom">
 		SELECT p.no no, p.type type, p.title title, p.user_no userNo,u.profile_img hostImg, u.name hostName, p.species_no speciesNo, s.name speciesName, p.price price, p.check_in checkIn, p.check_out checkOut, p.pet_cnt petCnt, p.introduce introduce, p.amenity amenity, p.main_address mainAddress, p.sub_address subAddress, p.post_num postNum, p.transport transport, p.lat lat, p.lng lng, pt.img mainImg, tmp.avgScore, tmp.reviewCnt
 		FROM pooms p, species s, photos pt, users u, (SELECT NVL(TRUNC(avg(r.score),1),0) avgScore, count(*) reviewCnt
@@ -38,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ofType="Poom" select="selectPoomPhotos"></collection>
 	</resultMap>
 
-	<select id="selectPoomList" resultMap="selectPoom" parameterType="PageVO">
+	<select id="selectMyPoomList" resultMap="selectPoom" parameterType="PageVO">
 		SELECT no, type, title, speciesNo, speciesName, price, petCnt, mainAddress, lat, lng, score, count, r
 		<if test="userNo>10">
 			, hasBookmark
@@ -123,6 +124,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 <!-- 수정 -->
+
+	<select id="selectMyPoomList" parameterType="PageVO" resultType="Poom">
+		SELECT no, type, title, score, count, img
+		FROM(SELECT no, type, title, score, count, img, rownum r
+		FROM(SELECT p.no, p.type, p.title, ROUND(NVL(r.score,0),2) score, NVL(r.count,0) count, ph.img
+			FROM pooms p,(SELECT p.no no,AVG(score) score,count(*) count
+			FROM reviews r, bookings b, pooms p
+			WHERE r.booking_no = b.no
+			AND p.no = b.poom_no
+			GROUP BY p.no) r,
+			(SELECT no, img, caption, content_no
+			FROM photos
+			WHERE type = 'M') ph
+			WHERE r.no(+) = p.no
+			AND ph.content_no(+) = p.no
+			AND p.user_no = #{userNo}))
+		WHERE r BETWEEN #{start} AND #{end}
+	
+	
+	</select>  <!-- 유저페이지에서 품리스트 불러오기 .영훈 -->
+
 	
 	<select id="selectPoomPhotos" resultType="Photo" parameterType="int">
 		SELECT type, content_no contentNo, img

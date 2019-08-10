@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.gear.hotpoom.vo.Photo;
 
+import com.gear.hotpoom.vo.PageVO;
+import com.gear.hotpoom.vo.Photo;
+
 @Repository
 public class PhotosDAOImpl implements PhotosDAO{
 	@Autowired
 	private SqlSession session;
 	
 	@Override
+
 	public int insert(Photo photo) {
 		return session.insert("photos.insert",photo);
 	}
@@ -25,5 +29,21 @@ public class PhotosDAOImpl implements PhotosDAO{
 	public List<Photo> selectPoomPhotos(int poomNo) {
 		return session.selectList("photos.selectPoomPhotos", poomNo);
 	}
+
+	public List<Photo> selectList(PageVO pageVO) {
+		return session.selectList("photos.getPetPhotoList",pageVO);
+	} //유저페이지 펫사진 불러오기 .영훈
 	
+	@Override
+	public int insetPhoto(Photo photo) {
+		System.out.println(photo.getImg());
+		return session.insert("photos.insertPhoto",photo);
+	} //유저페이지 펫사진 추가 .영훈
+
+	
+	@Override
+	public int deletePhoto(int no) {
+		System.out.println(no);
+		return session.delete("photos.deletePhoto",no);
+	} //유저페이지 펫사진 삭제 .영훈
 }

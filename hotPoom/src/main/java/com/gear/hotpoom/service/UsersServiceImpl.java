@@ -1,5 +1,6 @@
 package com.gear.hotpoom.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-
+import com.gear.hotpoom.dao.PetsDAO;
 import com.gear.hotpoom.dao.BankAccountsDAO;
 import com.gear.hotpoom.dao.BanksDAO;
 import com.gear.hotpoom.dao.CertsDAO;
@@ -27,6 +28,8 @@ import com.gear.hotpoom.dao.ChatRoomsDAO;
 import com.gear.hotpoom.dao.ChatUsersDAO;
 import com.gear.hotpoom.vo.Cert;
 import com.gear.hotpoom.vo.ChatRoom;
+import com.gear.hotpoom.vo.Photo;
+
 import com.gear.hotpoom.vo.User;
 
 @Service
@@ -35,6 +38,7 @@ public class UsersServiceImpl implements UsersService{
 	@Autowired
 	private UsersDAO usersDAO;
 	@Autowired
+
 	private CertsDAO certsDAO;
 	
 	@Autowired
@@ -43,9 +47,8 @@ public class UsersServiceImpl implements UsersService{
 	private BankAccountsDAO bankAccountsDAO;
 	@Autowired
 	private ChatRoomsDAO chatRoomsDAO;
-	@Autowired
-	private ChatUsersDAO chatUsersDAO;
-	
+
+	private PetsDAO petsDAO;	
 
 	
 	
@@ -152,21 +155,7 @@ public class UsersServiceImpl implements UsersService{
 		certsDAO.delete(no);
 		return 1;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public Map<String, Object> getAccountDetail(int userNo) {
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
@@ -225,4 +214,34 @@ public class UsersServiceImpl implements UsersService{
 		
 		return 1;
 	}
+
+	
+	
+	@Override
+	public Map<String, Object> getUserInfo(int userNo) {
+		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
+		
+		map.put("userInfo", usersDAO.selectOne(userNo));
+		map.put("userPetInfo", petsDAO.selectProfileList(userNo));
+		
+		
+		return map;
+	}// 유저페이지에서 정보 불러오기 .영훈
+	
+	@Override
+	public int updateIntroduce(User user) {
+		return usersDAO.updateIntroduce(user);
+	} //유저페이지 유저소개 수정 .영훈
+	
+	@Override
+	public int updateProfile(User user) {
+		return usersDAO.updateProfile(user);
+	} //유저페이지 프로필 사진 수정 .영훈
+	
+	@Override
+	public int deleteProfile(int userNo) {
+		return usersDAO.deleteProfile(userNo);
+	} //유저페이지 프로필 사진 삭제 .영훈
+	
+
 }
