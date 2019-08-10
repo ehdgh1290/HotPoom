@@ -6,15 +6,52 @@ import java.util.List;
 public class Poom {
 	private int no, userNo, speciesNo, price, petCnt, reviewCnt, count;
 	private double lat, lng, avgScore, score;
-	private String type, title,img, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg, petName, hasBookmark;
+	private String type, title,img, checkIn, checkOut, introduce, amenity, mainAddress, subAddress, postNum, phoneNum, transport, speciesName, mainImg, hostName, hostImg, petName, hasBookmark, reviewScore;
 	private List<Photo> poomPhotos;
 	private Timestamp regdate;
-	
+	// *********************************************** 0805 주하
+	private List<Photo> photoList;
+		
 	public Poom() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	
+	
+	
+	
+	public String getReviewScore() {
+		return reviewScore;
+	}
+
+
+
+
+
+	public void setReviewScore(String reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
+
+
+
+
+	public List<Photo> getPhotoList() {
+		return photoList;
+	}
+
+
+
+
+
+	public void setPhotoList(List<Photo> photoList) {
+		this.photoList = photoList;
+	}
+
+
+
+
+
 	public String getHasBookmark() {
 		if(hasBookmark!=null) {
 			switch(hasBookmark) {

@@ -19,4 +19,5 @@ public interface PoomsDAO {
 	
 	public int update(Poom poom);
 
+	public List<Poom> getPoomCardDetail(int no);
 }

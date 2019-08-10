@@ -14,5 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE user_no = #{userNo}
 		AND poom_no = #{poomNo}
 	</delete>
+	
+	<select id="poomNoListByBookmark" parameterType="int" resultType="Bookmark">
+	SELECT poom_no poomNo
+	FROM bookmarks
+	WHERE user_no = #{userNo}
+</select>
 
 </mapper>

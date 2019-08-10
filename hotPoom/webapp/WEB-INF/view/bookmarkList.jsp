@@ -1,15 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>HOTPOOM</title>
-    <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="css/bookmarkBigCard.css">
+    <title>비교하기</title>
+
+    <link rel="stylesheet" href="/css/bookmarkBigCard.css">
+    <link rel="stylesheet" href="/css/bookmarkList.css">
+    <c:import url="/WEB-INF/template/link.jsp"/>    
+    
+    <style>
+    
+    #bookmarkResetBtn {
+    	background: rgb(179, 179, 179);
+    }
+    
+    #bookmarkListSection{
+    	position: relative;
+    	min-height: 1000px;
+    	overflow-y: scroll;
+    }
+    
+    #bookmarkListWrap{
+    	margin: 30px 0 30px 0;
+    }
+    
+    .label{
+    	position: absolute;
+    	height: 60px;
+    }
+    
+    #bookmarkCompareWrap{
+    	left: 310px;
+    }
+    
+    #mapCompareWrap{
+    	width: 760px;
+    	left: 321px;
+    }
+    
+    .poom_inner{
+    	margin-bottom: 30px;
+    }
+    </style>
 </head>
 <body>
+<c:if test="${loginUser==null}">
+<c:redirect url="/index"/>
+</c:if>
 <c:import url="/WEB-INF/template/header.jsp"/>
     <div id="titleSection">
         <h1>북마크 목록</h1>
@@ -18,214 +59,97 @@
         <div id="bookmarkCompareBtnWrap">
             <button id="bookmarkResetBtn" class="btn bookmark_btn">초기화</button>
             <button id="bookmarkCompareBtn" class="btn bookmark_btn" disabled>비교하기 0/3</button>
-
-        </div><!-- bookmarkCompareBtnWrap end -->
-        <hr>
+    </div><!-- bookmarkCompareBtnWrap end -->
+    
+    	<hr>
+    	
         <div id="bookmarkListWrap">
-            <div class="poom_inner" data-lat="37.809817" data-lng="127.5228133" data-price="27,000">
-                <div class="big_card_content">
-                    <div class="photo_content">
-                        <ul class="photo_box">
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_1.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_2.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_3.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_4.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_5.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                        </ul><!--//photo_box-->
-                    </div><!--//photo_content-->
-                    <div class="photo_cover">
-                        <i class="photo_card_btn prev_photo fas fa-chevron-left" data-length="5"></i>
-                        <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
-                    </div>
-                    <div class="poom_content">
-                        <a class="poom_name" href=""><i class="fas fa-home"></i> 가족처럼 돌봐주는 집</a>
-                        <a class="poom_address" href="">경기도 부천시 원미구 계남로 60</a>
-                        <a class="poom_animal" href="">강아지 3마리 </a>
-                        <p class="poom_star"><i class="fas fa-star"></i> 4.8 (16)</p>
-                        <p class="poom_price">￦ 27,000 / 박</p>
-                        <div class="poom_bookmark"></div>
-                    </div>
-                </div><!--//card_content-->
-                <input type="checkbox" name="bookmark" class="bookmark_checkbox"/>
-            </div><!--//poom_inner end-->
-            <div class="poom_inner" data-lat="37.7636987" data-lng="128.8824904" data-price="37,000">
-                <div class="big_card_content">
-                    <div class="photo_content">
-                        <ul class="photo_box">
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_2.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_1.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
 
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_3.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_4.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_5.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                        </ul><!--//photo_box-->
-                    </div><!--//photo_content-->
-                    <div class="photo_cover">
-                        <i class="photo_card_btn prev_photo fas fa-chevron-left" data-length="5"></i>
-                        <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
-                    </div>
-                    <div class="poom_content">
-                        <a class="poom_name" href=""><i class="fas fa-home"></i> 가족처럼 돌봐주는 집</a>
-                        <a class="poom_address" href="">경기도 부천시 원미구 계남로 60</a>
-                        <a class="poom_animal" href="">강아지 3마리 </a>
-                        <p class="poom_star"><i class="fas fa-star"></i> 4.8 (16)</p>
-                        <p class="poom_price">￦ 37,000 / 박</p>
-                        <div class="poom_bookmark"></div>
-                    </div>
-                </div><!--//card_content-->
-                <input type="checkbox" name="bookmark" class="bookmark_checkbox"/>
-
-            </div><!--//poom_inner end-->
-            <div class="poom_inner" data-lat="37.432124" data-lng="127.1268753" data-price="47,000">
-                <div class="big_card_content">
-                    <div class="photo_content">
-                        <ul class="photo_box">
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_3.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_1.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_2.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_4.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_5.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                        </ul><!--//photo_box-->
-                    </div><!--//photo_content-->
-                    <div class="photo_cover">
-                        <i class="photo_card_btn prev_photo fas fa-chevron-left" data-length="5"></i>
-                        <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
-                    </div>
-                    <div class="poom_content">
-                        <a class="poom_name" href=""><i class="fas fa-home"></i> 족처럼 돌봐주는 집</a>
-                        <a class="poom_address" href="">경기도 부천시 원미구 계남로 60</a>
-                        <a class="poom_animal" href="">강아지 3마리 </a>
-                        <p class="poom_star"><i class="fas fa-star"></i> 4.8 (16)</p>
-                        <p class="poom_price">￦ 47,000 / 박</p>
-                        <div class="poom_bookmark"></div>
-                    </div>
-                </div><!--//card_content-->
-                <input type="checkbox" name="bookmark" class="bookmark_checkbox"/>
-
-            </div><!--//poom_inner end-->
-            <div class="poom_inner" data-lat="37.5658049" data-lng="126.9729574" data-price="57,000">
-                <div class="big_card_content">
-                    <div class="photo_content">
-                        <ul class="photo_box">
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_4.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_1.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_2.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_3.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_5.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                        </ul><!--//photo_box-->
-                    </div><!--//photo_content-->
-                    <div class="photo_cover">
-                        <i class="photo_card_btn prev_photo fas fa-chevron-left" data-length="5"></i>
-                        <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
-                    </div>
-                    <div class="poom_content">
-                        <a class="poom_name" href=""><i class="fas fa-home"></i> 가족처럼 돌봐주는 집</a>
-                        <a class="poom_address" href="">경기도 부천시 원미구 계남로 60</a>
-                        <a class="poom_animal" href="">강아지 3마리 </a>
-                        <p class="poom_star"><i class="fas fa-star"></i> 4.8 (16)</p>
-                        <p class="poom_price">￦ 57,000 / 박</p>
-                        <div class="poom_bookmark"></div>
-                    </div>
-                </div><!--//card_content-->
-                <input type="checkbox" name="bookmark" class="bookmark_checkbox"/>
-
-            </div><!--//poom_inner end-->
-            <div class="poom_inner" data-lat="37.5193763" data-lng="126.9743402" data-price="67,000">
-                <div class="big_card_content">
-                    <div class="photo_content">
-                        <ul class="photo_box">
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_5.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_1.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_2.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_3.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-                            <li class="poom_photo">
-                                <img src="img/poom/poom_4.jpg" width="248px" height="248px"/>
-                            </li><!--//poom_photo-->
-
-                        </ul><!--//photo_box-->
-                    </div><!--//photo_content-->
-                    <div class="photo_cover">
-                        <i class="photo_card_btn prev_photo fas fa-chevron-left" data-length="5"></i>
-                        <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
-                    </div>
-                    <div class="poom_content">
-                        <a class="poom_name" href=""><i class="fas fa-home"></i> 가족처럼 돌봐주는 집</a>
-                        <a class="poom_address" href="">경기도 부천시 원미구 계남로 60</a>
-                        <a class="poom_animal" href="">강아지 3마리 </a>
-                        <p class="poom_star"><i class="fas fa-star"></i> 4.8 (16)</p>
-                        <p class="poom_price">￦ 67,000 / 박</p>
-                        <div class="poom_bookmark"></div>
-                    </div>
-                </div><!--//card_content-->
-                <input type="checkbox" name="bookmark" class="bookmark_checkbox"/>
-
-            </div><!--//poom_inner end-->
+           
+ 
         </div><!-- bookmarkListWrap end -->
+        
         <div id="bookmarkCompareWrap"></div>
         <div id="mapCompareWrap"></div>
     </div><!-- bookmarkListSection end -->
-<c:import url="/WEB-INF/template/link.jsp"/>
+    
+    
+
+    
+
+<c:import url="/WEB-INF/template/footer.jsp"/>
+
+    
+<script type="text/temlpate" id="bookmarkListTmp">
+<@_.each(pooms,function(poom){	
+console.log(poom);
+
+@>
+
+           <div class="poom_inner" data-lat="<@=poom.lat@>" data-lng="<@=poom.lng@>" data-price="<@=Number(poom.price).toLocaleString('en').split(".")[0]@>">
+                <div class="big_card_content">
+                    <div class="photo_content">
+                        <ul class="photo_box">
+							<@_.each(poom.photoList,function(photoList){	
+								let photoName = photoList.img; @>
+                            <li class="poom_photo">
+                                <img src="/img/poom/<@=photoName@>" width="248px" height="248px"/>
+                            </li>
+
+							<@})@>
+                        </ul>
+                    </div>
+                    <div class="photo_cover">
+                        <i class="photo_card_btn prev_photo fas fa-chevron-left"></i>
+                        <i class="photo_card_btn next_photo fas fa-chevron-right"></i>
+                    </div>
+                    <div class="poom_content">
+<@ if(poom.type == 'p') {@>
+                        <a class="poom_name" href=""><i class="fas fa-home"></i> <@} else {@>
+						<a class="poom_name" href=""><i class="fas fa-hotel"></i> <@}@>
+<@ if(poom.title.length > 16) {@>
+<@= poom.title = poom.title.substring(0,15)+"..."@><@} else{ @> 
+<@=poom.title@></a>
+<@} @>
+                        <a class="poom_address" href=""><@=poom.mainAddress@></a>
+                        <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
+                        <p class="poom_star"><i class="fas fa-star"></i> <@=poom.reviewScore@> (<@=poom.reviewCnt@>)</p>
+                        <p class="poom_price">￦ <@=Number(poom.price).toLocaleString('en').split(".")[0]@> / 박</p>
+                        <div class="poom_bookmark"></div>
+                    </div>
+                </div>
+
+                <input type="checkbox" name="bookmark" class="bookmark_checkbox"/>
+	 </div>
+<@})@>
+</script>    
+
+<script src="/js/jquery.js"></script>
+<script src="/js/underscore-min.js"></script>
 <script>
+
+	let userNo = ${loginUser.no};
+
+	_.templateSettings = {
+		interpolate : /\<\@\=(.+?)\@\>/gim,
+		evaluate : /\<\@([\s\S]+?)\@\>/gim,
+		escape : /\<\@\-(.+?)\@\>/gim
+	};
+
+	const bookmarkListTmp = _.template($("#bookmarkListTmp").html());
+	
     let checkedCnt=0;
     let dWidth = window.innerWidth;
     //console.log("ddd"+dWidth);
-    let whiteSpace = (dWidth-1100)/2;//도큐멘트 전체크기에서 content크기를 빼서/2를 해줌
+    
+    //도큐멘트 전체크기에서 content크기를 빼서/2를 해줌
+    let whiteSpace = (dWidth-1100)/2;
     const lefts = [330+whiteSpace,585+whiteSpace,841+whiteSpace];
 
     getCheckedEvent();
-
+    
     function getCheckedEvent(){
-        $(".bookmark_checkbox").change(function () {//checkbox가 변했을 때
+        $("#bookmarkListWrap").on("change",".bookmark_checkbox",function () {//checkbox가 변했을 때
             // alert("test");
             checkedCnt=$("input:checkbox[name=bookmark]:checked").length;//checked된 애의 개수를 가져옴
             //alert(checkedCnt);
@@ -249,11 +173,11 @@
     var bounds = new kakao.maps.LatLngBounds();
 
     let price = [];
-    $("#bookmarkCompareBtn").click(function () {//비교하기 버튼 눌렀을 때
+    $("#bookmarkCompareBtnWrap").on("click","#bookmarkCompareBtn", function () {//비교하기 버튼 눌렀을 때
         $("#bookmarkCompareWrap").show();
         $("#bookmarkResetBtn").show().addClass("compare_btn");
         $("#mapCompareWrap").show();
-        $(".bookmark_checkbox").hide();
+        $(".bookmark_checkbox").show();
         let $checked = $("input:checked");//체크된 애들을 가져옴
         const $compareBoxes = $checked.parent();//체크된 애들의 부모요소 선택
 
@@ -297,7 +221,7 @@
         //-----------지-------------------도------------------------------
 
         // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "img/marker.png";
+        var imageSrc = "/img/marker.png";
 
 
         $compareBoxes.each(function (idx) {
@@ -383,12 +307,13 @@
     });//bookmarkCompareBtn clikc end
 
 
-
+	// 여기
     $("body").on("click", "#bookmarkResetBtn", function  () {
         let sTop = $(window).scrollTop();
         positions = [];
         //alert("dd");
         console.log(sTop);
+        getCheckedEvent();
         $("#bookmarkCompareBtn").text("비교하기 0/3").css("background-color", "#b3b3b3").prop("disabled", true).removeClass("compare_btn");//버튼에 체크된 개수 표시
         $(".hide").removeClass("hide").each(function () {
 
@@ -448,39 +373,214 @@
 
 
 
+    
+    
+    
+    function getMyBookmarkList(){
+    	$.ajax({
+    		url:"/ajax/compare/"+userNo,
+    		type:"GET",
+    		datatype:"json",
+    		error:function(){
+    			alert("서버 점검중!");
+    		},
+    		success:function(json){
+    		
+    			$("#bookmarkListWrap").html(bookmarkListTmp({"pooms":json.pooms}));
+    		}
+    	});//$.ajax() end
+    }// getMyBookmarkList() end 
+    
+    getMyBookmarkList();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    let photoX = 0;
+    let $photoBox = $(".photo_box");
+    // 사진 갯수에 따른 photo_box의 left 한계값
+    let poomPhotoLeft = 0;
+
+    console.log(photoX);
+
+    // 이전사진 버튼
+    $("body").on("click", ".prev_photo", function () {
+      	
+   		 var liSize = $(this).parent().prev().children().children().length;
+        let changeSize = liSize * 246;
+       
+        console.log(liSize);
+        
+        //console.log();
+        // photo_box의 left 한계값
+        poomPhotoLeft = 246 * liSize - 246;
+        // photo_box의 width 설정
+        $(".photo_box").css("width", changeSize);
+
+        if (liSize <= 1) {
+            $(".btn_photo_card").hide();
+        }
+
+        let $currPhotoBox = $(this).parent().prev().children();
+
+        console.log($currPhotoBox);
+
+        if (!$currPhotoBox.hasClass("move")) {
+            $currPhotoBox.addClass("move");
+            console.log("시작");
 
 
+            photoX = $currPhotoBox.css("left");
+            console.log("left: " + photoX);
 
+            photoX = photoX.substring(0, photoX.length - 2);
+            console.log("left: " + photoX);
 
+            poomPhotoLeft = (liSize-1) * 246;
+            
+            
+            console.log("poom_photo_left: " + poomPhotoLeft);
 
+            if (photoX == 0) {
+                console.log("if");
+                photoX = -1 * poomPhotoLeft;
+                $currPhotoBox.css("left", photoX);
+            } else if (photoX <= -246) {
+                console.log("if else");
+                photoX = parseInt(photoX);
+                photoX += 246;
+                $currPhotoBox.css("left", photoX);
+                console.log(photoX);
+            } else {
+                console.log("else");
+            }//if()~else if()~else end
 
+        }//if() end
+    });//prev_photo click() end
 
+    
+    
+    
+    // 다음사진 버튼
+    $("body").on("click", ".next_photo", function () {
+    	
+    	 var liSize = $(this).parent().prev().children().children().length;
+         let changeSize = liSize * 246;
+        
+         console.log(liSize);
+         
+         //console.log();
+         // photo_box의 left 한계값
+         poomPhotoLeft = 246 * liSize - 246;
+         // photo_box의 width 설정
+         $(".photo_box").css("width", changeSize);
 
+         if (liSize <= 1) {
+             $(".btn_photo_card").hide();
+         }
+    	
+        let $currPhotoBox = $(this).parent().prev().children();
+        
+    	// setPhotoBoxWidth();
+    	
+        if (!$currPhotoBox.hasClass("move")) {
+            $currPhotoBox.addClass("move");
+            console.log("시작");
 
+            photoX = $currPhotoBox.css("left");
+            console.log("left: " + photoX);
 
+            photoX = photoX.substring(0, photoX.length - 2);
+            console.log("left: " + photoX);
 
+            poomPhotoLeft = (liSize-1) * 246;
+            console.log("poom_photo_left: " + poomPhotoLeft);
 
+            if (photoX == -1 * poomPhotoLeft) {
+                console.log("if");
+                photoX = 0;
+                $currPhotoBox.css("left", photoX);
+            } else if (photoX >= -1 * poomPhotoLeft - 246) {
+                console.log("if else");
+                photoX -= 246;
+                $currPhotoBox.css("left", photoX);
+                console.log(photoX);
+            }//if()~else() ens
 
+        }//if() end
+    });//next_photo click() end
 
-
-    //--------header--------------------------------
-    $("#headerProfileImage").click(function (e) {
-
-        $("#lnb").slideToggle(200);
-        e.stopPropagation();
+    // move클래스 때주기
+    $("body").on("transitionend", ".photo_box",function (e) {
+        $(this).removeClass("move");
     });
 
-    $("#headerLogin").click(function () {
-        $("#gnbWrap").show();
-        $(this).hide();
-    });
 
-    $("body").click(function () {
-        // alert("zz");
-        $("#lnb").hide();
-    })
-    //----------------header end-----------------------
 
+
+//     let bookmark = false;
+
+//     //북마크
+//     $("body").on("click", ".poom_bookmark",function () {
+//         let $this = $(this);
+//         $.ajax({
+//             url: "json/bookmark.json",
+//             data: {userNo: 1, bookmark: bookmark},
+//             type: "GET",
+//             dataType: "json",
+//             error: function () {
+//                 arlet("점검중");
+//             },
+//             success: function (json) {
+//                 console.log(json.bookmark);
+//                 if (!json.bookmark) {
+//                     console.log("false222");
+//                     $this.css("background-image", "url(img/bookmark_on.png)");
+
+//                     bookmark = true;
+//                 } else {
+//                     console.log("true222");
+
+//                     $this.css("background-image", "url(img/bookmark.png)");
+//                     bookmark = false;
+//                 }//if()~else() end
+//             }//success() end
+//         });//ajax() end
+
+//     });//poom_bookmark click end
+    
+//     $("#creditCardSelectInner").on("click",".remove_card",function(){
+    	
+//     	let cardNo = this.dataset.cardno;
+    	
+//     	$.ajax({
+//     		url:"/ajax/removeCard/"+cardNo,
+//     		type:"DELETE",
+//     		datatype:"json",
+//     		error:function(){
+//     			alert("에런데영");
+//     		},
+//     		success:function(){
+//     			getMyCardList();
+//     		}
+//     	})
+    	
+//     }); // 카드 제거 end
 </script>
 </body>
 </html>

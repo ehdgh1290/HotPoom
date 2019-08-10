@@ -189,4 +189,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	WHERE rownum BETWEEN 1 AND 8
 </select>
 
+
+<select id="selectBigCardDetail" resultType="Poom" parameterType="int">
+	SELECT *
+	FROM (SELECT po.no, po.type, title, price, pet_cnt petCnt, main_address mainAddress, lat, lng, s.name, rev.reviewScore, rev.reviewCnt  
+	FROM pooms po, species s,
+	(SELECT poo.no, NVL(AVG(r.score),0) reviewScore, COUNT(r.no) reviewCnt
+						FROM reviews r, pooms poo, bookings b
+						WHERE r.booking_no(+) = b.no
+						AND poo.no = b.poom_no(+)
+	                    GROUP BY poo.no) rev
+	WHERE s.no = po.species_no
+	AND po.no = rev.no) p, bookmarks b
+	WHERE p.no = b.poom_no(+)
+	AND b.user_no = #{userNo}
+</select>
+
+
 </mapper>
