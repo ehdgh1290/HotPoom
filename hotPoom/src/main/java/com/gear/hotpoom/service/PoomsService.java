@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
+import com.gear.hotpoom.vo.User;
 
 public interface PoomsService {
 	
@@ -13,7 +14,7 @@ public interface PoomsService {
 	
 	public int modify(Poom poom);
 
-	public Map<String, Object> getDetail(int no);
+	public Map<String, Object> getDetail(int no, User loginUser);
 	//hot poom
 	public List<Poom> getListHP();
 	//new poom

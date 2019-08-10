@@ -87,14 +87,24 @@ public class AjaxController {
 		return reportsService.isReport(reviewNo);
 	}
 	
-	//북마크
+	//북마크 하기 or 해제하기
 	@RequestMapping(value="/bookmark",method=RequestMethod.POST)
 	public boolean bookmark(Bookmark bookmark) {
 		return bookmarksService.register(bookmark);
 	}
 	
-
-
+	//카드 등록하기
+	@RequestMapping(value="/card", method=RequestMethod.POST)
+	public int addCard(Credit credit) {
+		return creditsService.registerBasicCard(credit);
+	}
+	
+	//내 카드 가져오기
+	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
+	public List<Credit> getMyCardList(int userNo) {
+		
+		return creditsService.getMyCardDefault(userNo);
+	}
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)
@@ -179,13 +189,6 @@ public class AjaxController {
 	}
 	
 	
-	
-
-	
-	
-	
-	
-	
 	// 주하꺼임
 	@RequestMapping(value="/removeCard/{cardNo}", method=RequestMethod.DELETE)
 	public int removeCard(@PathVariable int cardNo) {
@@ -261,8 +264,6 @@ public class AjaxController {
 		
 		return messagesService.getMessageList(message);
 	}
-	
-	
 	
 	
 	@RequestMapping(value="/compare/{userNo}", method=RequestMethod.GET)

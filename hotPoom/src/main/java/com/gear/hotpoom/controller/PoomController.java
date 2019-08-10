@@ -1,5 +1,7 @@
 package com.gear.hotpoom.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import com.gear.hotpoom.service.CertsService;
 import com.gear.hotpoom.service.PoomsService;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
+import com.gear.hotpoom.vo.User;
 
 @Controller
 public class PoomController {
@@ -43,9 +46,9 @@ public class PoomController {
 
 	//동호, poomDetail 기본 정보 가져오기(리뷰제외)
 	@RequestMapping(value="/poom/{no}",method=RequestMethod.GET)
-	public String poomDetail(@PathVariable int no, Model model) {
+	public String poomDetail(@PathVariable int no, Model model, HttpSession session) {
 		
-		model.addAllAttributes(service.getDetail(no));
+		model.addAllAttributes(service.getDetail(no, (User)session.getAttribute("loginUser")));
 		
 		return "poomDetail";
 	}

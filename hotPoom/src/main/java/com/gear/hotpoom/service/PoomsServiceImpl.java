@@ -17,6 +17,7 @@ import com.gear.hotpoom.dao.UsersDAO;
 import com.gear.hotpoom.vo.Pet;
 import com.gear.hotpoom.vo.Photo;
 import com.gear.hotpoom.vo.Poom;
+import com.gear.hotpoom.vo.User;
 import com.gear.hotpoom.dao.PoomsDAO;
 import com.gear.hotpoom.vo.Poom;
 import com.gear.hotpoom.util.PaginateUtil;
@@ -37,16 +38,14 @@ public class PoomsServiceImpl implements PoomsService{
 	private BanksDAO banksDAO;
 	@Autowired
 	private PaginateUtil paginateUtil;
-
 	@Autowired
 	private BookmarksDAO bookmarksDAO;
-
 	@Autowired
 	private UsersDAO usersDAO;
 	
 
 	@Override //동호, poomDetail 정보 가져오기
-	public Map<String, Object> getDetail(int no) {
+	public Map<String, Object> getDetail(int no, User loginUser) {
 		
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
 		
@@ -58,7 +57,12 @@ public class PoomsServiceImpl implements PoomsService{
 		map.put("photoList", photos);
 		map.put("petList", pets);
 		map.put("cardList", banksDAO.selectCardList());
-		
+		if(loginUser!=null) {
+			Bookmark bookmark = new Bookmark();
+			bookmark.setPoomNo(poom.getNo());
+			bookmark.setUserNo(loginUser.getNo());
+			map.put("bookmark", 1==bookmarksDAO.selectPoomBookmark(bookmark));
+		}
 		return map;
 	}
 	

@@ -131,7 +131,7 @@
         <div id="poomDetailWrap">
             <h2>${poom.title}</h2>
             <c:if test="${loginUser!=null }">
-	            <div id="DetailBookmark" class="poom_bookmark"></div>
+	            <div id="DetailBookmark" class='poom_bookmark ${bookmark?"on":""}'></div>
             </c:if>
             <div id="poomAddress">${poom.mainAddress }</div>
             <c:if test="${loginUser.no==poom.userNo}">
@@ -342,7 +342,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
     $DetailBookmark.on("click", getBookmark);//$DetailBookmark end
     
     
-    //북마크가 되어있는지 확인
+    //북마크 하기
     function getBookmark() {
     	$.ajax({
     		url:"/ajax/bookmark",
