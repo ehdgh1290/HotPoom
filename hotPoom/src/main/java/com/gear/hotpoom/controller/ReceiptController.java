@@ -1,3 +1,4 @@
+
 package com.gear.hotpoom.controller;
 
 import org.springframework.stereotype.Controller;
@@ -16,3 +17,5 @@ public class ReceiptController {
 	}
 	
 }
+
+

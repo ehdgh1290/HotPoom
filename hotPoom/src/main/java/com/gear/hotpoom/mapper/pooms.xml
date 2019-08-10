@@ -81,6 +81,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					<if test="lowPrice>0 or highPrice>0">
 						AND price BETWEEN #{lowPrice} AND #{highPrice}
 					</if>
+					<if test="mainAddress!=null">
+						AND main_address LIKE #{mainAddress}
+					</if>
 					<if test="sort==0">
 						ORDER BY score DESC
 					</if>
@@ -90,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					<if test="sort==2">
 						ORDER BY price 
 					</if>
+					
 					))
 		WHERE r between #{start} AND #{end}
 	</select>

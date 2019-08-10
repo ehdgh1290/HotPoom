@@ -115,10 +115,10 @@ public class PoomsServiceImpl implements PoomsService{
 
 	
 	@Override
-	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo) {
+	public Map<String, Object> getPoomList(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo, String mainAddress) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new ConcurrentHashMap<String, Object>();
-		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo);
+		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo, mainAddress);
 		map.put("poomList", poomsDAO.selectPoomList(pageVO));
 		int total = poomsDAO.selectPoomListTotal(pageVO);
 		map.put("paginate", paginateUtil.getPaginate(page, total, 5, 5, "/poom"));

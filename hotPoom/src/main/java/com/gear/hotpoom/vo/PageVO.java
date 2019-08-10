@@ -4,6 +4,7 @@ package com.gear.hotpoom.vo;
 public class PageVO {
 	
 	private int start, end, speciesNo, petCnt, lowPrice, highPrice, sort, no, userNo;
+	private String mainAddress;
 	
 	public PageVO() {
 		// TODO Auto-generated constructor stub
@@ -15,7 +16,7 @@ public class PageVO {
 		this.end = page * numPage;
 		this.start = end-numPage+1;
 	}
-	public PageVO(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo) {
+	public PageVO(int page, int numPage, int speciesNo, int petCnt, int lowPrice, int highPrice, int sort, int userNo, String mainAddress) {
 		//page : 페이지번호
 		//numPage : 한페이지당 보여지는 게시물수
 		this.end = page * numPage;
@@ -36,6 +37,9 @@ public class PageVO {
 			this.userNo=userNo;
 		}
 		this.sort=sort;
+		if(mainAddress!=null) {
+			this.mainAddress=mainAddress;
+		}
 	}
 	
 	public PageVO(int page, int numPage, int no) {
@@ -44,6 +48,14 @@ public class PageVO {
 		this.no = no;
 	}
 	
+	public String getMainAddress() {
+		return mainAddress;
+	}
+
+	public void setMainAddress(String mainAddress) {
+		this.mainAddress = mainAddress;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}
