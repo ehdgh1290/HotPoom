@@ -33,9 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectList" parameterType="PageVO" resultType="Booking">
-		SELECT no, userNo, poomNo, startDay, endDay,  petCnt,  userState,  hostState,  mainAddress,  subAddress,  price,  speciesName,  poomType, img,poomTitle, r as "rowNum" 
-		FROM (SELECT no, userNo, poomNo, startDay, endDay,  petCnt,  userState,  hostState,  mainAddress,  subAddress,  price,  speciesName,  poomType, img,poomTitle, rownum r
-		FROM (SELECT b.no no, b.user_no userNo, b.poom_no poomNo, b.start_day startDay, b.end_day endDay, b.pet_cnt petCnt, b.user_state userState, b.host_state hostState, p.main_address mainAddress, p.sub_address subAddress, p.price price, s.name speciesName, p.type poomType, pt.img img, p.title poomTitle
+		SELECT no, userNo, poomNo, startDay, endDay,  petCnt,  userState,  hostState,  mainAddress,  subAddress,  price,  speciesName,  poomType, img, poomTitle, hostNo, r as "rowNum" 
+		FROM (SELECT no, userNo, poomNo, startDay, endDay,  petCnt,  userState,  hostState,  mainAddress,  subAddress,  price,  speciesName,  poomType, img,poomTitle,hostNo, rownum r
+		FROM (SELECT b.no no, b.user_no userNo, b.poom_no poomNo, b.start_day startDay, b.end_day endDay, b.pet_cnt petCnt, b.user_state userState, b.host_state hostState, p.main_address mainAddress, p.sub_address subAddress, p.price price, s.name speciesName, p.type poomType, pt.img img, p.title poomTitle, p.user_no hostNo
 		FROM bookings b, pooms p, species s, photos pt
 		WHERE b.poom_no = p.no
 		AND p.species_no = s.no

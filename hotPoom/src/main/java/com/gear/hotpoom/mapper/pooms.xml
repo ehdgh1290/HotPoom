@@ -185,9 +185,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="lowPrice>0 or highPrice>0">
 				AND price BETWEEN #{lowPrice} AND #{highPrice}
 			</if>
-			<if test="mainAddress!=null">
-						AND main_address LIKE #{mainAddress}
-					</if>
 			<if test="sort==0">
 				ORDER BY score DESC
 			</if>
@@ -231,7 +228,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectBigCardDetail" resultType="Poom" parameterType="int">
 		SELECT *
-		FROM (SELECT po.no, po.type, title, price, pet_cnt petCnt, main_address mainAddress, lat, lng, s.name, rev.reviewScore, rev.reviewCnt  
+		FROM (SELECT po.no, po.type, title, price, pet_cnt petCnt, main_address mainAddress, lat, lng, s.name speciesName, rev.reviewScore, rev.reviewCnt  
 		FROM pooms po, species s,
 		(SELECT poo.no, NVL(AVG(r.score),0) reviewScore, COUNT(r.no) reviewCnt
 							FROM reviews r, pooms poo, bookings b

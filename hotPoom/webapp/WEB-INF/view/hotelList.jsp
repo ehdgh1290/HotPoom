@@ -111,7 +111,7 @@
         <i class="photo_card_btn prev_photo fas fa-chevron-left" data-length="5"></i>
         <i class="photo_card_btn next_photo fas fa-chevron-right" data-length="5"></i>
     </div><!--//photo_cover-->
-    <div class="poom_content">
+    <div class="poom_content" data-no="<@=poom.no@>">
         <a class="poom_name" href=""><@if(poom.type=='C'){@><i class="fas fa-hotel"></i><@}else{@><i class="fas fa-home"></i><@}@> <@=poom.title@></a>
         <a class="poom_address" href=""><@=poom.mainAddress@></a>
         <a class="poom_animal" href=""><@=poom.speciesName@> <@=poom.petCnt@>마리 </a>
@@ -213,6 +213,11 @@
     //$map.css("width",window.innerWidth-720);
 
 
+    
+    //카드 누르면 링크 이동
+    $("body").on("click", ".poom_content",function(){
+    	location.href = "/poom/"+this.dataset.no;
+    });//.poom_content click end
 
     //날짜선택 버튼을 눌렀을 때 팝업 보여줌
     $datePickerBtn.on("click",function () {

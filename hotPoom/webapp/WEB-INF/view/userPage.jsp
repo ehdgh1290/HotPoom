@@ -27,7 +27,9 @@
             <div id="petImgBox"><img id="petImg" /></div>
 
             <label id="petAddPopupLabel">
+            	<c:if test="${loginUser.no==userInfo.no}">
                 <i class="fas fa-camera img_icon"></i>
+                </c:if>
                 <input id="petInput" class="pet_and_user_file" type="file" />
                 <input type="hidden" id="petProfile" name="profileImg">
                 <input type="hidden" id="userNo" name="userNo" value="${userNo}"> 
@@ -151,10 +153,17 @@
             </ul> <!--// small_card_ul end -->
 
             <div id="petImgAddBtn">
-                <label>
-                    <i class="fas fa-camera img_icon"></i>
-                    <input id="addPetPhoto" class="pet_and_user_file" type="file" />
+               
+                	
+               	<c:if test="${loginUser.no==userInfo.no}">
+               	<label>
+                <i class="fas fa-camera img_icon"></i>
+                <input id="addPetPhoto" class="pet_and_user_file" type="file" />
                 </label>
+                </c:if>
+                	
+                    
+              
             </div> <!--// petImgAddBtn end -->
 
             <ul id="petImgAddUl" >
@@ -242,10 +251,10 @@ console.log(poom);
 @>
  				<li>
                     <div class="small_card">
-                        <a href="">
+                        <a href="/poom/<@=poom.no@>">
                             <ul>
                                 <li class="small_card_li">
-                                    <img class="small_card_img" src="/img/<@=poom.img@>" alt="숙소 카드입니다."/></li>
+                                    <img class="small_card_img" src="/img/poom/<@=poom.img@>" alt="숙소 카드입니다."/></li>
                                 <div class="small_card_hotel small_card_padding"><i class="fas fa-hotel"></i> <@=poom.title@></div>
                                 <div class="small_card_pet small_card_padding small_star"><i class="fas fa-star"></i> <@=poom.score@> (<@=poom.count@>)</div>
                                 </li>
@@ -340,17 +349,6 @@ console.log(poom);
     
  
 
-    
-    $("#headerProfileImage").click(function (e) {
-
-        $("#lnb").slideToggle(200);
-        e.stopPropagation();
-    });
-
-    $("#headerLogin").click(function () {
-        $("#gnbWrap").show();
-        $(this).hide();
-    });
 
     // *************************************** userMenuTab 이동
 

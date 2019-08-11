@@ -21,7 +21,7 @@
             <button id="passwordFindBtn" type="submit" class="btn">전 송</button>
         </form>
     </div><!--//passwordFindForm-->
-    <div id="bg">
+    <div id="passwordFindBg" class="bg">
         <div id="passwordFindPopup">
             <p><span></span>으로 <br>비밀번호 재설정 링크를 보냈습니다.<br>링크를 클릭하여 비밀번호를 재설정하세요.</p>
             <a id="emailLinkBtn" href="">비밀번호 재설정하러 가기</a>
@@ -35,7 +35,7 @@
     let $passwordFindBtn = $("#passwordFindBtn");
     let $emailInput = $("#emailInput");
     let $passwordFindPopupSpan = $("#passwordFindPopup span");
-    let $bg = $("#bg");
+    let $passwordFindBg = $("#passwordFindBg");
     let $passwordCheckMsg = $("#passwordCheckMsg");
     let $emailLinkBtn = $("#emailLinkBtn");
     
@@ -66,7 +66,7 @@
                 success:function (data) {
                 	 console.log(data);                	
                 	 if(data >= 1) {
-                		 $bg.css("display","block");
+                		 $passwordFindBg.css("display","block");
                      	 $passwordCheckMsg.css("display", "none");
                      	 $emailLinkBtn.attr("href","https://www." + site);
                      	 flag = false;

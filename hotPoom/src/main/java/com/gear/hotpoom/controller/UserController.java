@@ -119,10 +119,10 @@ public class UserController {
 	
 	
 	// 계정 관리
-	@RequestMapping(value="/account/{userNo}", method=RequestMethod.GET)
-	public String account(Model model, @PathVariable int userNo) {
-		
-		model.addAllAttributes(usersService.getAccountDetail(userNo));
+	@RequestMapping(value="/account", method=RequestMethod.GET)
+	public String account(Model model, HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		model.addAllAttributes(usersService.getAccountDetail(loginUser.getNo()));
 		
 		return "account";
 	}//account() end
@@ -138,7 +138,7 @@ public class UserController {
 
 
 
-	@RequestMapping(value="/userPage/{userNo}",method=RequestMethod.GET)
+	@RequestMapping(value="/user/{userNo}",method=RequestMethod.GET)
 	public String userPage(@PathVariable int userNo, Model model) {
 			
 		model.addAllAttributes(usersService.getUserInfo(userNo));

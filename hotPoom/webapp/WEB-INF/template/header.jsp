@@ -18,7 +18,7 @@
 				<ul id="lnb">
 					<li><a href="/userPage/${loginUser.no}">마이페이지</a></li>
 					<li><a href="/account">개인정보 및 결제</a></li>
-					<li><a href="/business">비지니스 전환</a></li>
+					<li><a href="/hosting">비지니스 전환</a></li>
 					<li><button id="logout" class="btn" form="logoutForm" type="submit">로그아웃</button></li>
 				</ul>
 				<form id="logoutForm" action="/session" method="post">
@@ -41,24 +41,9 @@
 		<div class="msg">아이디와 비밀번호가 맞지 않습니다.</div>
 		<button form="loginForm" type="submit" id="loginBtn" class="btn cursor_pointer">로그인</button>
 		<span id="passwordInfo">비밀번호가 기억나지 않으세요?</span>
-		<a href="/password" id="findPasswordBtn" class="cursor_pointer">비밀번호찾기</a>
+		<a href="/user/password/find" id="findPasswordBtn" class="cursor_pointer">비밀번호찾기</a>
 		<span id="joinInfo">핫품 계정이 없으세요?</span>
-		<a href="/signUp" id="joinBtn" class="cursor_pointer">회원가입</a>
+		<a href="/join" id="joinBtn" class="cursor_pointer">회원가입</a>
 		<form id="loginForm" action="/session" method="post"></form>
 	</div><!-- //loginPopup -->
 </div><!-- //bg -->
-<!-- <div id="bg">
-    <div id="loginPopup">
-        <span id="loginTitle">Login</span>
-        <i class="far fa-times-circle cursor_pointer"></i>
-        <span class="loginPopup_text">이메일</span>
-        <input id="idInput" class="loginPopup_input">
-        <span class="loginPopup_text">비밀번호</span>
-        <input id="passwordInput" class="loginPopup_input" type="password">
-        <button id="loginBtn" class="btn cursor_pointer">로그인</button>
-        <span id="passwordInfo">비밀번호가 기억나지 않으세요?</span>
-        <a id="findPasswordBtn" class="cursor_pointer">비밀번호찾기</a>
-        <span id="joinInfo">핫품 계정이 없으세요?</span>
-        <a id="joinBtn" class="cursor_pointer">회원가입</a>
-    </div>//loginPopup
-</div>//bg -->

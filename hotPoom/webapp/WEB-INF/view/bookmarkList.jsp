@@ -104,7 +104,7 @@ console.log(poom);
                         <i class="photo_card_btn next_photo fas fa-chevron-right"></i>
                     </div>
                     <div class="poom_content">
-<@ if(poom.type == 'p') {@>
+<@ if(poom.type == 'P') {@>
                         <a class="poom_name" href="/poom/<@=poom.no@>"><i class="fas fa-home"></i> <@} else {@>
 						<a class="poom_name" href="/poom/<@=poom.no@>"><i class="fas fa-hotel"></i> <@}@>
 <@ if(poom.title.length > 16) {@>

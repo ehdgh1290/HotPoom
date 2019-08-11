@@ -101,11 +101,11 @@ public class UsersServiceImpl implements UsersService{
 			// 네이버일 경우 smtp.naver.com 을 입력합니다. 
 			// Google일 경우 smtp.gmail.com 을 입력합니다. 
 			String host = "smtp.naver.com"; 
-			final String username = "jbpspoon"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요. 
-			final String userpassword = "woalzlehd!"; //네이버 이메일 비밀번호를 입력해주세요. 
+			final String username = "jbphotpoom"; //네이버 아이디를 입력해주세요. @naver.com은 입력하지 마시구요. 
+			final String userpassword = "ehdrmflehdehd!"; //네이버 이메일 비밀번호를 입력해주세요. 
 			
 			int port=465; //포트번호 // 메일 내용 
-			String recipient = "clsrnctnwjd@naver.com"; //받는 사람의 메일주소를 입력해주세요. 
+			String recipient = "ehdgh1290@naver.com"; //받는 사람의 메일주소를 입력해주세요. 
 			//String recipient = id; //받는 사람의 메일주소를 입력해주세요. 
 			String subject = "HotPoom"; //메일 제목 입력해주세요. 
 			String body = "<h2>HotPoom 비밀번호 변경</h2>"
@@ -128,7 +128,7 @@ public class UsersServiceImpl implements UsersService{
 			session.setDebug(true); //for debug 
 			Message mimeMessage = new MimeMessage(session); //MimeMessage 생성 
 			try {
-				mimeMessage.setFrom(new InternetAddress("jbpspoon@naver.com"));
+				mimeMessage.setFrom(new InternetAddress("jbphotpoom@naver.com"));
 				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음 
 				mimeMessage.setSubject(subject); //제목셋팅 
 				//mimeMessage.setText(body); //내용셋팅
