@@ -97,7 +97,7 @@
             <h2>품소개 및 주의 사항</h2>
             <div id="poomEditWrap">
             <input type="hidden" id="poomContents">
-            <div id="poomEdit" class="edit_inner"></div>
+            <div id="poomEdit" class="edit_inner">${poom.introduce }</div>
             <input id="poomContent" type="hidden" name="introduce" value="${poom.introduce }"><!-- 품소개 주의사항 에디터 사용 -->
             </div>
             <button id="firstNextBtn" type="button" class="next_btn btn" >다음</button>
@@ -146,7 +146,7 @@
             <div id="facilityEditWrap">
             
                 <input type="hidden" id="facilityContents">
-                <div id="facilityEdit" class="edit_inner"></div>
+                <div id="facilityEdit" class="edit_inner">${poom.amenity}</div>
                 <input type="hidden" value="${poom.amenity}" id="facilityContent" name="amenity">
                 
             </div>
@@ -182,7 +182,7 @@
             <h2>교통편</h2>
             <div id="trafficEditWrap">
                 <input type="hidden" id="trafficContents">
-                <div id="trafficEdit" class="edit_inner"></div>
+                <div id="trafficEdit" class="edit_inner">${poom.transport}</div>
                 <input type="hidden" value="${poom.transport}" id="trafficContent" name="transport">
             </div>
                 <a id="secondPrevBtn" href="#header" class="prev_btn btn" >이전</a>
@@ -883,7 +883,8 @@
             $("#addressMsg").css("display","block");
             return false;
         }else{
-            //const poomContents = $("#poomEdit").html();
+            const poomContents = $("#poomEdit").html();
+            console.log($("#poomEdit").html());
             //const facilityContents = $("#facilityEdit").html();
             //const trafficContents = $("#trafficEdit").html();
             

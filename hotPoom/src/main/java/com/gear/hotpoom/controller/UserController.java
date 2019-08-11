@@ -138,7 +138,7 @@ public class UserController {
 
 
 
-	@RequestMapping(value="/userPage/{userNo}",method=RequestMethod.GET)
+	@RequestMapping(value="/user/{userNo}",method=RequestMethod.GET)
 	public String userPage(@PathVariable int userNo, Model model) {
 			
 		model.addAllAttributes(usersService.getUserInfo(userNo));

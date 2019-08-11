@@ -812,7 +812,7 @@ let cardListTmp = _.template($("#cardListTmp").html());
     		startDate = $("#startpicker-input").val();
     		count = $("#count").val();
     		
-    		$("#dateContent").text(moment().format("MM.DD ~ ")+moment(endDate).format("MM.DD, YYYY"));
+    		$("#dateContent").text(moment(startDate).format("MM.DD ~ ")+moment(endDate).format("MM.DD, YYYY"));
     		$("#petContent").text(speciesName+" "+count+"마리");
     		$("#payContent").text(amount.toLocaleString()+" 원");
     		$("#requestTextarea").val("");

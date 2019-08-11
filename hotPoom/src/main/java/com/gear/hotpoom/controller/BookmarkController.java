@@ -20,6 +20,7 @@ public class BookmarkController {
 	@RequestMapping(value="/bookmark", method=RequestMethod.GET)
 	public String bookmarkList(Model model, HttpSession session) {
 		User loginUser = (User)session.getAttribute("loginUser");
+		System.out.println(loginUser.getNo());
 		model.addAllAttributes(poomsService.getCompareCardDetail(loginUser.getNo()));
 		
 		return "bookmarkList";

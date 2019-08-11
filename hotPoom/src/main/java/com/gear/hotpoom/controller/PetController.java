@@ -22,7 +22,7 @@ public class PetController {
 		
 		int userNo = pet.getUserNo(); 
 		
-		return "redirect:/userPage/"+userNo;
+		return "redirect:/user/"+userNo;
 	} //유저페이지 펫추가하기 .영훈
 	
 	
@@ -34,7 +34,7 @@ public class PetController {
 		
 		int userNo = pet.getUserNo(); 
 		
-		return "redirect:/userPage/"+userNo;
+		return "redirect:/user/"+userNo;
 	} //유저페이지 펫추가하기 .영훈
 	
 
