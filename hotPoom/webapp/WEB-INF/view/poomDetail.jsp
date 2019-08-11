@@ -295,8 +295,8 @@ let cardListTmp = _.template($("#cardListTmp").html());
 	
 
     <c:if test="${loginUser!=null}">
-	    getMyCardList();
 		userNo = ${loginUser.no};
+	    getMyCardList();
     </c:if>
 	
     //신고중복 메세지 팝업 종료

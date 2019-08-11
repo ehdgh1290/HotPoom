@@ -10,17 +10,17 @@
 		<div id="gnbWrap">
 			<div id="gnb">
 				<a id="headerBookmark" href="/business">홈</a>
-				<a id="headerReservation" href="/business/reservation">예약</a> 
-				<a id="headerCalendar" href="/business/calendar">달력</a>
-				<a id="headerPoom" href="/business/poom">품</a>
-				<a id="headerResult" href="/business/result">실적</a>
-				<a id="headerMessage" href="/message">메세지</a>
+				<a id="headerReservation" href="/reservation">예약</a> 
+				<a id="headerCalendar" href="/calender">달력</a>
+				<a id="headerPoom" href="/buisness/poom">품</a>
+				<a id="headerResult" href="/chart">실적</a>
+				<a id="headerMessage" href="/business/message">메세지</a>
 			</div><!-- //gnb -->
 			<div>
-				<a id="poomRegister" href="/poom/register">숙소 등록하기</a>
+				<a id="poomRegister" href="/poom/write">숙소 등록하기</a>
 				<img id="headerProfileImage" src="/profile/user/${loginUser.profileImg }" />
 				<ul id="lnb">
-					<li><a href="/user/${loginUser.no }">마이페이지</a></li>
+					<li><a href="/userPage/${loginUser.no}">마이페이지</a></li>
 					<li><a href="/account">개인정보 및 결제</a></li>
 					<li><a href="/business/receipt">대금수령 내역</a></li>
 					<li><a href="/">일반회원 전환</a></li>

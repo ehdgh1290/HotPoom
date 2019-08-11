@@ -67,7 +67,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>애견들의 asdfasdfasdfasdfasdfasdfasdf천국 개토피아</td>
+                    <td>애견들의 천국 개토피아</td>
                     <td>2019년 7월 12일</td>
                     <td>7월 15-18, 2019<br>3박</td>
                     <td>고하선<br>강아지 1마리</td>

@@ -1,6 +1,7 @@
 package com.gear.hotpoom.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BusinessController {
 	
 	
-	@RequestMapping(value="/hosting",method=RequestMethod.GET)
+	@RequestMapping(value="/business",method=RequestMethod.GET)
 	public String hosting() {
 		
 		return "hosting";
@@ -36,6 +37,18 @@ public class BusinessController {
 	public String reservation() {
 		
 		return "reservations";
+	}
+	
+	
+	@RequestMapping(value="/buisness/receipt",method=RequestMethod.GET)
+	public String receipt() {
+		return "receipt";
+	}
+	
+	@RequestMapping(value="/business/message", method=RequestMethod.GET)
+	public String buisnessMessage(Model model) {
+		model.addAttribute("business", true);
+		return "message";
 	}
 
 	

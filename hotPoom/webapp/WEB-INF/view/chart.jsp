@@ -7,10 +7,21 @@
     <meta charset="UTF-8">
     <title>평균 숙박률</title>
     <!-- include application-chart.min.css -->
+
     <link rel="stylesheet" href="/css/chart.min.css" />
     <link rel="stylesheet" href="/css/buisnessDefault.css"/>
-    <link />
     <style>
+    	body{
+    		margin: 0;
+    	}
+    	.tui-chart-chartExportMenu-button{
+    		display: none;
+    	}
+    	#lnb {
+    		margin:0;
+    		padding:0;
+			list-style: none;
+    	}
         #content{
             margin: auto;
             width: 1100px;
@@ -394,23 +405,7 @@
     let chart = tui.chart.lineChart(container, data, options);
 
 
-    /********************************header*****************************************/
-    $headerProfileImage = $("#headerProfileImage");
-    $lnb = $("#lnb");
-    $body = $("body");
-
-
-    $headerProfileImage.click(function (e) {
-
-        $lnb.slideToggle(200);
-        e.stopPropagation();
-    });//$headerProfileImage click end
-
-
-    $body.click(function () {
-        // alert("zz");
-        $lnb.hide();
-    });//$body click end
+   
 
 
 </script>

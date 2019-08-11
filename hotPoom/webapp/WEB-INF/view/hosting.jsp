@@ -196,7 +196,7 @@
         padding-top: 10px;
         }
 
-        li{
+        #result li{
             position: relative;
             margin-bottom: 10px;
             width:350px;
@@ -266,7 +266,7 @@
         <h1>호스팅 성과</h1>
 
         <div id="boxbox">
-            <ul>
+            <ul id="result">
                 <li> <span class="c1">7월 수입</span><span class="c2">&#8361;0</span> </li>
                 <li> <span class="c1">지난 30일간 조회수</span><span class="c2">61</span></li>
                 <li> <span class="c1">지난 30일간 예약</span><span class="c2">2</span></li>

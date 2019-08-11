@@ -6,15 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>HOTPOOM</title>
-<c:import url="/WEB-INF/template/link.jsp" />
-<link rel="stylesheet" href="css/message.css">
+	<c:choose>
+		<c:when test="${business==null}">
+			<c:import url="/WEB-INF/template/link.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<c:import url="/WEB-INF/template/buisnessLink.jsp"/>
+		</c:otherwise>
+	</c:choose>
+<link rel="stylesheet" href="/css/message.css">
 </head>
 <body>
 <c:if test="${loginUser==null }">
 	<c:redirect url="/"/>
 </c:if>
-
-	<c:import url="/WEB-INF/template/header.jsp" />
+	<c:choose>
+		<c:when test="${business==null}">
+			<c:import url="/WEB-INF/template/header.jsp"/>
+		</c:when>
+		<c:otherwise>
+			<c:import url="/WEB-INF/template/businessHeader.jsp"/>
+		</c:otherwise>
+	</c:choose>
 	<div id="messageSection">
 		<p id="pageTitle">메시지</p>
 		<div id="messageListWrap">
