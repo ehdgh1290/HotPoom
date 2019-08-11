@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
     <c:import url="/WEB-INF/template/link.jsp"/>
-    <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="/css/booking.css">
 </head>
 <body>
 <c:if test="${loginUser==null }">
