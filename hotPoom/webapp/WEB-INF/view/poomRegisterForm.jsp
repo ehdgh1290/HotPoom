@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b7d83ee5600b79643a36a7d3c1eae42&libraries=services"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6db99cd7e5f31e243798911919c063c0&libraries=services"></script>
     <c:import url="/WEB-INF/template/buisnessLink.jsp"/>
     <link rel="stylesheet" href="/css/hotelForm.css">
     <style>

@@ -80,7 +80,7 @@
             </tbody>
     </table>
     </div><!--//reservationTableWrap-->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=be5825a36e55f8d6d9fa39f1d0faa319"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6db99cd7e5f31e243798911919c063c0"></script>
 <c:import url="/WEB-INF/template/businessFooter.jsp"/>
 
 <script>
