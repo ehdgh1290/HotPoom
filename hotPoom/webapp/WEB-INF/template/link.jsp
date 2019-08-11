@@ -16,14 +16,14 @@
 <script src="/js/jquery.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/moment-with-locales.js"></script>
+<script src="/js/tui-code-snippet.js"></script>
+<script src="/js/markdown-it.js"></script>
+<script src="/js/to-mark.js"></script>
 <script src="/js/codemirror.js"></script>
 <script src="/js/highlight.pack.js"></script>
 <script src="/js/squire-raw.js"></script>
-<script src="/js/markdown-it.js"></script>
-<script src="/js/to-mark.js"></script>
-<script src="/js/tui-code-snippet.js"></script>
-<script src="/js/tui-date-picker.js"></script>
 <script src="/js/tui-editor-Editor.js"></script>
+<script src="/js/tui-date-picker.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=5f1b7201aaabe63fcaa85e9b67e19a09"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!--우편번호 등록을 위한 다음 api -->
 <script src="/js/sockjs.min.js"></script>

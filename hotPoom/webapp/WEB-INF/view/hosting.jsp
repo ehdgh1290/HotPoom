@@ -196,7 +196,7 @@
         padding-top: 10px;
         }
 
-        #result li{
+        li{
             position: relative;
             margin-bottom: 10px;
             width:350px;
@@ -248,15 +248,15 @@
             <span class="s6" >게스트</span><span class="s7">숙박 기간</span><span class="s8">숙소</span><span class="s9">펫</span><span class="s10">수입</span>
         </div>
         <div class="box box3">
-            <span class="s1">영훈</span><span class="s2">8.25 ~ 8.26</span><span class="s3">개터파크</span><span class="s4">강아지(+3)</span><span class="s5">10,000원</span>
+            <span class="s1">쌀이맘</span><span class="s2">8.25 ~ 8.26</span><span class="s3">개터파크</span><span class="s4">강아지(+3)</span><span class="s5">111,000원</span>
             <div class="message">메세지</div>
         </div>
         <div class="box box3">
-            <span class="s1">영훈</span><span class="s2">8.25 ~ 8.26</span><span class="s3">개터파크</span><span class="s4">강아지(+3)</span><span class="s5">10,000원</span>
+            <span class="s1">김자현</span><span class="s2">9.1 ~ 9.7</span><span class="s3">개터파크</span><span class="s4">강아지(+2)</span><span class="s5">444,000원</span>
             <div class="message">메세지</div>
         </div>
         <div class="box box3">
-            <span class="s1">영훈</span><span class="s2">8.25 ~ 8.26</span><span class="s3">개터파크</span><span class="s4">강아지(+3)</span><span class="s5">10,000원</span>
+            <span class="s1">최수정</span><span class="s2">9.25 ~ 9.28</span><span class="s3">개터파크</span><span class="s4">강아지(+1)</span><span class="s5">111,000원</span>
             <div class="message">메세지</div>
         </div>
     </div>
@@ -266,12 +266,12 @@
         <h1>호스팅 성과</h1>
 
         <div id="boxbox">
-            <ul id="result">
-                <li> <span class="c1">7월 수입</span><span class="c2">&#8361;0</span> </li>
-                <li> <span class="c1">지난 30일간 조회수</span><span class="c2">61</span></li>
-                <li> <span class="c1">지난 30일간 예약</span><span class="c2">2</span></li>
-                <li> <span class="c1">전체평점</span><span class="c2">후기없음</span></li>
-                <li> <span class="c1">전체 후기 수</span><span class="c2">0</span></li>
+            <ul>
+                <li> <span class="c1">7월 수입</span><span class="c2">&#8361;72,150,000</span> </li>
+                <li> <span class="c1">지난 30일간 조회수</span><span class="c2">279</span></li>
+                <li> <span class="c1">지난 30일간 예약</span><span class="c2">54건</span></li>
+                <li> <span class="c1">전체평점</span><span class="c2">4.7</span></li>
+                <li> <span class="c1">전체 후기 수</span><span class="c2">764</span></li>
 
 
             </ul>

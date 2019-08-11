@@ -28,7 +28,7 @@ public class PoomController {
 	
 	
 	//품 등록 페이지로 이동
-	@RequestMapping(value="/poom/write",method=RequestMethod.GET)
+	@RequestMapping(value="/poom/register",method=RequestMethod.GET)
 	public String poomRegisterForm() {
 		
 		return "poomRegisterForm";

@@ -104,12 +104,19 @@ public class AjaxController {
 		return creditsService.registerBasicCard(credit);
 	}
 	
-	//내 카드 가져오기
+	//내 기본 카드 가져오기
 	@RequestMapping(value="/myCardList", method=RequestMethod.GET)
 	public List<Credit> getMyCardList(int userNo) {
 		
 		return creditsService.getMyCardDefault(userNo);
 	}
+	
+	//내 카드 가져오기
+		@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
+		public List<Credit> myCardList(@PathVariable int userNo) {
+			
+			return creditsService.getMyCardList(userNo);
+		}
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)

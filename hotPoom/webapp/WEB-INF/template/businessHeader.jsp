@@ -17,7 +17,7 @@
 				<a id="headerMessage" href="/business/message">메세지</a>
 			</div><!-- //gnb -->
 			<div>
-				<a id="poomRegister" href="/poom/write">숙소 등록하기</a>
+				<a id="poomRegister" href="/poom/register">품 등록하기</a>
 				<img id="headerProfileImage" src="/profile/user/${loginUser.profileImg }" />
 				<ul id="lnb">
 					<li><a href="/userPage/${loginUser.no}">마이페이지</a></li>

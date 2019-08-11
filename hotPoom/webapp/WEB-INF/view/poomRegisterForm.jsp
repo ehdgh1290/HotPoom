@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>HOTPOOM</title>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b7d83ee5600b79643a36a7d3c1eae42&libraries=services"></script>
-    <c:import url="/WEB-INF/template/link.jsp"/>
+    <c:import url="/WEB-INF/template/buisnessLink.jsp"/>
     <link rel="stylesheet" href="/css/hotelForm.css">
     <style>
     	#map{
@@ -25,7 +25,7 @@
 <c:if test="${loginUser==null || (poom!=null && loginUser.no != poom.userNo)}">
 	<c:redirect url="/"/>
 </c:if>
-<c:import url="/WEB-INF/template/header.jsp"/>
+<c:import url="/WEB-INF/template/businessHeader.jsp"/>
     <div id="progressBar">
         <span id="firstCircle" class="circle">1</span>
         <span id="firstBar" class="bar"></span>
@@ -213,21 +213,6 @@
 <!--에디터 js end-->
 <script>
 
-    //header
-    $("#headerProfileImage").click(function (e) {
-        $("#lnb").slideToggle(200);
-        e.stopPropagation();
-    });
-    $("#headerLogin").click(function () {
-        $("#gnbWrap").show();
-        $(this).hide();
-    });
-    $("body").click(function () {
-        // alert("zz");
-        $("#lnb").hide();
-    });
-    //header end
-    
     _.templateSettings = {
         interpolate: /\<\@\=(.+?)\@\>/gim,
         evaluate: /\<\@([\s\S]+?)\@\>/gim,
