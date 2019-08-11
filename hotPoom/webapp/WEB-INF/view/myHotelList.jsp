@@ -329,24 +329,7 @@
     });//poom_list_delete click end
 
     
-    /********************************header*****************************************/
-    $headerProfileImage = $("#headerProfileImage");
-    $lnb = $("#lnb");
-    $body = $("body");
-
-
-    $headerProfileImage.click(function (e) {
-
-        $lnb.slideToggle(200);
-        e.stopPropagation();
-    });//$headerProfileImage click end
-
-
-    $body.click(function () {
-        // alert("zz");
-        $lnb.hide();
-    });//$body click end
-
+   
 
 </script>
 </body>
