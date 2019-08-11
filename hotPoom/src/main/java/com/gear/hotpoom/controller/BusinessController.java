@@ -14,7 +14,29 @@ public class BusinessController {
 		return "hosting";
 	}
 	
+	@RequestMapping(value="/calender",method=RequestMethod.GET)
+	public String calenderDetail() {
+		
+		return "calenderDetail";
+	}
 	
+	@RequestMapping(value="/chart",method=RequestMethod.GET)
+	public String chart() {
+		
+		return "chart";
+	}
+	
+	@RequestMapping(value="/buisness/poom",method=RequestMethod.GET)
+	public String poom() {
+		
+		return "myHotelList";
+	}
+	
+	@RequestMapping(value="/reservation",method=RequestMethod.GET)
+	public String reservation() {
+		
+		return "reservations";
+	}
 
 	
 	

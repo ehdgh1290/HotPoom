@@ -3,10 +3,10 @@
 //
 'use strict';
 
-/*eslint quotes:0*/
-module.exports = require('entities/maps/entities.json');
+    /*eslint quotes:0*/
+    module.exports = require('entities/maps/entities.json');
 
-},{"entities/maps/entities.json":52}],2:[function(require,module,exports){
+  },{"entities/maps/entities.json":52}],2:[function(require,module,exports){
 // List of valid html blocks names, accorting to commonmark spec
 // http://jgm.github.io/CommonMark/spec.html#html-blocks
 
@@ -8049,7 +8049,7 @@ module.exports=/[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-
 'use strict';
 
 
-module.exports = require('./lib/');
+module.exports = require('./markdown-it');
 
 },{"./lib/":9}]},{},[67])(67)
 });

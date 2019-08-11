@@ -88,3 +88,5 @@
     </div><!-- //contentWrap -->
     </div><!-- //receiptSection -->
 <c:import url="/WEB-INF/template/businessFooter.jsp"/>
+</body>
+</html>

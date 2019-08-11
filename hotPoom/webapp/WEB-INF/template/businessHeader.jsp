@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${loginUser==null }">
 	<c:redirect url="/"/>
 </c:if>
 <header id="header">
 	<div id="headerSection">
-		<a href="/business"><img id="headerLogo" src="/img/logo.png"></a>
+		<a href="/business"><img id="headerLogo" src="/img/businesslogo.png"></a>
 		<div id="gnbWrap">
 			<div id="gnb">
 				<a id="headerBookmark" href="/business">홈</a>

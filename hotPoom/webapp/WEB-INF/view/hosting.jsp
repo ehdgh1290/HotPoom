@@ -6,8 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-     <c:import url="/WEB-INF/template/link.jsp"/>
-      <link rel="stylesheet" href="/css/default.css">
+     <c:import url="/WEB-INF/template/buisnessLink.jsp"/>
 </head>
     <style>
         #contentAll{
@@ -175,7 +174,7 @@
         }
         
 
-        img{
+        #content img{
             width: 60px;
             height: 60px;
             border-radius: 60px;
@@ -224,7 +223,7 @@
 
 
 <body>
-<c:import url="/WEB-INF/template/header.jsp"/>
+<c:import url="/WEB-INF/template/businessHeader.jsp"/>
 
     <div id="contentAll">
     <div id="content1">
@@ -282,7 +281,7 @@
 
     </div>
     </div>
-<c:import url="/WEB-INF/template/footer.jsp"/>
+<c:import url="/WEB-INF/template/businessFooter.jsp"/>
 <script>
 
 
