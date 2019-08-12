@@ -15,9 +15,9 @@
 <script src="/js/moment-with-locales.js"></script>
 <script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=6db99cd7e5f31e243798911919c063c0"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> <!--우편번호 등록을 위한 다음 api -->
-<script src="/js/tui-code-snippet.js"></script>
 <script src="/js/markdown-it.js"></script>
 <script src="/js/to-mark.js"></script>
+<script src="/js/tui-code-snippet.js"></script>
 <script src="/js/codemirror.js"></script>
 <script src="/js/highlight.pack.js"></script>
 <script src="/js/squire-raw.js"></script>

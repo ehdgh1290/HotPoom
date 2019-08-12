@@ -19,7 +19,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND p.no = #{no}
 	</select>
 
-
 	<select id="selectPoomInfo" parameterType="int" resultType="Poom">
 		SELECT p.no, type, title, user_no userNo, species_no speciesNo, price, 
 				check_in checkIn, check_out checkOut, pet_cnt petCnt, introduce, amenity,
@@ -167,33 +166,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectPoomListTotal" resultType="int" parameterType="PageVO">
-		SELECT count(*)
-			FROM pooms p, species s, (SELECT content_no, img
-			FROM photos
-			WHERE type='M') ph,
-			(SELECT b.poom_no poom_no, AVG(score) score
-			FROM reviews r, bookings b
-			WHERE r.booking_no = b.no
-			GROUP BY b.poom_no) score
-			WHERE p.species_no=s.no AND ph.content_no(+)=p.no AND score.poom_no(+)=p.no
-			<if test="speciesNo>0">
-				AND species_no=#{speciesNo}
-			</if>
-			<if test="petCnt>0">
-				AND pet_cnt=#{petCnt}
-			</if>
-			<if test="lowPrice>0 or highPrice>0">
-				AND price BETWEEN #{lowPrice} AND #{highPrice}
-			</if>
-			<if test="sort==0">
-				ORDER BY score DESC
-			</if>
-			<if test="sort==1">
-				ORDER BY price DESC
-			</if>
-			<if test="sort==2">
-				ORDER BY price 
-			</if>
+		SELECT count(*) 
+		FROM pooms p, species s, 
+		(SELECT b.poom_no poom_no, TRUNC(AVG(score),1) score
+		FROM reviews r, bookings b
+		WHERE r.booking_no = b.no
+		GROUP BY b.poom_no) score,
+		(SELECT count(*) count, b.poom_no poomNo
+		FROM reviews r, bookings b
+		WHERE r.booking_no=b.no
+		GROUP BY b.poom_no) count
+		WHERE p.species_no=s.no AND score.poom_no(+)=p.no AND p.no=count.poomNo(+) 
+		<if test="speciesNo>0">
+			AND species_no=#{speciesNo}
+		</if>
+		<if test="petCnt>0">
+			AND pet_cnt>=#{petCnt}
+		</if>
+		<if test="lowPrice>0 or highPrice>0">
+			AND price BETWEEN #{lowPrice} AND #{highPrice}
+		</if>
+		<if test="mainAddress!=null">
+			AND main_address LIKE #{mainAddress}
+		</if>
+				
 	</select>
 	
 	<!-- //////////////////////////////////////////////자혀니///////////////////////////////////////////////////////  -->

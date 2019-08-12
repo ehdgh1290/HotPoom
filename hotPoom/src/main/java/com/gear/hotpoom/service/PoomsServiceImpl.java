@@ -104,7 +104,12 @@ public class PoomsServiceImpl implements PoomsService{
 		PageVO pageVO = new PageVO(page, numPage, speciesNo, petCnt, lowPrice, highPrice, sort, userNo, mainAddress);
 		map.put("poomList", poomsDAO.selectPoomList(pageVO));
 		int total = poomsDAO.selectPoomListTotal(pageVO);
+		
+		System.out.println("page:"+page);
+		System.out.println("total:"+total);
+		
 		map.put("paginate", paginateUtil.getPaginate(page, total, 5, 5, "/poom"));
+		
 		return map;
 	}
 	

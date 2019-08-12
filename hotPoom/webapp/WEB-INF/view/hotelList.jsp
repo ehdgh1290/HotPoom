@@ -123,6 +123,7 @@
     </div><!--//poom_content-->
 </div><!--//big_card_content-->
 <@})@>
+
 </script><!--//hotelListTmp-->
 <script type="text/template" id="speciesListTmp">
 <@_.each(speciesList, function(species){@>
