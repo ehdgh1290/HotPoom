@@ -206,7 +206,7 @@ _.each(reviews,function(review){
                         <div class="review_card_hotel_name"><@=review.title@></div>
                         <div class="review_card_content"><@=review.content@>
                         </div>
-                        <div class="review_card_img"><img src="/profile/user/defaultProfile.jpg"></div>
+                        <div class="review_card_img"><img src="/profile/user/<@=review.profileImg@>"></div>
                         <div class="review_card_user_name"><@=review.name@></div>
                         <div class="review_card_date"><@=review.formatDate@></div>
                     </li>
@@ -922,7 +922,7 @@ $("#myReview").click(getMyPoomReview);
 			alert("사진 서버 점검중!");
 		},
 		success:function(json) {
-			
+			$("#gnbWrap img").attr("src","/profile/user/"+json.src);
 			$("#profilePhoto").attr("src","/profile/user/"+json.src);
 			$("#userProfileImgSection label").css("display","none");
 			$("#profilePhoto").css("display","block");

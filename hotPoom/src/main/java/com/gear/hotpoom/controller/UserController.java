@@ -133,7 +133,7 @@ public class UserController {
 		
 		bankAccountsService.remove(no);
 		
-		return "redirect:/account/{userNo}";
+		return "redirect:/account";
 	}//deleteAccount() end
 
 

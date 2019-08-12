@@ -62,7 +62,7 @@
 <body>
 
 <c:if test="${loginUser==null}">
-<c:redirect url="/index"/>
+	<c:redirect url="/index"/>
 </c:if>
 
 <c:import url="/WEB-INF/template/header.jsp"/>

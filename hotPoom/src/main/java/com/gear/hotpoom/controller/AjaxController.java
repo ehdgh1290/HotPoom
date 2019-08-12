@@ -99,7 +99,7 @@ public class AjaxController {
 	}
 	
 	//카드 등록하기
-	@RequestMapping(value="/card", method=RequestMethod.POST)
+	@RequestMapping(value="/addCard", method=RequestMethod.POST)
 	public int addCard(Credit credit) {
 		return creditsService.registerBasicCard(credit);
 	}
@@ -112,11 +112,11 @@ public class AjaxController {
 	}
 	
 	//내 카드 가져오기
-		@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
-		public List<Credit> myCardList(@PathVariable int userNo) {
-			
-			return creditsService.getMyCardList(userNo);
-		}
+	@RequestMapping(value="/myCardList/{userNo}", method=RequestMethod.GET)
+	public List<Credit> myCardList(@PathVariable int userNo) {
+		
+		return creditsService.getMyCardList(userNo);
+	}
 	
 	//poomDetail에서 리뷰 가져오기
 	@RequestMapping(value="/review",method=RequestMethod.GET)
@@ -236,7 +236,6 @@ public class AjaxController {
 
 	@RequestMapping(value="/addAccount", method=RequestMethod.POST)
 	public int addAccount(BankAccount bankAccount) {
-		
 		return bankAccountsService.addAccount(bankAccount);
 	}
 	
@@ -326,7 +325,7 @@ public class AjaxController {
 	
 	@RequestMapping(value="/profile/upload", method=RequestMethod.POST,produces = "application/json; charset=utf-8")
 	public String uploadImage(HttpServletRequest request,String type,
-			MultipartFile uploadImg,int userNo) {
+			MultipartFile uploadImg,int userNo,HttpSession session) {
 
 		ServletContext sc = request.getServletContext();
 		
@@ -338,6 +337,9 @@ public class AjaxController {
 		
 		System.out.println(uploadImg.getOriginalFilename());
 		
+		User loginUser = (User)session.getAttribute("loginUser");
+		
+		
 		File file = null;
 		
 		if(type.equals("petProfile")) {
@@ -347,7 +349,9 @@ public class AjaxController {
 		}
 			
 		file = fileRenameUtil.rename(file);
-
+		
+		loginUser.setProfileImg(file.getName());
+		
 		try {
 			
 			uploadImg.transferTo(file);

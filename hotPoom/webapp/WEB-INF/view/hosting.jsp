@@ -82,7 +82,7 @@
         	 box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
         }
 
-		h1{
+		#content h1{
 			margin-top: 30px;
 			margin-bottom: 30px;
 			font-weight: bold;
@@ -192,11 +192,11 @@
 
         }
         
-        ul{
+        #content ul{
         padding-top: 10px;
         }
 
-        li{
+        #content li{
             position: relative;
             margin-bottom: 10px;
             width:350px;
@@ -223,6 +223,9 @@
 
 
 <body>
+<c:if test="${loginUser==null }">
+	<c:redirect url="/"/>
+</c:if>
 <c:import url="/WEB-INF/template/businessHeader.jsp"/>
 
     <div id="contentAll">

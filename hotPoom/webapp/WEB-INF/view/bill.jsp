@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="/css/bill.css">
 </head>
 <body>
+<c:if test="${loginUser.no != bill.userNo }">
+	<c:redirect url="/"/>
+</c:if>
 <c:import url="/WEB-INF/template/header.jsp"/>
     <div id="billSection">
         <h1>예약 상세 내역</h1>
