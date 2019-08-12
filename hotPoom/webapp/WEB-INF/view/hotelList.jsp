@@ -38,9 +38,9 @@
 <c:import url="/WEB-INF/template/header.jsp"/>
     <div id="filterSection">
         <h3 class="screen_out">필터 선택</h3>
-        <button id="datePickerBtn" class="btn test">날짜 선택</button>
+        <button id="datePickerBtn" class="btn test filter">8.12~8.15</button>
 
-        <button id="petTypeBtn" class="btn test">펫 종류</button>
+        <button id="petTypeBtn" class="btn test filter">강아지</button>
         <button id="petNumBtn" class="btn test">마릿수</button>
         <button id="priceRangeBtn" class="btn test">가격</button>
         <button id="sortBtn" class="btn test">정렬순</button>
