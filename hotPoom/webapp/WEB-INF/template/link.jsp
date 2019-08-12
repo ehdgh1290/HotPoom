@@ -13,13 +13,13 @@
 <link rel="stylesheet" href="/css/tui-date-picker.css">
 <link rel="stylesheet" href="/css/default.css">
 <link rel="stylesheet" href="/css/loginPopup.css">
+<script src="/js/markdown-it.js"></script>
 <script src="/js/jquery.js"></script>
 <script src="/js/underscore-min.js"></script>
 <script src="/js/moment-with-locales.js"></script>
 <script src="/js/codemirror.js"></script>
 <script src="/js/highlight.pack.js"></script>
 <script src="/js/squire-raw.js"></script>
-<script src="/js/markdown-it.js"></script>
 <script src="/js/to-mark.js"></script>
 <script src="/js/tui-code-snippet.js"></script>
 <script src="/js/tui-date-picker.js"></script>

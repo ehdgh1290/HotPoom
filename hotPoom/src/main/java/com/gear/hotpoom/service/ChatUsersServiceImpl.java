@@ -34,6 +34,8 @@ public class ChatUsersServiceImpl implements ChatUsersService {
 
 		for (ChatUser user : chatUsers) {
 
+			System.out.println(user.getRoomNo());
+			
 			String content = user.getTitle();
 			
 			if(content!=null) {

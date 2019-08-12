@@ -26,7 +26,7 @@ public class BusinessController {
 		return "chart";
 	}
 	
-	@RequestMapping(value="/buisness/poom",method=RequestMethod.GET)
+	@RequestMapping(value="/hosting/poom",method=RequestMethod.GET)
 	public String poom() {
 		
 		return "myHotelList";
@@ -37,8 +37,5 @@ public class BusinessController {
 		
 		return "reservations";
 	}
-
-	
-	
 	
 }

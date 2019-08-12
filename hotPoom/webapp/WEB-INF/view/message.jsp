@@ -230,7 +230,7 @@
 				
 				// 채팅방리스트 얻어오는 주소 구독
 				stompClient.subscribe("/user/queue/chat/list", function(p) {
-					
+				
 					const list = JSON.parse(p.body);
 					
 					console.log(list);
