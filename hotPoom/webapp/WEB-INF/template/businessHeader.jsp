@@ -6,15 +6,15 @@
 </c:if>
 <header id="header">
 	<div id="headerSection">
-		<a href="/hosting"><img id="headerLogo" src="/img/businesslogo.png"></a>
+		<a href="/business"><img id="headerLogo" src="/img/businesslogo.png"></a>
 		<div id="gnbWrap">
 			<div id="gnb">
-				<a id="headerBookmark" href="/hosting">홈</a>
+				<a id="headerBookmark" href="/business">홈</a>
 				<a id="headerReservation" href="/reservation">예약</a> 
 				<a id="headerCalendar" href="/calender">달력</a>
 				<a id="headerPoom" href="/hosting/poom">품</a>
 				<a id="headerResult" href="/chart">실적</a>
-				<a id="headerMessage" href="/message">메세지</a>
+				<a id="headerMessage" href="/business/message">메세지</a>
 
 			</div><!-- //gnb -->
 			<div>

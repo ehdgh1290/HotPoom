@@ -272,8 +272,8 @@
         else {
         	$firstPage.css("display","none");
         	$seconPage.css("display","block");
-        	$secondCircle.css("background","#C50532");
-        	$firstBar.css("background","#C50532");
+        	$secondCircle.css("background","#0F8B8F");
+        	$firstBar.css("background","#0F8B8F");
             $(window).scrollTop(0);
         }
     });
@@ -290,8 +290,8 @@
         }else{
             $seconPage.css("display","none");
             $thirdPage.css("display","block");
-            $thirdCircle.css("background","#C50532");
-            $secondBar.css("background","#C50532");
+            $thirdCircle.css("background","#0F8B8F");
+            $secondBar.css("background","#0F8B8F");
             $(window).scrollTop(0);
         }
     });

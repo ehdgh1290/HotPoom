@@ -101,6 +101,12 @@ public class AjaxController {
 	//카드 등록하기
 	@RequestMapping(value="/addCard", method=RequestMethod.POST)
 	public int addCard(Credit credit) {
+		return creditsService.addCard(credit);
+	}
+	
+	//카드 등록하기
+	@RequestMapping(value="/card", method=RequestMethod.POST)
+	public int addBasicCard(Credit credit) {
 		return creditsService.registerBasicCard(credit);
 	}
 	
