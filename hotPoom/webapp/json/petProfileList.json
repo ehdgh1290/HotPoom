@@ -1,8 +1,0 @@
-[
-  {"name": "joo", "gender": "F","img": "pet1.jpg"},
-  {"name": "joo", "gender": "F","img": "pet2.jpg"},
-  {"name": "ko", "gender": "F","img": "pet3.jpg"},
-  {"name": "ha", "gender": "M","img": "pet1.jpg"},
-  {"name": "zoo", "gender": "M","img": "pet3.jpg"},
-  {"name": "he", "gender": "F","img": "pet2.jpg"}
-]
