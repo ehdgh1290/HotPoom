@@ -128,10 +128,11 @@ h2 {
 }
 #bookingSection .name {
     position: absolute;
-    width: 420px;
+    width: 350px;
     font-size: 28px;
     left : 310px;
     top: 5px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
