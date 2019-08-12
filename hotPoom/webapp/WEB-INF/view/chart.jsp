@@ -130,6 +130,9 @@
     </style>
 </head>
 <body>
+<c:if test="${loginUser==null }">
+	<c:redirect url="/"/>
+</c:if>
 <c:import url="/WEB-INF/template/businessHeader.jsp"/>
     <div id="incomeSection">
         <h1>수입</h1>

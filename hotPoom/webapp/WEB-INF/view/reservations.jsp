@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="/css/reservations.css">
 </head>
 <body>
+<c:if test="${loginUser==null }">
+	<c:redirect url="/"/>
+</c:if>
 <c:import url="/WEB-INF/template/businessHeader.jsp"/>
     <h2 id="title">예약</h2>
     <div id="reservationFilterWrap">
@@ -155,24 +158,7 @@
     //****************************필터*****************************************
 
 
-    /********************************header*****************************************/
-    $headerProfileImage = $("#headerProfileImage");
-    $lnb = $("#lnb");
-    $body = $("body");
-
-
-    $headerProfileImage.click(function (e) {
-
-        $lnb.slideToggle(200);
-        e.stopPropagation();
-    });//$headerProfileImage click end
-
-
-    $body.click(function () {
-        // alert("zz");
-        $lnb.hide();
-    });//$body click end
-
+   
 </script>
 </body>
 </html>

@@ -105,7 +105,7 @@ public class UsersServiceImpl implements UsersService{
 			final String userpassword = "ehdrmflehdehd!"; //네이버 이메일 비밀번호를 입력해주세요. 
 			
 			int port=465; //포트번호 // 메일 내용 
-			String recipient = "ehdgh1290@naver.com"; //받는 사람의 메일주소를 입력해주세요. 
+			String recipient = "eunbee2967@nate.com"; //받는 사람의 메일주소를 입력해주세요. 
 			//String recipient = id; //받는 사람의 메일주소를 입력해주세요. 
 			String subject = "HotPoom"; //메일 제목 입력해주세요. 
 			String body = "<h2>HotPoom 비밀번호 변경</h2>"

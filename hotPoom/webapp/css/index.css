@@ -30,6 +30,8 @@
 .index_hero_image_long_input {
     width: 150px; height: 25px;
     margin-top: 10px;
+    position: relative;
+    z-index: 2;
 }
 .index_hero_image_short_input {
     width: 80px; height: 25px;

@@ -4,9 +4,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviews">
 	<select id="selectPoomList" parameterType="int" resultType="Review">
-		SELECT no,  title, name, bookingNo,  content, score, regdate, userNo
-		FROM(SELECT no,  title, name, bookingNo,  content, score, regdate, userNo, rownum r
-		FROM(SELECT r.no no, p.title title,u.name name,r.booking_no bookingNo, r.content content,r.score score,r.regdate regdate, b.user_no userNo
+		SELECT no,  title, name, bookingNo,  content, score, regdate, userNo, profileImg
+		FROM(SELECT no,  title, name, bookingNo,  content, score, regdate, userNo, rownum r, profileImg
+		FROM(SELECT r.no no, p.title title,u.name name,r.booking_no bookingNo, r.content content,r.score score,r.regdate regdate, b.user_no userNo, u.profile_img profileImg
 		FROM reviews r, bookings b, pooms p, users u
 		WHERE p.user_no = #{userNo}
 		AND r.booking_no = b.no
@@ -52,9 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	<select id="selectMyList" parameterType="int" resultType="Review">
-		SELECT no, title, name, bookingNo, content, score, regdate
-		FROM(SELECT no, title, name, bookingNo, content, score, regdate, rownum r
-		FROM(SELECT r.no no, p.title title,u.name name,r.booking_no bookingNo, r.content content,r.score score,r.regdate regdate
+		SELECT no, title, name, bookingNo, content, score,profileImg, regdate
+		FROM(SELECT no, title, name, bookingNo, content, score, regdate,profileImg, rownum r
+		FROM(SELECT r.no no, p.title title,u.name name,r.booking_no bookingNo, r.content content,r.score score, u.profile_img profileImg, r.regdate regdate
 		FROM reviews r, bookings b, pooms p, users u
 		WHERE r.user_no = #{userNo}
 		AND r.booking_no = b.no

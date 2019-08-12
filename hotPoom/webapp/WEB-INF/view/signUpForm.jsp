@@ -421,7 +421,7 @@
 	    let phoneNumCheck = $phoneNumCheck.val();
 	
 	    //임의의 인증번호 값 부여
-	    if( phoneNumCheck != "1119" ) {
+	    if( phoneNumCheck != "1129" ) {
 	        $authenticationMsg.css("display","block");
 	        return false;
 	    }else {

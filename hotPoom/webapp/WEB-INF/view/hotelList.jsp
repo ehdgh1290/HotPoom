@@ -543,7 +543,7 @@
 			            // 마커 이미지를 생성합니다
 			            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 			           // let idx = positions[i].title;
-			            var content = '<div class ="label" data-idx='+idx+' style="margin-top: -20px"><span class="left"></span><span class="center">'+price+'</span><span class="right"></span></div>';
+			            var content = '<div class ="label" data-idx='+idx+' style="margin-top: -20px"><span class="left"></span><span class="center">&#8361;'+price+'</span><span class="right"></span></div>';
 			            // 커스텀 오버레이를 생성합니다
 			            var customOverlay = new kakao.maps.CustomOverlay({
 			                position: positions[idx].latlng,
