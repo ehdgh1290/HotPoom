@@ -238,8 +238,12 @@
             <img src="/img/defaultProfile.jpg""> 고도라님이 개터파크 예약을(를) 했습니다
         </div>
         <div class="box">
-            <img src="/img/defaultProfile.jpg""> 최수정님이 개터파크 예약을(를) 취소했습니다
+            <img src="/img/defaultProfile.jpg""> 최수정님이 개터파크 예약을(를) 했습니다
         </div>
+        <div class="box">
+            <img src="/img/defaultProfile.jpg""> 김동호님이 개터파크 예약을(를) 했습니다
+        </div>
+        
 
     </div>
 

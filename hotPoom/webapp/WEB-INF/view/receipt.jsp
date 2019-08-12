@@ -26,7 +26,7 @@
 		</select>
 		<select id="startMonth" name="startMonth">
 			<c:forEach var="i" begin="1" end="12">
-				<option value="${i}">${i}월</option>
+				<option value="${i}" ${i==7?"selected":""}>${i}월</option>
 			</c:forEach>
 		</select>
 		<span>~</span>
@@ -37,11 +37,15 @@
 		</select>
 		<select id="endMonth" name="endMonth">
 			<c:forEach var="i" begin="1" end="12">
-				<option value="${i}">${i}월</option>
+				<option value="${i}" ${i==7?"selected":""}>${i}월</option>
 			</c:forEach>
 		</select>
 		<select id="myPoomList" name="poomNo">
 			<option value="26">jbp 개터파크는 특별합니다.</option>
+			<option>라이언 농장에 오신걸 환영합니다~</option>
+			<option>계속 보다보면 너무 귀엽답니다. 물개랜드</option>
+			<option>뱀 돌봐주는 하선이네</option>
+			<option>조용하고 느리지만 빠른 지금이의 거북이 ...</option>
 		</select>
     </div><!-- //selectWrap -->
     <div id="contentWrap">

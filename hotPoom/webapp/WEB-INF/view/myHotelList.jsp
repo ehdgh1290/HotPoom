@@ -131,7 +131,7 @@
 <c:import url="/WEB-INF/template/businessHeader.jsp"/>
 <div id="myPoomListSection">
 <div id="myPoomListHeaderWrap">
-    <h2>숙소 6개</h2>
+    <h2>숙소 <span>6</span>개</h2>
     <input id="searchInput" name="myPoomSearch" placeholder="내 숙소 검색"/>
 </div><!--//myPoomListHeaderWrap-->
 <div id="myPoomListContentWrap">
@@ -297,6 +297,8 @@
 
 <script>
 
+
+
     $(".poom_list_btn").on("click", function () {
         $(this).next().css("display","block");
     });//333 click end
@@ -323,7 +325,8 @@
 
 
     $(".poom_footer_box").on("click", ".poom_list_delete", function () {
-
+		let num = $("#myPoomListHeaderWrap span").text();
+		$("#myPoomListHeaderWrap span").text(num-1);
         $(this).parents(".poom_list_inner").css("display","none");
 
     });//poom_list_delete click end

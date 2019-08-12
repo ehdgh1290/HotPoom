@@ -23,7 +23,7 @@
 				<ul id="lnb">
 					<li><a href="/userPage/${loginUser.no}">마이페이지</a></li>
 					<li><a href="/account">개인정보 및 결제</a></li>
-					<li><a href="/business/receipt">대금수령 내역</a></li>
+					<li><a href="/buisness/receipt">대금수령 내역</a></li>
 					<li><a href="/">일반회원 전환</a></li>
 					<li><button id="logout" class="btn" form="logoutForm" type="submit">로그아웃</button></li>
 				</ul>
